@@ -1,8 +1,9 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowRight, Menu, Phone, X } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Menu, Phone, X } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -22,6 +23,7 @@ export default function Header() {
     { name: 'Services', href: '#services' },
     { name: 'Departments', href: '#departments' },
     { name: 'Doctors', href: '#doctors' },
+    { name: 'Dashboard', href: '/dashboard', isSpecial: true },
     { name: 'Testimonials', href: '#testimonials' },
     { name: 'Contact', href: '#contact' },
   ]
@@ -47,10 +49,14 @@ export default function Header() {
               <Link 
                 key={link.name} 
                 href={link.href} 
-                className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors relative group"
+                className={cn(
+                  "text-sm font-bold transition-colors relative group",
+                  link.isSpecial ? "text-primary font-black" : "text-muted-foreground hover:text-primary"
+                )}
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+                {!link.isSpecial && <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>}
+                {link.isSpecial && <ArrowUpRight size={14} className="inline-block ml-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />}
               </Link>
             ))}
           </nav>
@@ -65,10 +71,12 @@ export default function Header() {
                 <span>1066 Emergency</span>
               </a>
             </div>
-            <Button className="bg-primary hover:bg-primary/95 text-white font-bold h-12 px-6 rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all group">
-              Book Appointment
-              <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <Link href="/dashboard">
+              <Button className="bg-zinc-950 dark:bg-primary hover:bg-primary/95 text-white font-black h-12 px-8 rounded-xl shadow-xl shadow-zinc-950/20 hover:shadow-primary/30 transition-all group">
+                Launch App
+                <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -102,9 +110,11 @@ export default function Header() {
                 </Link>
               ))}
               <div className="pt-8 border-t border-border space-y-4">
-                <Button className="w-full h-14 bg-primary text-white font-bold rounded-xl text-lg">
-                  Book Appointment
-                </Button>
+                <Link href="/dashboard" className="block">
+                  <Button className="w-full h-14 bg-zinc-950 dark:bg-primary text-white font-black rounded-xl text-lg shadow-xl">
+                    Launch Dashboard
+                  </Button>
+                </Link>
                 <a href="tel:1066" className="flex items-center justify-center gap-3 text-primary font-black text-xl py-4 bg-primary/5 rounded-xl">
                   <Phone size={24} />
                   1066 Emergency
