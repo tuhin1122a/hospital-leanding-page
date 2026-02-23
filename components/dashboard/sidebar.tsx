@@ -49,20 +49,20 @@ export default function Sidebar({ currentRole = 'admin' }: { currentRole?: strin
 
   return (
     <div className={cn(
-      "flex flex-col h-screen bg-zinc-950 text-zinc-400 border-r border-zinc-800 transition-all duration-300",
+      "flex flex-col h-screen bg-sidebar text-sidebar-foreground border-r border-sidebar-border transition-all duration-300",
       collapsed ? "w-20" : "w-64"
     )}>
       {/* Logo Area */}
       <div className="p-6 flex items-center justify-between">
         {!collapsed && (
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">CP</div>
-            <span className="text-white font-black text-xl tracking-tighter">CarePulse</span>
+            <div className="w-8 h-8 bg-sidebar-primary rounded-lg flex items-center justify-center text-sidebar-primary-foreground font-bold">NH</div>
+            <span className="text-sidebar-foreground font-black text-xl tracking-tighter">Nurjahan</span>
           </div>
         )}
         <button 
           onClick={() => setCollapsed(!collapsed)}
-          className="p-1.5 rounded-lg bg-zinc-900 hover:text-white transition-colors"
+          className="p-1.5 rounded-lg bg-sidebar-accent hover:text-sidebar-primary transition-colors"
         >
           <Menu size={18} />
         </button>
@@ -79,10 +79,10 @@ export default function Sidebar({ currentRole = 'admin' }: { currentRole?: strin
               href={item.href}
               className={cn(
                 "flex items-center gap-3 px-3 py-3 rounded-xl transition-all group",
-                active ? "bg-primary text-white shadow-lg shadow-primary/20" : "hover:bg-zinc-900 hover:text-white"
+                active ? "bg-primary text-white shadow-lg shadow-primary/20" : "text-sidebar-foreground hover:bg-sidebar-accent"
               )}
             >
-              <Icon size={20} className={cn("transition-colors", active ? "text-white" : "group-hover:text-primary")} />
+              <Icon size={20} className={cn("transition-colors", active ? "text-white" : "group-hover:text-sidebar-primary")} />
               {!collapsed && <span className="text-sm font-bold">{item.title}</span>}
             </Link>
           )
@@ -90,10 +90,10 @@ export default function Sidebar({ currentRole = 'admin' }: { currentRole?: strin
       </div>
 
       {/* User Area */}
-      <div className="p-4 border-t border-zinc-800">
+      <div className="p-4 border-t border-sidebar-border">
         <Link 
-          href="/"
-          className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-red-500/10 hover:text-red-500 transition-all group"
+          href="/login"
+          className="flex items-center gap-3 px-3 py-3 rounded-xl text-red-400 hover:bg-red-500/10 transition-all group"
         >
           <LogOut size={20} />
           {!collapsed && <span className="text-sm font-bold">Logout</span>}

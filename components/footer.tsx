@@ -35,12 +35,12 @@ export default function Footer() {
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
-                  <span className="text-white font-bold text-lg">CP</span>
+                  <span className="text-white font-bold text-lg">NH</span>
                 </div>
-                <h3 className="text-3xl font-black tracking-tighter">CarePulse</h3>
+                <h3 className="text-3xl font-black tracking-tighter">Nur<span className="text-primary italic">jahan</span></h3>
               </div>
-              <p className="text-zinc-400 text-lg leading-relaxed mb-8 max-w-sm">
-                Redefining the standards of healthcare with precision, compassion, and innovation since 1998.
+              <p className="text-zinc-400 text-lg leading-relaxed mb-4 max-w-sm">
+                Providing high-quality healthcare services in Panti, Kumarkhali, Kushtia.
               </p>
               <div className="flex gap-4">
                 {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => (
@@ -101,7 +101,8 @@ export default function Footer() {
           </div>
 
           <div className="border-t border-white/5 pt-12 mt-12 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-zinc-500 text-sm">&copy; 2024 CarePulse Hospital. All rights reserved.</p>
+            <p className="text-zinc-500 text-sm">&copy; 2026 Nurjahan Private Hospital & Diagnostic Center-2. All rights reserved.</p>
+            <p className="text-zinc-500 text-xs">License No: AD/Kush/9625/2025-2026</p>
             <div className="flex gap-8 text-sm text-zinc-500 font-medium">
               <Link href="#" className="hover:text-white transition">Privacy Policy</Link>
               <Link href="#" className="hover:text-white transition">Terms of Use</Link>

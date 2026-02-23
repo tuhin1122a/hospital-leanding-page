@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Award, ShieldCheck, Zap, Users, HeartPulse, Clock } from 'lucide-react'
+import { Award, Clock, HeartPulse, ShieldCheck, Users, Zap } from 'lucide-react'
 
 const features = [
   {
@@ -47,7 +47,7 @@ export default function WhyChooseUs() {
             viewport={{ once: true }}
             className="text-4xl font-bold text-foreground mb-4"
           >
-            Why Patients Trust CarePulse
+            Why Patients Trust Nurjahan Hospital
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}

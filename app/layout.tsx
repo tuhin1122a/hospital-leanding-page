@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'CarePulse Hospital - Premier Healthcare Services',
-  description: 'Experience world-class healthcare at CarePulse Hospital. Expert doctors, advanced facilities, and compassionate care available 24/7.',
+  title: 'Nurjahan Private Hospital & Diagnostic Center-2',
+  description: 'Experience world-class healthcare at Nurjahan Private Hospital & Diagnostic Center-2. Expert doctors, advanced facilities, and compassionate care available 24/7.',
   generator: 'v0.app',
   icons: {
     icon: [

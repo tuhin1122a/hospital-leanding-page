@@ -3,7 +3,7 @@
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { motion } from 'framer-motion'
-import { ArrowUpRight, Bone, Brain, Heart, Zap } from 'lucide-react'
+import { ArrowUpRight, Bone, Brain, Heart, Stethoscope, Zap } from 'lucide-react'
 
 const departments = [
   {
@@ -41,6 +41,15 @@ const departments = [
     iconColor: 'text-purple-500',
     iconBg: 'bg-purple-500/10',
     stats: '9 Specialists'
+  },
+  {
+    icon: Stethoscope,
+    name: 'Diagnostic',
+    fullName: 'Operation & Diagnostic Center',
+    description: 'Fully equipped 4000 sq ft facility for operations and modern diagnostics.',
+    iconColor: 'text-amber-500',
+    iconBg: 'bg-amber-500/10',
+    stats: '24/7 Service'
   }
 ]
 

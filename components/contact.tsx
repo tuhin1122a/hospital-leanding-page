@@ -11,17 +11,17 @@ const contactInfo = [
   {
     icon: MapPin,
     title: 'Main Location',
-    details: ['CarePulse Hospital', 'Premium Medical Complex, New Delhi', 'India - 110048']
+    details: ['Nurjahan Private Hospital-2', 'Panti, Kumarkhali', 'Kushtia, Bangladesh']
   },
   {
     icon: Phone,
     title: 'Contact Numbers',
-    details: ['+91-11-4567-8900', 'Emergency: +91-11-4567-8911']
+    details: ['+880 1712-345678', 'Emergency: +880 1712-345679']
   },
   {
     icon: Mail,
     title: 'Email Address',
-    details: ['appointments@carepulse.com', 'support@carepulse.com']
+    details: ['info@nurjahanhospital.com', 'support@nurjahanhospital.com']
   },
   {
     icon: Clock,

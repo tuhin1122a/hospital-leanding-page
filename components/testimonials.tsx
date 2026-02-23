@@ -10,31 +10,31 @@ import { Button } from './ui/button'
 
 const testimonials = [
   {
-    name: 'Rajesh Verma',
-    location: 'Delhi',
+    name: 'Md. Abdur Rahman',
+    location: 'Kushtia',
     procedure: 'Cardiac Bypass Surgery',
-    content: 'CarePulse Hospital provided world-class cardiac care. Dr. Sharma and his team were exceptional. The recovery process was smooth and the entire staff was very supportive. I am now living a healthy life!',
+    content: 'Nurjahan Hospital provided world-class cardiac care. The medical team was exceptional. The recovery process was smooth and the entire staff was very supportive. I am now living a healthy life!',
     rating: 5
   },
   {
-    name: 'Priya Desai',
-    location: 'Mumbai',
+    name: 'Fatema Begum',
+    location: 'Kumarkhali',
     procedure: 'Orthopedic Joint Replacement',
-    content: 'I was nervous about my knee replacement, but the CarePulse team made me feel comfortable. The modern facilities, expert surgeons, and compassionate nursing staff made all the difference. Highly recommended!',
+    content: 'I was nervous about my knee replacement, but the Nurjahan team made me feel comfortable. The modern facilities, expert surgeons, and compassionate nursing staff made all the difference. Highly recommended!',
     rating: 5
   },
   {
-    name: 'Amit Kumar',
-    location: 'Bangalore',
+    name: 'Sohel Rana',
+    location: 'Panti',
     procedure: 'Emergency Trauma Care',
-    content: 'The 24/7 emergency response was incredible. Within 15 minutes of arriving at CarePulse after my accident, I was being treated by expert doctors. They saved my life with their quick thinking and expertise.',
+    content: 'The 24/7 emergency response was incredible. Within 15 minutes of arriving at Nurjahan after my accident, I was being treated by expert doctors. They saved my life with their quick thinking and expertise.',
     rating: 5
   },
   {
-    name: 'Sneha Gupta',
-    location: 'Hyderabad',
+    name: 'Sharmin Akter',
+    location: 'Kushtia',
     procedure: 'Cancer Treatment',
-    content: 'Dr. Anjali Mehta\'s personalized cancer treatment plan gave me hope. The oncology team at CarePulse combines cutting-edge technology with genuine compassion. I am grateful for their excellent care.',
+    content: 'The personalized cancer treatment plan gave me hope. The oncology team at Nurjahan combines cutting-edge technology with genuine compassion. I am grateful for their excellent care.',
     rating: 5
   }
 ]

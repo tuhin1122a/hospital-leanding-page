@@ -35,11 +35,11 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center shadow-xl shadow-primary/20 group-hover:rotate-6 transition-transform">
-              <span className="text-white font-black text-xl italic">C</span>
+              <span className="text-white font-black text-xl italic">N</span>
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-2xl font-black text-foreground tracking-tighter leading-none">Care<span className="text-primary italic">Pulse</span></h1>
-              <p className="text-[10px] uppercase font-black tracking-widest text-muted-foreground opacity-60">Elite Healthcare</p>
+              <h1 className="text-2xl font-black text-foreground tracking-tighter leading-none">Nur<span className="text-primary italic">jahan</span></h1>
+              <p className="text-[10px] uppercase font-black tracking-widest text-muted-foreground opacity-60">Hospital & Diagnostic</p>
             </div>
           </Link>
 
