@@ -1,5 +1,6 @@
 'use client'
 
+import { InteractiveSectionBg, SectionSvgBg } from '@/components/svg-patterns'
 import { motion } from 'framer-motion'
 import { Award, Building2, Target } from 'lucide-react'
 
@@ -45,10 +46,18 @@ export default function TrustedBy() {
 
   return (
     <section className="relative py-32 overflow-hidden">
+      <InteractiveSectionBg />
+      <SectionSvgBg />
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background -z-0" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10"
+      >
         {/* Achievements */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -56,8 +65,8 @@ export default function TrustedBy() {
           viewport={{ once: true }}
           className="mb-24"
         >
-          <h2 className="text-5xl lg:text-6xl font-black text-foreground text-center mb-16">
-            Trusted By Industry Leaders
+          <h2 className="text-5xl lg:text-6xl font-black text-foreground text-center mb-16 tracking-tight">
+            Trusted By <span className="text-primary italic">Industry Leaders</span>
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -70,16 +79,19 @@ export default function TrustedBy() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="group"
+                  className="group relative"
                 >
-                  <div className="p-8 rounded-2xl border border-foreground/10 bg-gradient-to-br from-foreground/5 to-background hover:border-primary/30 hover:shadow-xl transition-all duration-500">
-                    <div className="inline-flex p-4 rounded-xl bg-primary/10 mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+                  {/* Glow effect */}
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 rounded-2xl opacity-0 group-hover:opacity-100 blur transition-opacity duration-500 -z-10" />
+                  
+                  <div className="relative p-8 rounded-2xl border border-foreground/10 bg-gradient-to-br from-foreground/5 to-background group-hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10 transition-all duration-500">
+                    <div className="inline-flex p-4 rounded-xl bg-primary/10 group-hover:from-primary group-hover:to-primary text-foreground group-hover:text-white mb-6 transition-all duration-300 shadow-lg">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <h3 className="text-2xl font-black text-foreground mb-3">
+                    <h3 className="text-2xl font-black text-foreground mb-3 group-hover:text-primary transition-colors">
                       {achievement.title}
                     </h3>
-                    <p className="text-muted-foreground font-medium">
+                    <p className="text-muted-foreground font-medium leading-relaxed">
                       {achievement.description}
                     </p>
                   </div>
@@ -95,8 +107,8 @@ export default function TrustedBy() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-4xl font-black text-foreground text-center mb-16">
-            What Healthcare Leaders Say
+          <h3 className="text-4xl lg:text-5xl font-black text-foreground text-center mb-16 tracking-tight">
+            What <span className="text-primary">Healthcare Leaders</span> Say
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -129,7 +141,7 @@ export default function TrustedBy() {
             ))}
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   )
 }

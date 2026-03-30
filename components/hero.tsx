@@ -1,5 +1,6 @@
 'use client'
 
+import { InteractiveSvgBg } from '@/components/svg-patterns'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { Activity, ArrowRight, Check, Star, Stethoscope } from 'lucide-react'
@@ -8,6 +9,7 @@ import Image from 'next/image'
 export default function Hero() {
   return (
     <section className="relative pt-32 pb-20 overflow-hidden">
+      <InteractiveSvgBg />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
@@ -83,7 +85,7 @@ export default function Hero() {
           {/* Right Image/Visuals */}
           <div className="relative lg:pl-10">
             {/* Visual background details */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle,var(--color-primary)_0%,transparent_70%)] opacity-[0.07] -z-0"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle,var(--color-primary)_0%,transparent_70%)] opacity-15 -z-0"></div>
             
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}

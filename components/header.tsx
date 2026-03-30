@@ -39,7 +39,7 @@ export default function Header() {
             </div>
             <div className="hidden sm:block">
               <h1 className="text-2xl font-black text-foreground tracking-tighter leading-none">Nur<span className="text-primary italic">jahan</span></h1>
-              <p className="text-[10px] uppercase font-black tracking-widest text-muted-foreground opacity-60">Hospital & Diagnostic</p>
+              <p className="text-[10px] uppercase font-black tracking-widest text-muted-foreground opacity-60">Hospital & Diagnostic 2</p>
             </div>
           </Link>
 

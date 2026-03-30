@@ -1,5 +1,6 @@
 'use client'
 
+import { DepartmentsSvgBg, InteractiveSectionBg } from '@/components/svg-patterns'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { motion } from 'framer-motion'
@@ -55,8 +56,16 @@ const departments = [
 
 export default function Departments() {
   return (
-    <section id="departments" className="py-24 bg-background border-y border-border/40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="departments" className="relative py-24 bg-background border-y border-border/40 overflow-hidden">
+      <InteractiveSectionBg />
+      <DepartmentsSvgBg />
+      <motion.div 
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+      >
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div className="max-w-2xl">
             <motion.div
@@ -93,9 +102,12 @@ export default function Departments() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="group relative h-full overflow-hidden border-border/50 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 cursor-pointer">
-                  {/* Subtle hover background effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Card className="group relative h-full overflow-hidden border border-border/50 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm hover:border-primary/60 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 cursor-pointer">
+                  {/* Premium gradient overlay on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Animated border glow on hover */}
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 rounded opacity-0 group-hover:opacity-100 blur transition-opacity duration-500 -z-10" />
                   
                   <CardContent className="p-8 relative z-10 flex flex-col h-full">
                     <div className={`${dept.iconBg} ${dept.iconColor} w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-sm`}>
@@ -125,7 +137,7 @@ export default function Departments() {
             )
           })}
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import { HowItWorksSvgBg } from '@/components/svg-patterns'
 import { motion } from 'framer-motion'
 import { ArrowRight, ClipboardList, Database, Lock, Smartphone, Stethoscope, Users } from 'lucide-react'
 
@@ -58,12 +59,18 @@ export default function HowItWorks() {
   return (
     <section className="relative py-32 overflow-hidden bg-background">
       {/* Background */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-[120px] -z-0" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-[120px] -z-0" />
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-[120px]" />
       </div>
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <HowItWorksSvgBg />
+      <motion.div 
+        initial={{ opacity: 0, y: 50, scale: 0.95 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10"
+      >
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -147,7 +154,7 @@ export default function HowItWorks() {
             ))}
           </svg>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   )
 }

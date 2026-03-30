@@ -2,17 +2,27 @@
 
 import { ArrowRight, Facebook, Instagram, Linkedin, Mail, Phone, Twitter } from 'lucide-react'
 import Link from 'next/link'
+import { FooterSvgBg } from './svg-patterns'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
+
+import { motion } from 'framer-motion'
 
 export default function Footer() {
   return (
     <footer className="relative bg-zinc-950 text-white overflow-hidden">
       {/* Decorative background element */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[120px] -z-0"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-[120px] -z-0"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[120px] z-0"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-[120px] z-0"></div>
+      <FooterSvgBg />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         {/* Newsletter Section */}
         <div className="py-16 border-b border-white/5">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
@@ -110,7 +120,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </footer>
   )
 }

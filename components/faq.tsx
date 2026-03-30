@@ -1,5 +1,6 @@
 'use client'
 
+import { SectionSvgBg } from '@/components/svg-patterns'
 import {
     Accordion,
     AccordionContent,
@@ -33,23 +34,30 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <section className="py-24 bg-background">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-24 bg-background overflow-hidden">
+      <SectionSvgBg />
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+      >
         <div className="text-center mb-16">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl font-bold text-foreground mb-4"
+            className="text-5xl lg:text-6xl font-black text-foreground mb-6 tracking-tighter"
           >
-            Frequently Asked Questions
+            Frequently Asked <span className="text-primary italic">Questions</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-lg text-muted-foreground"
+            className="text-lg text-muted-foreground font-medium"
           >
             Find quick answers to common queries about our services and facilities.
           </motion.p>
@@ -63,18 +71,18 @@ export default function FAQ() {
         >
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="border-b border-border/50">
-                <AccordionTrigger className="text-left text-lg font-semibold py-6 hover:text-primary transition-colors">
+              <AccordionItem key={index} value={`item-${index}`} className="border-b border-border/30 group">
+                <AccordionTrigger className="text-left text-lg font-black py-6 hover:text-primary transition-colors group-hover:bg-primary/5 px-6 rounded-t-xl">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-base pb-6 leading-relaxed">
+                <AccordionContent className="text-muted-foreground text-base pb-6 px-6 leading-relaxed font-medium">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   )
 }

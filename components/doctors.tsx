@@ -1,5 +1,6 @@
 'use client'
 
+import { SectionSvgBg } from '@/components/svg-patterns'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import Autoplay from 'embla-carousel-autoplay'
@@ -94,9 +95,9 @@ export default function Doctors() {
   }, [emblaApi])
 
   return (
-    <section id="doctors" className="py-24 bg-background overflow-hidden relative border-y border-border/40">
+    <section id="doctors" className="relative py-24 bg-background overflow-hidden border-y border-border/40">
       {/* Specific section background detail */}
-      <div className="absolute top-0 right-0 w-full h-full opacity-[0.03] pointer-events-none">
+      <div className="absolute top-0 right-0 w-full h-full opacity-15 pointer-events-none z-0">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="medicalCross" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
@@ -106,8 +107,15 @@ export default function Doctors() {
           <rect width="100%" height="100%" fill="url(#medicalCross)" />
         </svg>
       </div>
+      <SectionSvgBg />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+      >
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div className="max-w-2xl text-left">
             <motion.div 
@@ -160,33 +168,36 @@ export default function Doctors() {
                 transition={{ delay: index * 0.05 }}
                 className="embla__slide min-w-0 flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_31%] py-4"
               >
-                <Card className="h-full border-border/50 overflow-hidden hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.1)] transition-all duration-700 group bg-white dark:bg-zinc-900/50 backdrop-blur-xl relative rounded-[3rem]">
+                <Card className="h-full border border-border/50 overflow-hidden hover:shadow-[0_40px_100px_-20px_rgba(59,130,246,0.15)] hover:border-primary/40 transition-all duration-700 group bg-white dark:bg-zinc-900/50 backdrop-blur-xl relative rounded-[3rem] shadow-lg">
+                  {/* Premium glow effect on hover */}
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 rounded-[3rem] opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-700 -z-10" />
+                  
                   {/* Doctor Image */}
-                  <div className="relative h-[400px] overflow-hidden">
+                  <div className="relative h-[400px] overflow-hidden rounded-t-[3rem]">
                     <Image
                       src={doctor.image}
                       alt={doctor.name}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-1000"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent group-hover:via-black/20 transition-all duration-500"></div>
                     
                     {/* Floating Info Overlay */}
                     <div className="absolute bottom-8 left-8 right-8">
                       <div className="flex items-center gap-2 mb-2">
                          {[...Array(5)].map((_, i) => (
-                           <Star key={i} className={`w-3 h-3 ${i < Math.floor(doctor.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-white/30'}`} />
+                           <Star key={i} className={`w-3 h-3 ${i < Math.floor(doctor.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-white/30'} transition-all group-hover:scale-110`} />
                          ))}
                          <span className="text-xs text-white/80 font-bold">{doctor.rating} ({doctor.reviews})</span>
                       </div>
-                      <h3 className="text-3xl font-black text-white tracking-tight">{doctor.name}</h3>
-                      <p className="text-primary-foreground font-black text-[10px] uppercase tracking-widest mt-1 opacity-80">
+                      <h3 className="text-3xl font-black text-white tracking-tight group-hover:text-primary transition-colors duration-500">{doctor.name}</h3>
+                      <p className="text-primary-foreground font-black text-[10px] uppercase tracking-widest mt-1 opacity-80 group-hover:opacity-100 transition-opacity">
                         {doctor.specialty} Specialist
                       </p>
                     </div>
                   </div>
 
-                  <CardContent className="p-10 space-y-8">
+                  <CardContent className="p-10 space-y-8 rounded-b-[3rem]">
                     <div className="flex flex-wrap gap-3">
                       <Badge variant="outline" className="border-primary/20 bg-primary/5 text-primary font-black text-[10px] uppercase tracking-widest py-1.5 px-4 rounded-full">
                         <Calendar className="w-3 h-3 mr-2" /> {doctor.experience} Exp
@@ -224,7 +235,7 @@ export default function Doctors() {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

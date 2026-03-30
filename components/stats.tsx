@@ -1,5 +1,6 @@
 'use client'
 
+import { StatsSvgBg } from '@/components/svg-patterns'
 import { motion } from 'framer-motion'
 import { Activity, Heart, TrendingUp, Users } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -61,11 +62,18 @@ export default function Stats() {
   return (
     <section className="relative py-32 overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background -z-0" />
-      <div className="absolute top-20 right-0 w-72 h-72 bg-primary/10 rounded-full blur-[120px] -z-0" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-[120px] -z-0" />
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background z-0" />
+      <div className="absolute top-20 right-0 w-72 h-72 bg-primary/10 rounded-full blur-[120px] z-0" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-[120px] z-0" />
+      <StatsSvgBg />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10"
+      >
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -94,9 +102,12 @@ export default function Stats() {
                 transition={{ delay: i * 0.1 }}
                 className="group"
               >
-                <div className={`bg-gradient-to-br ${stat.lightBg} rounded-3xl p-8 h-full border border-foreground/5 hover:border-foreground/10 transition-all duration-500 hover:shadow-2xl`}>
+                <div className={`bg-gradient-to-br ${stat.lightBg} rounded-3xl p-8 h-full border border-foreground/5 hover:border-primary/40 transition-all duration-500 hover:shadow-2xl shadow-sm group relative overflow-hidden`}>
+                  {/* Animated glow on hover */}
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 rounded-3xl opacity-0 group-hover:opacity-100 blur transition-opacity duration-500 -z-10" />
+                  
                   {/* Icon */}
-                  <div className={`bg-gradient-to-br ${stat.color} w-16 h-16 rounded-2xl flex items-center justify-center mb-8 shadow-xl shadow-black/10 group-hover:scale-110 transition-transform duration-500`}>
+                  <div className={`bg-gradient-to-br ${stat.color} w-16 h-16 rounded-2xl flex items-center justify-center mb-8 shadow-xl shadow-black/10 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
                     <Icon size={32} className="text-white" />
                   </div>
 
@@ -124,7 +135,7 @@ export default function Stats() {
             )
           })}
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

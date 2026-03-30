@@ -1,5 +1,6 @@
 'use client'
 
+import { SectionSvgBg } from '@/components/svg-patterns'
 import { Card, CardContent } from '@/components/ui/card'
 import Autoplay from 'embla-carousel-autoplay'
 import useEmblaCarousel from 'embla-carousel-react'
@@ -53,8 +54,9 @@ export default function Testimonials() {
   }, [emblaApi])
 
   return (
-    <section id="testimonials" className="py-24 bg-background overflow-hidden relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="testimonials" className="relative py-24 bg-background overflow-hidden">
+      <SectionSvgBg />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-20">
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
@@ -68,7 +70,7 @@ export default function Testimonials() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-5xl font-black text-foreground mb-6 tracking-tighter"
+            className="text-5xl lg:text-6xl font-black text-foreground mb-6 tracking-tighter"
           >
             Patient Success Stories
           </motion.h2>
@@ -92,17 +94,21 @@ export default function Testimonials() {
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
+                    className="group"
                   >
-                    <Card className="border-border/50 shadow-2xl bg-white/50 dark:bg-zinc-900/50 backdrop-blur-xl overflow-hidden relative">
-                      <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-bl-full -z-0"></div>
+                    {/* Premium glow effect on hover */}
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 rounded opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+                    
+                    <Card className="border border-border/50 shadow-lg group-hover:shadow-2xl group-hover:border-primary/40 group-hover:shadow-primary/10 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-xl overflow-hidden relative transition-all duration-500 rounded-3xl">
+                      <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 group-hover:bg-primary/10 rounded-bl-full -z-0 transition-colors duration-500"></div>
                       <CardContent className="pt-20 pb-12 px-8 sm:px-20 text-center relative z-10">
                         <div className="flex justify-center gap-1 mb-8">
                           {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
+                            <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400 group-hover:scale-110 transition-transform" style={{ transitionDelay: `${i * 50}ms` }} />
                           ))}
                         </div>
                         
-                        <p className="text-foreground italic mb-12 leading-relaxed text-2xl font-medium text-balance">
+                        <p className="text-foreground italic mb-12 leading-relaxed text-2xl font-medium text-balance group-hover:text-primary transition-colors duration-500">
                           "{testimonial.content}"
                         </p>
                         
