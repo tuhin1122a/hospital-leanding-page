@@ -1,39 +1,47 @@
+import Image from 'next/image'
+
 export default function Services() {
   const services = [
     {
       title: 'Emergency ICU (24/7)',
       desc: 'Advanced Intensive Care Unit with multi-parameter monitoring and dedicated life-support systems.',
       bg: 'bg-[#F2F5FF]',
+      image: '/icu-monitor.png',
       icon: <Activity className="text-primary w-5 h-5" />
     },
     {
       title: 'Advanced Diagnostic Lab',
-      desc: 'Experience precision with our high-tech automated machines for blood, urine, and biochemical tests.',
+      desc: 'Experience precision with our high-tech automated machines for all clinical pathology tests.',
       bg: 'bg-[#F7F2FF]',
+      image: '/specialist-doctors.png',
       icon: <ShieldCheck className="text-purple-500 w-5 h-5" />
     },
     {
       title: 'Modern Operation Theater',
       desc: 'Fully equipped sterile surgical suites featuring premium anesthesia and surgical medical technology.',
       bg: 'bg-[#F2F9FF]',
+      image: '/medical-team-2.png',
       icon: <Mic className="text-blue-400 w-5 h-5" />
     },
     {
       title: 'Digital X-Ray & Imaging',
       desc: 'High-resolution digital X-ray and 4D color ultrasonography for accurate disease detection.',
       bg: 'bg-[#F9F2FF]',
+      image: '/mri-machine.png',
       icon: <Layers className="text-indigo-400 w-5 h-5" />
     },
     {
       title: 'Pediatric & Neonatal Care',
       desc: 'Specialized intensive care for newborns and children using ultra-modern medical machines.',
       bg: 'bg-[#F2F2FF]',
+      image: '/medical-team-1.png',
       icon: <HeartPulse className="text-blue-600 w-5 h-5" />
     },
     {
-      title: 'Premium In-Patient Rooms',
+      title: 'Premium Recovery Rooms',
       desc: 'Comfortable, hygienic, and premium cabin facilities for a better patient recovery experience.',
       bg: 'bg-[#F2FBFF]',
+      image: '/hero-doctor.png',
       icon: <Target className="text-cyan-500 w-5 h-5" />
     }
   ]
@@ -55,26 +63,33 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <div
               key={index}
-              className={`${service.bg} p-10 rounded-2xl flex flex-col justify-between h-full hover:shadow-xl transition-all group`}
+              className={`${service.bg} rounded-[32px] overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-500 group border border-white/40`}
             >
-              <div className="space-y-6">
-                <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                  {service.icon}
-                </div>
-                <h3 className="text-lg font-bold text-[#011632] leading-snug">
-                  {service.title}
-                </h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {service.desc}
-                </p>
+              <div className="h-[220px] relative overflow-hidden">
+                 <Image src={service.image} alt={service.title} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                 <div className="absolute inset-0 bg-gradient-to-t from-[#011632]/40 to-transparent" />
+                 <div className="absolute top-6 left-6 w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-lg group-hover:rotate-12 transition-all duration-500">
+                   {service.icon}
+                 </div>
               </div>
-              <Button variant="link" className="p-0 text-xs font-bold text-primary mt-8 flex items-center gap-1">
-                More info
-              </Button>
+
+              <div className="p-10 flex flex-col justify-between flex-1 space-y-4">
+                 <div className="space-y-3">
+                   <h3 className="text-xl font-black text-[#011632] leading-tight">
+                     {service.title}
+                   </h3>
+                   <p className="text-sm text-muted-foreground leading-relaxed font-medium">
+                     {service.desc}
+                   </p>
+                 </div>
+                 <Button variant="link" className="p-0 text-sm font-black text-primary flex items-center gap-1 w-fit group-hover:translate-x-2 transition-transform">
+                   Read more about Service
+                 </Button>
+              </div>
             </div>
           ))}
         </div>

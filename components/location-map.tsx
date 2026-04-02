@@ -55,17 +55,17 @@ export default function LocationMap() {
           </div>
 
           {/* Right Side: Map Container */}
-          <div className="w-full lg:w-2/3 h-[500px] rounded-[32px] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border-[8px] border-[#f8faff] relative group">
-            {/* Google Maps Iframe for Kumarkhali, Kushtia */}
+          <div className="w-full lg:w-2/3 h-[500px] rounded-[32px] overflow-hidden shadow-[0_30px_70px_-15px_rgba(26,75,222,0.15)] border-[8px] border-white relative group">
+            {/* Google Maps Iframe for Panti, Kumarkhali, Kushtia (High Visibility) */}
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14603.951566453965!2d89.23126781285227!3d23.83441589729002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fee98d1a123e7b%3A0xc39540b66e340be2!2sPanti!5e0!3m2!1sen!2sbd!4v1712046422312!5m2!1sen!2sbd" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.988142345864!2d89.23126781285227!3d23.83441589729002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fee98d1a123e7b%3A0xc39540b66e340be2!2sPanti!5e0!3m2!1sen!2sbd!4v1712046422312!5m2!1sen!2sbd" 
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 
               allowFullScreen={true} 
               loading="lazy" 
               referrerPolicy="no-referrer-when-downgrade"
-              className="grayscale-[0.2] contrast-[1.1] brightness-[1.05] transition-all group-hover:grayscale-0"
+              className="w-full h-full transform scale-100 group-hover:scale-[1.03] transition-transform duration-1000"
             ></iframe>
           </div>
         </div>
