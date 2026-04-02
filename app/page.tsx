@@ -1,34 +1,26 @@
-import Contact from '@/components/contact'
-import Departments from '@/components/departments'
-import Doctors from '@/components/doctors'
-import FAQ from '@/components/faq'
-import Features from '@/components/features'
-import Footer from '@/components/footer'
 import Header from '@/components/header'
 import Hero from '@/components/hero'
-import HowItWorks from '@/components/how-it-works'
+import AboutServices from '@/components/features' // Re-purposed as About
+import SharedCommitment from '@/components/how-it-works' // Re-purposed
 import Services from '@/components/services'
-import Stats from '@/components/stats'
-import Testimonials from '@/components/testimonials'
-import TrustedBy from '@/components/trusted-by'
-import WhyChooseUs from '@/components/why-choose-us'
+import MedicalFacilities from '@/components/facilities'
+import SpecialistSection from '@/components/doctors' // Re-purposed
+import ScheduleSection from '@/components/contact' // Re-purposed
+import LocationMap from '@/components/location-map'
+import Footer from '@/components/footer'
 
 export default function Home() {
   return (
-    <main className="min-h-screen relative">
+    <main className="min-h-screen bg-white">
       <Header />
       <Hero />
+      <AboutServices />
+      <SharedCommitment />
       <Services />
-      <Stats />
-      <Features />
-      <HowItWorks />
-      <WhyChooseUs />
-      <Departments />
-      <Doctors />
-      <TrustedBy />
-      <Testimonials />
-      <FAQ />
-      <Contact />
+      <MedicalFacilities />
+      <SpecialistSection />
+      <ScheduleSection />
+      <LocationMap />
       <Footer />
     </main>
   )

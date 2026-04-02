@@ -20,69 +20,61 @@ export default function Header() {
   }, [])
 
   const navLinks = [
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '#about' },
     { name: 'Services', href: '#services' },
-    { name: 'Departments', href: '#departments' },
-    { name: 'Doctors', href: '#doctors' },
-    { name: 'Dashboard', href: '/dashboard', isSpecial: true },
-    { name: 'Testimonials', href: '#testimonials' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Blog', href: '#blog' },
+    { name: 'Specialist', href: '#specialist' },
   ]
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-white/10 py-3 shadow-lg' : 'bg-transparent py-5'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/90 backdrop-blur-lg py-3 shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent py-7'}`}>
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center shadow-xl shadow-primary/20 group-hover:rotate-6 transition-transform">
-              <span className="text-white font-black text-xl italic">N</span>
+          <Link href="/" className="flex items-center gap-3 group transition-transform hover:scale-[1.02]">
+            <div className="w-[48px] h-[48px] bg-gradient-to-tr from-[#1a4bde] to-[#4c7cf4] rounded-xl flex items-center justify-center border border-[#1a4bde]/20 rotate-[-8deg] group-hover:rotate-0 transition-all duration-500 shadow-lg shadow-[#1a4bde]/20">
+              <svg viewBox="0 0 24 24" fill="none" className="w-[28px] h-[28px] text-white" stroke="currentColor" strokeWidth="3.5">
+                <path d="M12 5V19M5 12H19" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
-            <div className="hidden sm:block">
-              <h1 className="text-2xl font-black text-foreground tracking-tighter leading-none">Nur<span className="text-primary italic">jahan</span></h1>
-              <p className="text-[10px] uppercase font-black tracking-widest text-muted-foreground opacity-60">Hospital & Diagnostic 2</p>
+            <div className="flex flex-col">
+               <h1 className="text-[17px] font-black text-[#0a1b4d] tracking-[-0.04em] leading-[1.1]">
+                 Nurjahan <span className="text-[#1a4bde]">Private Hospital</span>
+               </h1>
+               <span className="text-[10px] font-bold text-[#1a4bde] uppercase tracking-[0.16em] mt-1 opacity-90">&Diagnostic Center 2</span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-10">
             {navLinks.map((link) => (
               <Link 
                 key={link.name} 
                 href={link.href} 
-                className={cn(
-                  "text-sm font-bold transition-colors relative group",
-                  link.isSpecial ? "text-primary font-black" : "text-muted-foreground hover:text-primary"
-                )}
+                className={`text-[14.5px] font-bold transition-all relative group ${link.name === 'Home' ? 'text-[#ff6b35]' : 'text-[#0f172a] hover:text-[#1a4bde]'}`}
               >
                 {link.name}
-                {!link.isSpecial && <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>}
-                {link.isSpecial && <ArrowUpRight size={14} className="inline-block ml-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />}
+                {link.name === 'Home' ? (
+                  <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-[#ff6b35] rounded-full" />
+                ) : (
+                  <span className="absolute -bottom-1 left-0 w-0 h-[2.5px] bg-[#1a4bde] transition-all duration-300 group-hover:w-full rounded-full" />
+                )}
               </Link>
             ))}
           </nav>
 
           {/* Right section */}
-          <div className="hidden md:flex items-center gap-8">
-            <div className="flex flex-col items-end">
-              <a href="tel:1066" className="flex items-center gap-2 text-primary font-black hover:opacity-80 transition group">
-                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
-                  <Phone size={14} />
-                </div>
-                <span>1066 Emergency</span>
-              </a>
-            </div>
-            <Link href="/dashboard">
-              <Button className="bg-zinc-950 dark:bg-primary hover:bg-primary/95 text-white font-black h-12 px-8 rounded-xl shadow-xl shadow-zinc-950/20 hover:shadow-primary/30 transition-all group">
-                Launch App
-                <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
+          <div className="hidden lg:block">
+            <Button className="bg-[#ff6b35] hover:bg-[#e55420] text-white font-bold px-9 h-[50px] rounded-[12px] transition-all shadow-[0_12px_24px_rgba(255,107,53,0.3)] border-0 text-[15px] hover:scale-105 hover:shadow-[0_15px_30px_rgba(255,107,53,0.4)] cursor-pointer">
+              Contact With Us
+            </Button>
           </div>
 
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-foreground"
+            className="lg:hidden p-2 text-slate-900 bg-white/50 backdrop-blur-sm rounded-lg"
           >
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -93,32 +85,26 @@ export default function Header() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-background border-b border-border overflow-hidden"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="lg:hidden absolute top-full left-0 w-full bg-white border-t border-slate-100 shadow-2xl overflow-hidden"
           >
-            <div className="px-4 py-8 space-y-4">
+            <div className="px-6 py-10 space-y-6 text-center">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block text-2xl font-black text-foreground hover:text-primary transition-colors"
+                  className="block text-[20px] font-bold text-slate-900 hover:text-[#ff6b35] transition-colors"
                 >
                   {link.name}
                 </Link>
               ))}
-              <div className="pt-8 border-t border-border space-y-4">
-                <Link href="/dashboard" className="block">
-                  <Button className="w-full h-14 bg-zinc-950 dark:bg-primary text-white font-black rounded-xl text-lg shadow-xl">
-                    Launch Dashboard
-                  </Button>
-                </Link>
-                <a href="tel:1066" className="flex items-center justify-center gap-3 text-primary font-black text-xl py-4 bg-primary/5 rounded-xl">
-                  <Phone size={24} />
-                  1066 Emergency
-                </a>
+              <div className="pt-8">
+                <Button className="w-full bg-[#ff6b35] text-white font-bold rounded-[14px] h-[60px] text-lg shadow-xl shadow-[#ff6b35]/20">
+                  Contact With Us
+                </Button>
               </div>
             </div>
           </motion.div>

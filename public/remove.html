@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Remover</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background: #f0f4f8; margin:0;}
+        .container { text-align: center; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-width: 600px; }
+        img { max-width: 100%; height: auto; border-radius: 8px; margin-top: 20px; border: 2px dashed #cbd5e1; }
+        button { background: #2563eb; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 8px; cursor: pointer; margin-top: 20px; transition: 0.2s; }
+        button:hover { background: #1d4ed8; }
+        #status { margin-top: 15px; color: #64748b; font-weight: bold; }
+        .success a { display: inline-block; margin-top: 20px; background: #10b981; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>AI Background Remover Magic</h2>
+    <p>We are removing the background directly in your browser.</p>
+    
+    <button id="startBtn">Start Background Removal</button>
+    <div id="status"></div>
+    <div id="result" class="success"></div>
+    
+    <img id="preview" src="/hero-doctor.png" alt="Original Image" />
+</div>
+
+<script type="module">
+    import imglyRemoveBackground from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@latest/dist/browser/esm/index.js';
+
+    const btn = document.getElementById('startBtn');
+    const status = document.getElementById('status');
+    const resultDiv = document.getElementById('result');
+    const preview = document.getElementById('preview');
+
+    btn.addEventListener('click', async () => {
+        btn.disabled = true;
+        status.innerText = "Downloading AI Model... Please wait (might take 1-2 minutes on first run) ⏳";
+        
+        try {
+            const imageBlob = await imglyRemoveBackground('/hero-doctor.png');
+            
+            status.innerText = "Background Removed Successfully! ✨";
+            const objectURL = URL.createObjectURL(imageBlob);
+            
+            preview.src = objectURL;
+            preview.style.background = "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAJklEQVQYV2N89erVfwY0ICYmxoAqmEAKrGKAx4xMII1Y1VAhAAAgAABQz2BcVwAAAABJRU5ErkJggg==') repeat"; 
+            
+            resultDiv.innerHTML = `<a href="${objectURL}" download="cutout.png">⬇️ Download cutout.png</a><p style="font-size:13px; color: #475569; margin-top: 10px;">Save this file over your existing <b>public/cutout.png</b> file inside your project folder.</p>`;
+        } catch (error) {
+            console.error(error);
+            status.innerText = "Error: " + error.message;
+        }
+    });
+</script>
+
+</body>
+</html>
