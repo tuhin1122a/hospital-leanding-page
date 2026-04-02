@@ -35,12 +35,12 @@ export default function ScheduleSection() {
           {/* Right: Contact Form */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <h2 className="text-4xl lg:text-5xl font-bold text-[#011632] tracking-tight leading-tight">
-                Schedule <span className="text-primary">A Call With Us</span> <br />
-                Convincing <span className="text-primary">Slogan</span>
+              <h2 className="text-4xl lg:text-5xl font-black text-[#0a1b4d] tracking-tight leading-tight">
+                Schedule <span className="text-[#1a4bde]">A Call With Us</span> <br />
+                Safe & Advanced <span className="text-[#1a4bde]">Medical Care</span>
               </h2>
-              <p className="text-muted-foreground text-sm leading-relaxed font-medium">
-                Optimizing healthcare through cutting-edge medical technology and a human-centric approach. Trusted by millions for over 25 years.
+              <p className="text-[#64748b] text-[15.5px] leading-relaxed font-semibold">
+                Nurjahan Hospital-2 is committed to providing reliable health support for the Panti community. Fill out the form and our specialist will connect with you soon.
               </p>
             </div>
 

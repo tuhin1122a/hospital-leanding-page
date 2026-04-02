@@ -9,19 +9,19 @@ export default function AboutServices() {
           {/* Left Content */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <h2 className="text-4xl lg:text-5xl font-bold text-[#011632] tracking-tight leading-tight">
-                About Our <span className="text-primary">Services</span>
+              <h2 className="text-4xl lg:text-5xl font-extrabold text-[#0a1b4d] tracking-tight leading-tight">
+                About <span className="text-[#1a4bde]">Nurjahan Hospital</span>
               </h2>
-              <p className="text-muted-foreground text-sm leading-relaxed font-medium">
-                Optimizing healthcare through cutting-edge medical technology and a human-centric approach. Trusted by millions for over 25 years. This service is dedicated to providing high-quality care for every patient.
+              <p className="text-[#64748b] text-[15px] lg:text-[17px] leading-relaxed font-medium">
+                For over 25 years, Nurjahan Private Hospital & Diagnostic Center - 2 has been a cornerstone of healthcare excellence in the Kumarkhali community. Our mission is to provide premium, accessible, and compassionate medical care using the world's most advanced technology.
               </p>
-              <p className="text-muted-foreground text-sm leading-relaxed font-medium">
-                Healthcare through cutting-edge medical technology and a human-centric approach. Trusted by millions for over 25 years.
+              <p className="text-[#64748b] text-[15px] lg:text-[17px] leading-relaxed font-medium opacity-80">
+                We believe in a human-centric approach to medicine, where every patient receives personalized attention from our expert consultants and nursing staff.
               </p>
             </div>
 
-            <Button className="bg-secondary hover:bg-secondary/90 text-white font-bold rounded-full px-10 py-6 transition-all shadow-lg shadow-secondary/20">
-              Discover More
+            <Button className="bg-[#1a4bde] hover:bg-[#0a1b4d] text-white font-bold rounded-2xl px-12 py-7 transition-all shadow-[0_15px_30px_rgba(26,75,222,0.2)] border-0 text-[16px]">
+              Learn Our Quality Story
             </Button>
           </div>
 

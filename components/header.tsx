@@ -66,9 +66,11 @@ export default function Header() {
 
           {/* Right section */}
           <div className="hidden lg:block">
-            <Button className="bg-[#ff6b35] hover:bg-[#e55420] text-white font-bold px-9 h-[50px] rounded-[12px] transition-all shadow-[0_12px_24px_rgba(255,107,53,0.3)] border-0 text-[15px] hover:scale-105 hover:shadow-[0_15px_30px_rgba(255,107,53,0.4)] cursor-pointer">
-              Contact With Us
-            </Button>
+            <Link href="/contact">
+              <Button className="bg-[#ff6b35] hover:bg-[#e55420] text-white font-bold px-9 h-[50px] rounded-[12px] transition-all shadow-[0_12px_24px_rgba(255,107,53,0.3)] border-0 text-[15px] hover:scale-105 hover:shadow-[0_15px_30px_rgba(255,107,53,0.4)] cursor-pointer">
+                Contact With Us
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -101,11 +103,11 @@ export default function Header() {
                   {link.name}
                 </Link>
               ))}
-              <div className="pt-8">
-                <Button className="w-full bg-[#ff6b35] text-white font-bold rounded-[14px] h-[60px] text-lg shadow-xl shadow-[#ff6b35]/20">
+              <Link href="/contact" className="block px-3 py-2">
+                <Button className="w-full bg-[#ff6b35] hover:bg-[#e55420] text-white font-bold rounded-xl h-12 shadow-lg shadow-[#ff6b35]/20">
                   Contact With Us
                 </Button>
-              </div>
+              </Link>
             </div>
           </motion.div>
         )}

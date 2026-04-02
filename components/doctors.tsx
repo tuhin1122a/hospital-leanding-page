@@ -1,20 +1,24 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function SpecialistSection() {
   const doctors = [
     {
+      id: 'shamim-ahmed',
       name: 'Dr. Shamim Ahmed',
       role: 'Senior Consultant & proprietor',
       specialty: 'Medical Specialist',
       image: '/doctor-1.jpg'
     },
     {
+       id: 'sarah-rahman',
        name: 'Dr. Sarah Rahman',
        role: 'Consultant',
        specialty: 'Cardiology Specialist',
        image: '/medical-team-1.png'
     },
     {
+       id: 'faisal-karim',
        name: 'Dr. Faisal Karim',
        role: 'Consultant Surgeons',
        specialty: 'Orthopedic Surgery',
@@ -37,7 +41,7 @@ export default function SpecialistSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {doctors.map((doc, i) => (
-            <div key={i} className="group relative">
+            <Link key={i} href={`/doctors/${doc.id}`} className="group relative block">
                <div className="relative aspect-[3/4] rounded-[40px] overflow-hidden shadow-2xl transition-all duration-700 group-hover:-translate-y-4">
                   <Image src={doc.image} alt={doc.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a1b4d]/90 via-[#0a1b4d]/20 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
@@ -52,14 +56,16 @@ export default function SpecialistSection() {
 
                {/* Hover Ring effect */}
                <div className="absolute -inset-2 border-2 border-[#1a4bde]/0 rounded-[45px] transition-all duration-700 group-hover:border-[#1a4bde]/20 opacity-0 group-hover:opacity-100" />
-            </div>
+            </Link>
           ))}
         </div>
 
         <div className="mt-20 text-center">
-           <button className="px-10 h-[60px] rounded-2xl bg-[#0a1b4d] text-white font-bold shadow-xl shadow-[#0a1b4d]/20 hover:bg-[#1a4bde] hover:scale-105 active:scale-95 transition-all cursor-pointer">
-              View All Specialist
-           </button>
+           <Link href="/doctors">
+              <button className="px-10 h-[60px] rounded-2xl bg-[#0a1b4d] text-white font-bold shadow-xl shadow-[#0a1b4d]/20 hover:bg-[#1a4bde] hover:scale-105 active:scale-95 transition-all cursor-pointer">
+                 View All Specialist
+              </button>
+           </Link>
         </div>
       </div>
     </section>
