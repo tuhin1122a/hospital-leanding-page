@@ -1,5 +1,6 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import { useEffect, useId, useRef, useState } from 'react'
 
 export function InteractiveSvgBg() {
@@ -508,6 +509,123 @@ export function InteractiveSectionBg() {
           <circle cx={mousePos.x + 50} cy={mousePos.y - 50} r="4" fill={`url(#sectionInteractiveGrad-${id})`} />
           <circle cx={mousePos.x - 70} cy={mousePos.y + 30} r="3" fill={`url(#sectionInteractiveGrad-${id})`} />
           <line x1={mousePos.x} y1={mousePos.y} x2={mousePos.x + 50} y2={mousePos.y - 50} stroke={`url(#sectionInteractiveGrad-${id})`} strokeWidth="0.5" opacity="0.3" />
+        </g>
+      </svg>
+    </div>
+  )
+}
+export function DnaInteractiveBg() {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const containerRef = useRef<HTMLDivElement>(null)
+  const id = useId()
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect()
+        setMousePos({
+          x: (e.clientX - rect.left) / rect.width,
+          y: (e.clientY - rect.top) / rect.height
+        })
+      }
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
+  const segments = Array.from({ length: 18 }, (_, i) => i)
+
+  return (
+    <div ref={containerRef} className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+      <svg 
+        className="absolute inset-0 w-full h-full opacity-[0.08]" 
+        viewBox="0 0 1000 1000" 
+        preserveAspectRatio="xMidYMid slice"
+      >
+        <defs>
+          <linearGradient id={`dnaGrad-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#1a4bde" />
+            <stop offset="100%" stopColor="#06b6d4" />
+          </linearGradient>
+          <filter id={`dnaBlur-${id}`}>
+             <feGaussianBlur stdDeviation="2" />
+          </filter>
+        </defs>
+
+        {/* LEFT DNA STRAND */}
+        <g transform="translate(60, 50) scale(1.2)">
+          {segments.map((i) => (
+            <motion.g
+              key={`left-${i}`}
+              animate={{
+                y: i * 45,
+                x: mousePos.x * 30
+              }}
+              transition={{ type: 'spring', damping: 15, stiffness: 60 }}
+            >
+              <motion.line
+                animate={{
+                  x1: -Math.sin(i * 0.5 + Date.now() / 1500) * 40,
+                  x2: Math.sin(i * 0.5 + Date.now() / 1500) * 40
+                }}
+                stroke={`url(#dnaGrad-${id})`}
+                strokeWidth="1.5"
+                opacity="0.2"
+              />
+              <motion.circle
+                animate={{
+                  cx: Math.sin(i * 0.5 + Date.now() / 1500) * 40
+                }}
+                r="4"
+                fill={`url(#dnaGrad-${id})`}
+              />
+              <motion.circle
+                animate={{
+                  cx: -Math.sin(i * 0.5 + Date.now() / 1500) * 40
+                }}
+                r="4"
+                fill={`url(#dnaGrad-${id})`}
+              />
+            </motion.g>
+          ))}
+        </g>
+
+        {/* RIGHT DNA STRAND */}
+        <g transform="translate(940, 50) scale(1.2)">
+          {segments.map((i) => (
+            <motion.g
+              key={`right-${i}`}
+              animate={{
+                y: i * 45,
+                x: (mousePos.x - 1) * 30
+              }}
+              transition={{ type: 'spring', damping: 15, stiffness: 60 }}
+            >
+              <motion.line
+                animate={{
+                  x1: -Math.sin(i * 0.5 + Date.now() / 1500 + Math.PI) * 40,
+                  x2: Math.sin(i * 0.5 + Date.now() / 1500 + Math.PI) * 40
+                }}
+                stroke={`url(#dnaGrad-${id})`}
+                strokeWidth="1.5"
+                opacity="0.2"
+              />
+              <motion.circle
+                animate={{
+                  cx: Math.sin(i * 0.5 + Date.now() / 1500 + Math.PI) * 40
+                }}
+                r="4"
+                fill={`url(#dnaGrad-${id})`}
+              />
+              <motion.circle
+                animate={{
+                  cx: -Math.sin(i * 0.5 + Date.now() / 1500 + Math.PI) * 40
+                }}
+                r="4"
+                fill={`url(#dnaGrad-${id})`}
+              />
+            </motion.g>
+          ))}
         </g>
       </svg>
     </div>

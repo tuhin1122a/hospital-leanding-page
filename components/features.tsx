@@ -20,17 +20,17 @@ export default function AboutServices() {
               </p>
             </div>
 
-            <Button className="bg-[#1a4bde] hover:bg-[#0a1b4d] text-white font-bold rounded-2xl px-12 py-7 transition-all shadow-[0_15px_30px_rgba(26,75,222,0.2)] border-0 text-[16px]">
+            <Button className="bg-[#1a4bde] hover:bg-[#0a1b4d] text-white font-bold rounded-xl px-12 py-7 transition-all shadow-[0_12px_30px_rgba(26,75,222,0.15)] border-0 text-[16px] h-fit hover:scale-105 active:scale-95 cursor-pointer">
               Learn Our Quality Story
             </Button>
           </div>
 
           {/* Right Images (Overlapping like in design) */}
           <div className="relative">
-             <div className="relative z-10 w-4/5 aspect-[4/3] rounded-3xl overflow-hidden shadow-xl border-8 border-white">
+             <div className="relative z-10 w-4/5 aspect-[4/3] rounded-xl overflow-hidden shadow-[0_10px_35px_rgba(0,0,0,0.05)] border-8 border-white">
                 <Image src="/medical-team-1.png" alt="Medical Team" fill className="object-cover" />
              </div>
-             <div className="absolute -bottom-10 -right-10 w-3/5 aspect-square rounded-3xl overflow-hidden shadow-2xl border-8 border-white z-20">
+             <div className="absolute -bottom-10 -right-10 w-3/5 aspect-square rounded-xl overflow-hidden shadow-[0_15px_45px_rgba(0,0,0,0.06)] border-8 border-white z-20">
                 <Image src="/medical-team-2.png" alt="Doctors" fill className="object-cover" />
              </div>
              {/* Decorative UI element */}

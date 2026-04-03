@@ -1,7 +1,5 @@
-import React from 'react'
-import { Cpu, Zap, Activity, Microscope, Layers, Settings } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
+import { Activity, Layers, Microscope, Settings } from 'lucide-react'
+import { FacilityCard } from './facility-card'
 
 export default function MedicalFacilities() {
   const facilities = [
@@ -53,27 +51,7 @@ export default function MedicalFacilities() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {facilities.map((f, i) => (
-            <Link key={i} href={`/facilities/${f.id}`} className="bg-white rounded-[40px] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.06)] overflow-hidden border border-white hover:shadow-2xl transition-all duration-700 group flex flex-col md:flex-row block">
-              <div className="md:w-1/2 h-[300px] relative overflow-hidden">
-                <Image src={f.image} alt={f.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a1b4d]/40 to-transparent" />
-              </div>
-              <div className="md:w-1/2 p-8 flex flex-col justify-center space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center mb-2 group-hover:bg-[#1a4bde]/10 transition-colors">
-                  {f.icon}
-                </div>
-                <div>
-                   <h4 className="text-[10px] font-black text-[#1a4bde] uppercase tracking-[0.2em] mb-1">{f.tech}</h4>
-                   <h3 className="text-2xl font-black text-[#0a1b4d] tracking-tight leading-none">{f.name}</h3>
-                </div>
-                <p className="text-sm text-[#64748b] leading-relaxed font-medium">
-                  {f.desc}
-                </p>
-                <div className="text-[13px] font-black text-[#1a4bde] uppercase tracking-[0.1em] border-b-2 border-[#1a4bde]/20 group-hover:border-[#1a4bde] transition-all w-fit cursor-pointer translate-y-2">
-                  Learn about Tech
-                </div>
-              </div>
-            </Link>
+            <FacilityCard key={i} facility={f} />
           ))}
         </div>
       </div>

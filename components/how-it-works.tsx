@@ -8,7 +8,7 @@ export default function SharedCommitment() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           {/* Left Image */}
           <div className="relative">
-             <div className="relative z-10 w-full aspect-video rounded-[3rem] overflow-hidden shadow-2xl">
+             <div className="relative z-10 w-full aspect-video rounded-xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] border border-white/50">
                 <Image src="/medical-team-collaboration.png" alt="Community commitment" fill className="object-cover" />
              </div>
              {/* Decorative element */}
@@ -30,7 +30,7 @@ export default function SharedCommitment() {
               </p>
             </div>
 
-            <Button className="bg-secondary hover:bg-secondary/90 text-white font-bold rounded-full px-10 py-6 transition-all shadow-lg shadow-secondary/20">
+            <Button className="bg-secondary hover:bg-secondary/90 text-white font-bold rounded-xl px-10 py-6 transition-all shadow-[0_12px_25px_rgba(255,107,53,0.25)] border-0 h-fit hover:scale-105 active:scale-95 cursor-pointer">
               Discover More
             </Button>
           </div>

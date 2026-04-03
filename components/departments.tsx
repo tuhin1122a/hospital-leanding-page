@@ -1,10 +1,8 @@
-'use client'
-
 import { DepartmentsSvgBg, InteractiveSectionBg } from '@/components/svg-patterns'
 import { Badge } from '@/components/ui/badge'
-import { Card, CardContent } from '@/components/ui/card'
 import { motion } from 'framer-motion'
-import { ArrowUpRight, Bone, Brain, Heart, Stethoscope, Zap } from 'lucide-react'
+import { Bone, Brain, Heart, Stethoscope, Zap } from 'lucide-react'
+import { DepartmentCard } from './department-card'
 
 const departments = [
   {
@@ -92,50 +90,9 @@ export default function Departments() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {departments.map((dept, index) => {
-            const Icon = dept.icon
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card className="group relative h-full overflow-hidden border border-border/50 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm hover:border-primary/60 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 cursor-pointer">
-                  {/* Premium gradient overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  {/* Animated border glow on hover */}
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 rounded opacity-0 group-hover:opacity-100 blur transition-opacity duration-500 -z-10" />
-                  
-                  <CardContent className="p-8 relative z-10 flex flex-col h-full">
-                    <div className={`${dept.iconBg} ${dept.iconColor} w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-sm`}>
-                      <Icon size={28} />
-                    </div>
-                    
-                    <div className="mb-4">
-                      <h3 className="text-xl font-bold text-foreground mb-1">{dept.name}</h3>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">{dept.fullName}</p>
-                    </div>
-
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-8 flex-grow">
-                      {dept.description}
-                    </p>
-
-                    <div className="flex items-center justify-between mt-auto">
-                      <span className="text-xs font-bold text-foreground bg-muted px-3 py-1.5 rounded-lg border border-border/50">
-                        {dept.stats}
-                      </span>
-                      <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-4 transition-all duration-500 shadow-lg shadow-primary/20">
-                        <ArrowUpRight size={18} />
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            )
-          })}
+          {departments.map((dept, index) => (
+            <DepartmentCard key={index} dept={dept} index={index} />
+          ))}
         </div>
       </motion.div>
     </section>
