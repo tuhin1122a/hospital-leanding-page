@@ -19,6 +19,7 @@ import {
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface SidebarItem {
   title: string
@@ -44,6 +45,7 @@ const menuItems: SidebarItem[] = [
 export default function Sidebar({ currentRole = 'admin' }: { currentRole?: string }) {
   const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(false)
+  const { t } = useLanguage()
 
   const filteredItems = menuItems.filter(item => item.roles.includes(currentRole))
 
@@ -79,11 +81,11 @@ export default function Sidebar({ currentRole = 'admin' }: { currentRole?: strin
               href={item.href}
               className={cn(
                 "flex items-center gap-3 px-3 py-3 rounded-xl transition-all group",
-                active ? "bg-primary text-white shadow-lg shadow-primary/20" : "text-sidebar-foreground hover:bg-sidebar-accent"
+                active ? "bg-primary text-background shadow-lg shadow-primary/20" : "text-sidebar-foreground hover:bg-sidebar-accent"
               )}
             >
-              <Icon size={20} className={cn("transition-colors", active ? "text-white" : "group-hover:text-sidebar-primary")} />
-              {!collapsed && <span className="text-sm font-bold">{item.title}</span>}
+              <Icon size={20} className={cn("transition-colors", active ? "text-background" : "group-hover:text-sidebar-primary")} />
+              {!collapsed && <span className="text-sm font-bold">{t(item.title)}</span>}
             </Link>
           )
         })}
@@ -96,7 +98,7 @@ export default function Sidebar({ currentRole = 'admin' }: { currentRole?: strin
           className="flex items-center gap-3 px-3 py-3 rounded-xl text-red-400 hover:bg-red-500/10 transition-all group"
         >
           <LogOut size={20} />
-          {!collapsed && <span className="text-sm font-bold">Logout</span>}
+          {!collapsed && <span className="text-sm font-bold">{t('Logout')}</span>}
         </Link>
       </div>
     </div>

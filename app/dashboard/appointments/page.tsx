@@ -14,6 +14,7 @@ import {
     User
 } from 'lucide-react'
 import { useState } from 'react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const upcomingSessions = [
   { id: 1, doctor: "Dr. Rajesh Sharma", patient: "Ahmed Khan", date: "Feb 23, 2026", time: "10:30 - 11:00 AM", type: "Cardiology Internal", status: "In-Progress", bg: "bg-blue-500" },
@@ -24,34 +25,35 @@ const upcomingSessions = [
 
 export default function AppointmentsPage() {
   const [view, setView] = useState('list')
+  const { t } = useLanguage()
 
   return (
     <div className="space-y-10">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <h1 className="text-4xl font-black text-zinc-900 tracking-tighter">Clinical Schedule</h1>
-          <p className="text-zinc-500 font-medium text-lg mt-1">Real-time monitoring of all clinical appointments</p>
+          <h1 className="text-4xl font-black text-card-foreground tracking-tighter">{t('Clinical Schedule')}</h1>
+          <p className="text-muted-foreground font-medium text-lg mt-1">{t('Real-time monitoring of all clinical appointments')}</p>
         </div>
         
-        <div className="flex bg-white p-1 rounded-2xl border border-zinc-100 shadow-sm">
+        <div className="flex bg-card p-1 rounded-2xl border border-border shadow-sm">
            <button 
             onClick={() => setView('list')}
             className={cn(
               "px-6 py-2.5 rounded-xl text-sm font-black transition-all",
-              view === 'list' ? "bg-zinc-900 text-white shadow-lg shadow-zinc-900/20" : "text-zinc-500 hover:text-zinc-900"
+              view === 'list' ? "bg-foreground/90 text-background shadow-lg shadow-zinc-900/20" : "text-muted-foreground hover:text-card-foreground"
             )}
            >
-            List View
+            {t('List View')}
            </button>
            <button 
             onClick={() => setView('calendar')}
             className={cn(
               "px-6 py-2.5 rounded-xl text-sm font-black transition-all",
-              view === 'calendar' ? "bg-zinc-900 text-white shadow-lg shadow-zinc-900/20" : "text-zinc-500 hover:text-zinc-900"
+              view === 'calendar' ? "bg-foreground/90 text-background shadow-lg shadow-zinc-900/20" : "text-muted-foreground hover:text-card-foreground"
             )}
            >
-            Calendar
+            {t('Calendar')}
            </button>
         </div>
       </div>
@@ -59,21 +61,21 @@ export default function AppointmentsPage() {
       <div className="grid grid-cols-1 xl:grid-cols-4 gap-10">
         {/* Left Column: List/Calendar */}
         <div className="xl:col-span-3 space-y-8">
-          <div className="bg-white rounded-[3rem] border border-zinc-100 p-10">
+          <div className="bg-card rounded-[3rem] border border-border p-10">
              <div className="flex items-center justify-between mb-10">
                 <div className="flex items-center gap-6">
-                   <h2 className="text-2xl font-black text-zinc-900 tracking-tight">Monday, 23 February</h2>
+                   <h2 className="text-2xl font-black text-card-foreground tracking-tight">Monday, 23 February</h2>
                    <div className="flex items-center gap-2">
-                      <Button variant="outline" size="icon" className="w-10 h-10 rounded-xl border-zinc-100">
+                      <Button variant="outline" size="icon" className="w-10 h-10 rounded-xl border-border">
                         <ChevronLeft size={18} />
                       </Button>
-                      <Button variant="outline" size="icon" className="w-10 h-10 rounded-xl border-zinc-100">
+                      <Button variant="outline" size="icon" className="w-10 h-10 rounded-xl border-border">
                         <ChevronRight size={18} />
                       </Button>
                    </div>
                 </div>
-                <Button className="h-12 px-6 rounded-xl bg-primary hover:bg-primary/90 text-white font-black shadow-lg shadow-primary/20">
-                  <Plus size={18} className="mr-2" /> Book Appointment
+                <Button className="h-12 px-6 rounded-xl bg-primary hover:bg-primary/90 text-background font-black shadow-lg shadow-primary/20">
+                  <Plus size={18} className="mr-2" /> {t('Book Appointment')}
                 </Button>
              </div>
 
@@ -84,26 +86,26 @@ export default function AppointmentsPage() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 }}
-                    className="group flex flex-col md:flex-row md:items-center gap-6 p-6 rounded-[2rem] border border-zinc-50 hover:border-primary/20 hover:bg-primary/[0.02] transition-all cursor-pointer"
+                    className="group flex flex-col md:flex-row md:items-center gap-6 p-6 rounded-[2rem] border border-border/50 hover:border-primary/20 hover:bg-primary/[0.02] transition-all cursor-pointer"
                   >
-                    <div className="flex flex-col items-center justify-center w-24 h-24 rounded-2xl bg-zinc-50 text-zinc-400 group-hover:bg-primary group-hover:text-white transition-all">
-                       <p className="text-[10px] font-black uppercase tracking-tighter">Start At</p>
+                    <div className="flex flex-col items-center justify-center w-24 h-24 rounded-2xl bg-muted text-muted-foreground/70 group-hover:bg-primary group-hover:text-background transition-all">
+                       <p className="text-[10px] font-black uppercase tracking-tighter">{t('Start At')}</p>
                        <p className="text-lg font-black">{session.time.split(' ')[0]}</p>
                     </div>
 
                     <div className="flex-grow grid grid-cols-1 md:grid-cols-3 gap-6">
                        <div className="space-y-1">
-                          <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Specialist</p>
-                          <p className="text-lg font-black text-zinc-900">{session.doctor}</p>
-                          <div className="flex items-center gap-2 text-xs font-bold text-zinc-500">
+                          <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/70">{t('Specialist')}</p>
+                          <p className="text-lg font-black text-card-foreground">{session.doctor}</p>
+                          <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
                              <MapPin size={12} className="text-primary" /> Room 302, Phase II
                           </div>
                        </div>
                        
                        <div className="space-y-1">
-                          <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Patient</p>
-                          <p className="text-lg font-black text-zinc-900">{session.patient}</p>
-                          <div className="flex items-center gap-2 text-xs font-bold text-zinc-500">
+                          <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/70">{t('Patient')}</p>
+                          <p className="text-lg font-black text-card-foreground">{session.patient}</p>
+                          <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
                              <User size={12} className="text-primary" /> {session.type}
                           </div>
                        </div>
@@ -111,17 +113,17 @@ export default function AppointmentsPage() {
                        <div className="flex flex-col items-start md:items-end justify-center">
                           <Badge className={cn(
                             "px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border-none mb-2 shadow-sm",
-                            session.status === 'In-Progress' ? 'bg-emerald-500 text-white' : 'bg-zinc-200 text-zinc-600'
+                            session.status === 'In-Progress' ? 'bg-emerald-500 text-background' : 'bg-zinc-200 text-muted-foreground'
                           )}>
                             {session.status}
                           </Badge>
-                          <div className="flex items-center gap-2 text-xs font-bold text-zinc-400">
-                             <Clock size={12} /> Duration: 45 min
+                          <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground/70">
+                             <Clock size={12} /> {t('Duration: 45 min')}
                           </div>
                        </div>
                     </div>
                     
-                    <button className="w-12 h-12 rounded-xl bg-zinc-50 group-hover:bg-primary group-hover:text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
+                    <button className="w-12 h-12 rounded-xl bg-muted group-hover:bg-primary group-hover:text-background flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
                        <ArrowUpRight size={20} />
                     </button>
                   </motion.div>
@@ -132,10 +134,10 @@ export default function AppointmentsPage() {
 
         {/* Right Column: Mini Widgets */}
         <div className="space-y-8">
-           <Card className="p-8 rounded-[2.5rem] border-zinc-100 shadow-sm bg-zinc-950 text-white relative overflow-hidden">
+           <Card className="p-8 rounded-[2.5rem] border-border shadow-sm bg-foreground text-background relative overflow-hidden">
               <div className="relative z-10">
                  <h3 className="text-lg font-black tracking-tight mb-2">Doctor's Load</h3>
-                 <p className="text-sm text-zinc-400 font-medium mb-8">Capacity utilization for today</p>
+                 <p className="text-sm text-muted-foreground/70 font-medium mb-8">Capacity utilization for today</p>
                  
                  <div className="space-y-6">
                     {[
@@ -148,7 +150,7 @@ export default function AppointmentsPage() {
                             <span>{doc.name}</span>
                             <span>{doc.load}%</span>
                          </div>
-                         <div className="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+                         <div className="h-1.5 w-full hover:bg-foreground/80 rounded-full overflow-hidden">
                             <motion.div 
                                initial={{ width: 0 }}
                                animate={{ width: `${doc.load}%` }}
@@ -163,19 +165,19 @@ export default function AppointmentsPage() {
               <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl" />
            </Card>
 
-           <div className="bg-white rounded-[2.5rem] border border-zinc-100 shadow-sm p-8">
-              <h3 className="text-lg font-black text-zinc-900 tracking-tight mb-6">Reminders</h3>
+           <div className="bg-card rounded-[2.5rem] border border-border shadow-sm p-8">
+              <h3 className="text-lg font-black text-card-foreground tracking-tight mb-6">Reminders</h3>
               <div className="space-y-4">
                  {[
                    { title: "Staff Meeting", time: "09:00 AM", category: "Hospital" },
                    { title: "Equipment Check", time: "11:30 AM", category: "Maintenance" },
                    { title: "Report Review", time: "04:00 PM", category: "Clinical" },
                  ].map((rem, i) => (
-                    <div key={i} className="flex items-center gap-4 p-4 rounded-2xl bg-zinc-50 border border-zinc-100/50">
+                    <div key={i} className="flex items-center gap-4 p-4 rounded-2xl bg-muted border border-border/50">
                        <div className="w-2 h-2 rounded-full bg-primary" />
                        <div>
-                          <p className="text-sm font-black text-zinc-900">{rem.title}</p>
-                          <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">{rem.time} • {rem.category}</p>
+                          <p className="text-sm font-black text-card-foreground">{rem.title}</p>
+                          <p className="text-[10px] font-bold text-muted-foreground/70 uppercase tracking-widest">{rem.time} • {rem.category}</p>
                        </div>
                     </div>
                  ))}

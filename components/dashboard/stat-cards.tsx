@@ -3,6 +3,7 @@
 import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { Activity, ArrowDownRight, ArrowUpRight, DollarSign, Users } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const stats = [
   {
@@ -44,12 +45,14 @@ const stats = [
 ]
 
 export default function StatCards() {
+  const { t } = useLanguage()
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {stats.map((stat, i) => {
         const Icon = stat.icon
         return (
-          <Card key={i} className="p-6 border-zinc-100 shadow-sm hover:shadow-xl hover:shadow-zinc-200/50 transition-all duration-500 group relative overflow-hidden rounded-[2rem]">
+          <Card key={i} className="p-6 border-border shadow-sm hover:shadow-xl hover:shadow-zinc-200/50 transition-all duration-500 group relative overflow-hidden rounded-[2rem]">
             <div className="flex items-start justify-between">
               <div className={cn(stat.bg, stat.color, "p-4 rounded-2xl group-hover:scale-110 transition-transform duration-500 shadow-sm")}>
                 <Icon size={24} />
@@ -64,12 +67,12 @@ export default function StatCards() {
             </div>
             
             <div className="mt-6">
-              <p className="text-zinc-500 font-bold text-xs uppercase tracking-widest">{stat.title}</p>
-              <h3 className="text-3xl font-black text-zinc-900 mt-1 tracking-tighter">{stat.value}</h3>
+              <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest">{t(stat.title)}</p>
+              <h3 className="text-3xl font-black text-card-foreground mt-1 tracking-tighter">{stat.value}</h3>
             </div>
 
             {/* Subtle background detail */}
-            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-zinc-50 rounded-full group-hover:bg-primary/5 transition-colors duration-500 -z-0"></div>
+            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-muted rounded-full group-hover:bg-primary/5 transition-colors duration-500 -z-0"></div>
           </Card>
         )
       })}

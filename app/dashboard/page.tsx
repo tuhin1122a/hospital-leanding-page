@@ -15,6 +15,7 @@ import {
     XAxis,
     YAxis
 } from 'recharts'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const data = [
   { name: 'Jan', patients: 400, revenue: 2400 },
@@ -34,6 +35,8 @@ const barData = [
 ]
 
 export default function DashboardPage() {
+  const { t } = useLanguage()
+
   return (
     <div className="space-y-10">
       {/* Header */}
@@ -42,20 +45,20 @@ export default function DashboardPage() {
            initial={{ opacity: 0, x: -20 }}
            animate={{ opacity: 1, x: 0 }}
         >
-          <h1 className="text-4xl font-black text-zinc-900 tracking-tighter">System Overview</h1>
-          <p className="text-zinc-500 font-medium text-lg">Welcome back! Here's what's happening today.</p>
+          <h1 className="text-4xl font-black text-card-foreground tracking-tighter">{t('System Overview')}</h1>
+          <p className="text-muted-foreground font-medium text-lg">{t("Welcome back! Here's what's happening today.")}</p>
         </motion.div>
         
         <div className="flex items-center gap-3">
           <div className="flex -space-x-3">
             {[1,2,3,4].map(i => (
-              <div key={i} className="w-10 h-10 rounded-xl border-4 border-zinc-50 bg-zinc-200 overflow-hidden shadow-sm">
+              <div key={i} className="w-10 h-10 rounded-xl border-4 border-border/50 bg-zinc-200 overflow-hidden shadow-sm">
                 <img src={`https://i.pravatar.cc/150?u=${i}`} alt="user" className="w-full h-full object-cover" />
               </div>
             ))}
-            <div className="w-10 h-10 rounded-xl border-4 border-zinc-50 bg-primary text-white flex items-center justify-center text-[10px] font-black shadow-sm">+12</div>
+            <div className="w-10 h-10 rounded-xl border-4 border-border/50 bg-primary text-background flex items-center justify-center text-[10px] font-black shadow-sm">+12</div>
           </div>
-          <span className="text-sm font-bold text-zinc-400 ml-2">Active Staff</span>
+          <span className="text-sm font-bold text-muted-foreground/70 ml-2">{t('Active Staff')}</span>
         </div>
       </div>
 
@@ -65,15 +68,15 @@ export default function DashboardPage() {
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Area Chart */}
-        <div className="lg:col-span-2 bg-white rounded-[2.5rem] border border-zinc-100 shadow-sm p-8 flex flex-col">
+        <div className="lg:col-span-2 bg-card rounded-[2.5rem] border border-border shadow-sm p-8 flex flex-col">
           <div className="flex justify-between items-start mb-10">
             <div>
-              <h3 className="text-xl font-black text-zinc-900 tracking-tight">Patient Statistics</h3>
-              <p className="text-sm text-zinc-500 font-medium">Historical data of patient inflow</p>
+              <h3 className="text-xl font-black text-card-foreground tracking-tight">{t('Patient Statistics')}</h3>
+              <p className="text-sm text-muted-foreground font-medium">{t('Historical data of patient inflow')}</p>
             </div>
-            <select className="bg-zinc-50 border-none rounded-xl px-4 py-2 text-xs font-black uppercase tracking-widest outline-none">
-              <option>Last 7 Months</option>
-              <option>Last Year</option>
+            <select className="bg-muted border-none rounded-xl px-4 py-2 text-xs font-black uppercase tracking-widest outline-none">
+              <option>{t('Last 7 Months')}</option>
+              <option>{t('Last Year')}</option>
             </select>
           </div>
           
@@ -117,9 +120,9 @@ export default function DashboardPage() {
         </div>
 
         {/* Small Bar Chart */}
-        <div className="bg-white rounded-[2.5rem] border border-zinc-100 shadow-sm p-8 flex flex-col">
-          <h3 className="text-xl font-black text-zinc-900 tracking-tight mb-2">Department Load</h3>
-          <p className="text-sm text-zinc-500 font-medium mb-10 text-balance">Workload distribution across major units</p>
+        <div className="bg-card rounded-[2.5rem] border border-border shadow-sm p-8 flex flex-col">
+          <h3 className="text-xl font-black text-card-foreground tracking-tight mb-2">{t('Department Load')}</h3>
+          <p className="text-sm text-muted-foreground font-medium mb-10 text-balance">{t('Workload distribution across major units')}</p>
           
           <div className="h-64 mt-auto">
             <ResponsiveContainer width="100%" height="100%">
@@ -143,9 +146,9 @@ export default function DashboardPage() {
               <div key={i} className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full" style={{ backgroundColor: dept.color }} />
-                  <span className="text-sm font-bold text-zinc-600">{dept.name}</span>
+                  <span className="text-sm font-bold text-muted-foreground">{dept.name}</span>
                 </div>
-                <span className="text-sm font-black text-zinc-900">{((dept.value / 1178) * 100).toFixed(0)}%</span>
+                <span className="text-sm font-black text-card-foreground">{((dept.value / 1178) * 100).toFixed(0)}%</span>
               </div>
             ))}
           </div>

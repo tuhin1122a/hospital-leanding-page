@@ -12,23 +12,61 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Demo - redirect to dashboard
-    router.push('/dashboard')
+  const handleLogin = async (e?: React.FormEvent, submitEmail?: string, submitPassword?: string) => {
+    if (e) e.preventDefault()
+    
+    const loginEmail = submitEmail || email
+    const loginPassword = submitPassword || password
+    
+    if (!loginEmail || !loginPassword) {
+      setError('Please enter both email and password.')
+      return
+    }
+
+    setError('')
+    setIsLoading(true)
+
+    try {
+      const res = await fetch('http://localhost:5000/auth/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Invalid credentials');
+      }
+
+      const data = await res.json();
+      localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('refreshToken', data.refreshToken);
+      
+      // Successfully logged in
+      window.location.href = '/dashboard';
+    } catch (err: any) {
+      setError(err.message || 'Login failed. Please check your credentials.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const demoLogins = [
-    { role: 'Admin', email: 'admin@carepulse.com', password: 'demo123' },
-    { role: 'Doctor', email: 'doctor@carepulse.com', password: 'demo123' },
-    { role: 'Receptionist', email: 'receptionist@carepulse.com', password: 'demo123' },
+    { role: 'Admin', email: 'admin@nurjahan.com', password: 'demo123' },
+    { role: 'Doctor', email: 'doctor@nurjahan.com', password: 'demo123' },
+    { role: 'Receptionist', email: 'receptionist@nurjahan.com', password: 'demo123' },
   ]
 
   const quickLogin = (demoEmail: string) => {
     setEmail(demoEmail)
     setPassword('demo123')
+    handleLogin(undefined, demoEmail, 'demo123')
   }
 
   return (
@@ -56,10 +94,16 @@ export default function LoginPage() {
               </div>
             </motion.div>
             <h1 className="text-4xl font-black text-foreground mb-3 tracking-tighter">
-              Care<span className="text-primary italic">Pulse</span>
+              Nurjahan<span className="text-primary italic">Hospital</span>
             </h1>
-            <p className="text-muted-foreground font-medium text-base">Hospital Management System</p>
+            <p className="text-muted-foreground font-medium text-base">Private Hospital & Diagnostic Center - 2</p>
           </div>
+
+          {error && (
+            <div className="mb-6 p-4 bg-red-100 rounded-2xl border-2 border-red-500/20 text-red-600 text-sm font-bold text-center">
+              {error}
+            </div>
+          )}
 
           {/* Form */}
           <form onSubmit={handleLogin} className="space-y-6 mb-8">
@@ -114,10 +158,11 @@ export default function LoginPage() {
             {/* Login Button */}
             <Button
               type="submit"
-              className="w-full h-14 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-black text-base rounded-2xl shadow-xl shadow-primary/30 hover:shadow-primary/50 transition-all group"
+              disabled={isLoading}
+              className="w-full h-14 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-black text-base rounded-2xl shadow-xl shadow-primary/30 hover:shadow-primary/50 transition-all group disabled:opacity-70"
             >
-              Sign In
-              <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
+              {isLoading ? 'Signing In...' : 'Sign In'}
+              {!isLoading && <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />}
             </Button>
           </form>
 
