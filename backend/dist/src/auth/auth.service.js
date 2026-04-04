@@ -47,6 +47,8 @@ const common_1 = require("@nestjs/common");
 const users_service_1 = require("../users/users.service");
 const jwt_1 = require("@nestjs/jwt");
 const bcrypt = __importStar(require("bcrypt"));
+const speakeasy = __importStar(require("speakeasy"));
+const resetOtpStore = new Map();
 let AuthService = class AuthService {
     usersService;
     jwtService;
@@ -68,21 +70,81 @@ let AuthService = class AuthService {
         await this.updateRefreshToken(newUser.id, tokens.refreshToken);
         return tokens;
     }
-    async signIn(data) {
+    async signIn(data, meta) {
         const user = await this.usersService.findByEmail(data.email);
         if (!user) {
             throw new common_1.BadRequestException('User does not exist');
         }
         const passwordMatches = await bcrypt.compare(data.password, user.password);
         if (!passwordMatches) {
-            throw new common_1.BadRequestException('Access Denied');
+            await this.usersService.recordLogin(user.id, { ...meta, success: false }).catch(() => { });
+            throw new common_1.BadRequestException('Invalid credentials');
         }
+        if (user.twoFactorEnabled) {
+            return { requiresTwoFactor: true, userId: user.id };
+        }
+        await this.usersService.recordLogin(user.id, { ...meta, success: true }).catch(() => { });
+        const tokens = await this.getTokens(user.id, user.email, user.role);
+        await this.updateRefreshToken(user.id, tokens.refreshToken);
+        return tokens;
+    }
+    async verifyLoginTwoFactor(userId, token, meta) {
+        const user = await this.usersService.findById(userId);
+        if (!user || !user.twoFactorSecret) {
+            throw new common_1.BadRequestException('2FA not configured');
+        }
+        const isValid = speakeasy.totp.verify({
+            secret: user.twoFactorSecret,
+            encoding: 'base32',
+            token,
+            window: 1,
+        });
+        if (!isValid) {
+            await this.usersService.recordLogin(userId, { ...meta, success: false }).catch(() => { });
+            throw new common_1.BadRequestException('Invalid authenticator code');
+        }
+        await this.usersService.recordLogin(userId, { ...meta, success: true }).catch(() => { });
         const tokens = await this.getTokens(user.id, user.email, user.role);
         await this.updateRefreshToken(user.id, tokens.refreshToken);
         return tokens;
     }
     async logout(userId) {
         return this.usersService.update(userId, { refreshToken: null });
+    }
+    async generateResetOtp(email) {
+        const user = await this.usersService.findByEmail(email);
+        if (!user)
+            throw new common_1.BadRequestException('No account found with this email');
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        const expiresAt = Date.now() + 10 * 60 * 1000;
+        resetOtpStore.set(email, { otp, expiresAt });
+        console.log(`\n====================================`);
+        console.log(`  Password Reset OTP for: ${email}`);
+        console.log(`  OTP: ${otp}  (expires in 10 min)`);
+        console.log(`====================================\n`);
+        return { message: 'OTP sent to your email' };
+    }
+    async verifyResetOtp(email, otp) {
+        const entry = resetOtpStore.get(email);
+        if (!entry)
+            throw new common_1.BadRequestException('No OTP requested for this email');
+        if (Date.now() > entry.expiresAt) {
+            resetOtpStore.delete(email);
+            throw new common_1.BadRequestException('OTP expired. Request a new one.');
+        }
+        if (entry.otp !== otp)
+            throw new common_1.BadRequestException('Invalid OTP');
+        return { message: 'OTP verified' };
+    }
+    async resetPassword(email, otp, newPassword) {
+        await this.verifyResetOtp(email, otp);
+        const user = await this.usersService.findByEmail(email);
+        if (!user)
+            throw new common_1.BadRequestException('User not found');
+        const hashed = await this.hashData(newPassword);
+        await this.usersService.update(user.id, { password: hashed });
+        resetOtpStore.delete(email);
+        return { message: 'Password reset successfully' };
     }
     async refreshTokens(userId, refreshToken) {
         const user = await this.usersService.findById(userId);

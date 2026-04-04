@@ -25,8 +25,24 @@ let AuthController = class AuthController {
     signup(data) {
         return this.authService.signUp(data);
     }
-    signin(data) {
-        return this.authService.signIn(data);
+    signin(data, req) {
+        const ip = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'Unknown';
+        const userAgent = req.headers['user-agent'] || '';
+        return this.authService.signIn(data, { ip: String(ip), userAgent });
+    }
+    signinTwoFactor(body, req) {
+        const ip = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'Unknown';
+        const userAgent = req.headers['user-agent'] || '';
+        return this.authService.verifyLoginTwoFactor(body.userId, body.token, { ip: String(ip), userAgent });
+    }
+    forgotPassword(body) {
+        return this.authService.generateResetOtp(body.email);
+    }
+    verifyResetOtp(body) {
+        return this.authService.verifyResetOtp(body.email, body.otp);
+    }
+    resetPassword(body) {
+        return this.authService.resetPassword(body.email, body.otp, body.newPassword);
     }
     logout(req) {
         return this.authService.logout(req.user['sub']);
@@ -51,10 +67,40 @@ __decorate([
 __decorate([
     (0, common_1.Post)('signin'),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "signin", null);
+__decorate([
+    (0, common_1.Post)('signin/2fa'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "signinTwoFactor", null);
+__decorate([
+    (0, common_1.Post)('forgot-password'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], AuthController.prototype, "signin", null);
+], AuthController.prototype, "forgotPassword", null);
+__decorate([
+    (0, common_1.Post)('verify-reset-otp'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "verifyResetOtp", null);
+__decorate([
+    (0, common_1.Post)('reset-password'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "resetPassword", null);
 __decorate([
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, common_1.Get)('logout'),

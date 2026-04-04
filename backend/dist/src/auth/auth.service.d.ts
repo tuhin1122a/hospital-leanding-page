@@ -8,32 +8,60 @@ export declare class AuthService {
         accessToken: string;
         refreshToken: string;
     }>;
-    signIn(data: any): Promise<{
+    signIn(data: any, meta?: {
+        ip?: string;
+        userAgent?: string;
+    }): Promise<{
+        accessToken: string;
+        refreshToken: string;
+    } | {
+        requiresTwoFactor: boolean;
+        userId: string;
+    }>;
+    verifyLoginTwoFactor(userId: string, token: string, meta?: {
+        ip?: string;
+        userAgent?: string;
+    }): Promise<{
         accessToken: string;
         refreshToken: string;
     }>;
     logout(userId: string): Promise<{
-        name: string | null;
         id: string;
         email: string;
+        name: string | null;
         password: string;
-        role: string;
+        role: import("@prisma/client").$Enums.Role;
+        permissions: string[];
         profilePic: string | null;
         refreshToken: string | null;
+        twoFactorSecret: string | null;
+        twoFactorEnabled: boolean;
         createdAt: Date;
         updatedAt: Date;
+    }>;
+    generateResetOtp(email: string): Promise<{
+        message: string;
+    }>;
+    verifyResetOtp(email: string, otp: string): Promise<{
+        message: string;
+    }>;
+    resetPassword(email: string, otp: string, newPassword: string): Promise<{
+        message: string;
     }>;
     refreshTokens(userId: string, refreshToken: string): Promise<{
         accessToken: string;
         refreshToken: string;
     }>;
     getMe(userId: string): Promise<{
-        name: string | null;
         id: string;
         email: string;
-        role: string;
+        name: string | null;
+        role: import("@prisma/client").$Enums.Role;
+        permissions: string[];
         profilePic: string | null;
         refreshToken: string | null;
+        twoFactorSecret: string | null;
+        twoFactorEnabled: boolean;
         createdAt: Date;
         updatedAt: Date;
     } | null>;

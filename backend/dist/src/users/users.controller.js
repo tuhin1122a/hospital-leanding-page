@@ -26,6 +26,45 @@ let UsersController = class UsersController {
         const userId = req.user['sub'];
         return this.usersService.uploadProfilePic(userId, file);
     }
+    async changePassword(req, body) {
+        return this.usersService.changePassword(req.user['sub'], body.currentPassword, body.newPassword);
+    }
+    async generate2FA(req) {
+        return this.usersService.generate2FASecret(req.user['sub']);
+    }
+    async verify2FA(req, body) {
+        return this.usersService.verify2FA(req.user['sub'], body.token);
+    }
+    async disable2FA(req) {
+        return this.usersService.disable2FA(req.user['sub']);
+    }
+    async getLoginHistory(req) {
+        return this.usersService.getLoginHistory(req.user['sub']);
+    }
+    async getAllUsers(req) {
+        if (req.user['role'] !== 'ADMIN') {
+            throw new common_1.ForbiddenException('Access denied: Admins only');
+        }
+        return this.usersService.getAllUsers();
+    }
+    async createUser(req, body) {
+        if (req.user['role'] !== 'ADMIN') {
+            throw new common_1.ForbiddenException('Access denied: Admins only');
+        }
+        return this.usersService.createUser(body);
+    }
+    async updatePermissions(req, id, body) {
+        if (req.user['role'] !== 'ADMIN') {
+            throw new common_1.ForbiddenException('Access denied: Admins only');
+        }
+        return this.usersService.updatePermissions(id, body.permissions);
+    }
+    async deleteUser(req, id) {
+        if (req.user['role'] !== 'ADMIN') {
+            throw new common_1.ForbiddenException('Access denied: Admins only');
+        }
+        return this.usersService.deleteUser(id);
+    }
 };
 exports.UsersController = UsersController;
 __decorate([
@@ -38,6 +77,84 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "uploadProfilePic", null);
+__decorate([
+    (0, common_1.Post)('change-password'),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "changePassword", null);
+__decorate([
+    (0, common_1.Get)('2fa/generate'),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "generate2FA", null);
+__decorate([
+    (0, common_1.Post)('2fa/verify'),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "verify2FA", null);
+__decorate([
+    (0, common_1.Delete)('2fa/disable'),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "disable2FA", null);
+__decorate([
+    (0, common_1.Get)('login-history'),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "getLoginHistory", null);
+__decorate([
+    (0, common_1.Get)(),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "getAllUsers", null);
+__decorate([
+    (0, common_1.Post)('create'),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "createUser", null);
+__decorate([
+    (0, common_1.Post)(':id/permissions'),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Param)('id')),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String, Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "updatePermissions", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "deleteUser", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

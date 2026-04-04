@@ -2,6 +2,7 @@
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 import { motion } from 'framer-motion'
 import { Activity, ChevronRight, Hotel, Plus, Stethoscope, Users } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'

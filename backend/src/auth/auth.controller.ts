@@ -20,8 +20,33 @@ export class AuthController {
   }
 
   @Post('signin')
-  signin(@Body() data: any) {
-    return this.authService.signIn(data);
+  signin(@Body() data: any, @Req() req: any) {
+    const ip = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'Unknown';
+    const userAgent = req.headers['user-agent'] || '';
+    return this.authService.signIn(data, { ip: String(ip), userAgent });
+  }
+
+  @Post('signin/2fa')
+  signinTwoFactor(@Body() body: { userId: string; token: string }, @Req() req: any) {
+    const ip = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'Unknown';
+    const userAgent = req.headers['user-agent'] || '';
+    return this.authService.verifyLoginTwoFactor(body.userId, body.token, { ip: String(ip), userAgent });
+  }
+
+  // ── Forgot Password (public endpoints) ──────────────────────
+  @Post('forgot-password')
+  forgotPassword(@Body() body: { email: string }) {
+    return this.authService.generateResetOtp(body.email);
+  }
+
+  @Post('verify-reset-otp')
+  verifyResetOtp(@Body() body: { email: string; otp: string }) {
+    return this.authService.verifyResetOtp(body.email, body.otp);
+  }
+
+  @Post('reset-password')
+  resetPassword(@Body() body: { email: string; otp: string; newPassword: string }) {
+    return this.authService.resetPassword(body.email, body.otp, body.newPassword);
   }
 
   @UseGuards(AccessTokenGuard)

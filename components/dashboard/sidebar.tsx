@@ -18,36 +18,58 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
-interface SidebarItem {
-  title: string
-  href: string
-  icon: any
-  roles: string[]
-}
-
-const menuItems: SidebarItem[] = [
-  { title: 'Overview', href: '/dashboard', icon: LayoutDashboard, roles: ['admin', 'doctor', 'receptionist'] },
-  { title: 'Appointments', href: '/dashboard/appointments', icon: Calendar, roles: ['admin', 'doctor', 'receptionist'] },
-  { title: 'Patients', href: '/dashboard/patients', icon: UserRound, roles: ['admin', 'doctor', 'receptionist'] },
-  { title: 'Doctors', href: '/dashboard/doctors', icon: Stethoscope, roles: ['admin', 'receptionist'] },
-  { title: 'Medical Records', href: '/dashboard/records', icon: ClipboardList, roles: ['admin', 'doctor'] },
-  { title: 'Pharmacy', href: '/dashboard/pharmacy', icon: Pill, roles: ['admin', 'receptionist'] },
-  { title: 'Billing', href: '/dashboard/billing', icon: CreditCard, roles: ['admin', 'receptionist'] },
-  { title: 'Staff', href: '/dashboard/staff', icon: Users, roles: ['admin'] },
-  { title: 'Department', href: '/dashboard/departments', icon: Hotel, roles: ['admin'] },
-  { title: 'Security', href: '/dashboard/security', icon: ShieldCheck, roles: ['admin'] },
-  { title: 'Settings', href: '/dashboard/settings', icon: Settings, roles: ['admin', 'doctor', 'receptionist'] },
+const menuItems = [
+  { title: 'Overview', href: '/dashboard', icon: LayoutDashboard, roles: ['ADMIN', 'DOCTOR', 'RECEPTIONIST', 'STAFF', 'PHARMACIST'] },
+  { title: 'Appointments', href: '/dashboard/appointments', icon: Calendar, roles: ['DOCTOR', 'RECEPTIONIST', 'STAFF'] },
+  { title: 'Patients', href: '/dashboard/patients', icon: UserRound, roles: ['ADMIN', 'DOCTOR', 'RECEPTIONIST', 'STAFF'] },
+  { title: 'Admissions', href: '/dashboard/admissions', icon: Hotel, roles: ['RECEPTIONIST'] },
+  { title: 'Doctors', href: '/dashboard/doctors', icon: Stethoscope, roles: ['RECEPTIONIST', 'ADMIN'] },
+  { title: 'Medical Records', href: '/dashboard/records', icon: ClipboardList, roles: ['DOCTOR', 'ADMIN'] },
+  { title: 'Pharmacy', href: '/dashboard/pharmacy', icon: Pill, roles: ['PHARMACIST', 'ADMIN'] },
+  { title: 'Billing', href: '/dashboard/billing', icon: CreditCard, roles: ['RECEPTIONIST'] },
+  { title: 'Staff', href: '/dashboard/staff', icon: Users, roles: ['ADMIN'] },
+  { title: 'Department', href: '/dashboard/departments', icon: ClipboardList, roles: ['ADMIN'] },
+  { title: 'Security', href: '/dashboard/security', icon: ShieldCheck, roles: ['ADMIN'] },
+  { title: 'Settings', href: '/dashboard/settings', icon: Settings, roles: ['ADMIN', 'DOCTOR', 'RECEPTIONIST'] },
 ]
 
-export default function Sidebar({ currentRole = 'admin' }: { currentRole?: string }) {
+
+
+export default function Sidebar() {
   const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(false)
+  const [role, setRole] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
   const { t } = useLanguage()
 
-  const filteredItems = menuItems.filter(item => item.roles.includes(currentRole))
+  useEffect(() => {
+    const fetchRole = async () => {
+      const token = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
+      if (!token) {
+        setIsLoading(false)
+        return
+      }
+      try {
+        const res = await fetch('http://localhost:5000/auth/me', {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        if (res.ok) {
+          const data = await res.json()
+          setRole(data.role)
+        }
+      } catch (err) {
+        console.error("Sidebar role fetch failed", err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchRole()
+  }, [])
+
+  const filteredMenu = menuItems.filter(item => !role || item.roles.includes(role))
 
   return (
     <div className={cn(
@@ -72,7 +94,13 @@ export default function Sidebar({ currentRole = 'admin' }: { currentRole?: strin
 
       {/* Navigation */}
       <div className="flex-grow px-4 space-y-1.5 mt-4 overflow-y-auto">
-        {filteredItems.map((item) => {
+        {isLoading ? (
+          <div className="space-y-2">
+            {[1,2,3,4,5].map(i => (
+              <div key={i} className="h-12 w-full bg-sidebar-accent/50 animate-pulse rounded-xl" />
+            ))}
+          </div>
+        ) : filteredMenu.map((item) => {
           const active = pathname === item.href
           const Icon = item.icon
           return (

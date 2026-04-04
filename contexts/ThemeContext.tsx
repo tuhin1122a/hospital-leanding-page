@@ -37,9 +37,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }
   }, [theme, mounted])
 
-  // Prevent hydration styling mismatch by wrapping in a stable return or allowing initial render
-  if (!mounted) return <div style={{ visibility: 'hidden' }}>{children}</div>
-
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}

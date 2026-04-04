@@ -7,14 +7,109 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  ADMIN
+  DOCTOR
+  RECEPTIONIST
+  PHARMACIST
+  STAFF
+  PATIENT
+}
+
 model User {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  email        String   @unique
-  name         String?
-  password     String
-  role         String   @default("USER") // ADMIN, DOCTOR, RECEPTIONIST
-  profilePic   String?
-  refreshToken String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  email          String         @unique
+  name           String?
+  password       String
+  role           Role           @default(USER)
+  permissions    String[]       @default(["READ"])
+  profilePic     String?
+  refreshToken   String?
+  twoFactorSecret String?
+  twoFactorEnabled Boolean      @default(false)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  loginHistory   LoginHistory[]
+}
+
+model LoginHistory {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ip        String?
+  userAgent String?
+  device    String?
+  browser   String?
+  os        String?
+  success   Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model Patient {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  patientId    String        @unique
+  name         String
+  email        String?
+  phone        String
+  gender       String
+  age          Int
+  bloodGroup   String?
+  address      String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  admissions   Admission[]
+  appointments Appointment[]
+  billings     Billing[]
+}
+
+model Admission {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  patientId     String    @db.ObjectId
+  patient       Patient   @relation(fields: [patientId], references: [id])
+  admissionDate DateTime  @default(now())
+  dischargeDate DateTime?
+  wardNo        String
+  bedNo         String
+  doctorInCharge String
+  status        String    @default("ADMITTED")
+  reason        String?
+}
+
+model Appointment {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  patientId       String   @db.ObjectId
+  patient         Patient  @relation(fields: [patientId], references: [id])
+  doctorName      String
+  department      String
+  appointmentDate DateTime
+  serialNo        Int?
+  status          String   @default("PENDING")
+  fee             Float
+}
+
+model Billing {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  patientId     String   @db.ObjectId
+  patient       Patient  @relation(fields: [patientId], references: [id])
+  invoiceNo     String   @unique
+  totalAmount   Float
+  discount      Float    @default(0)
+  paidAmount    Float
+  dueAmount     Float
+  status        String   @default("UNPAID")
+  items         Json?
+  createdAt     DateTime @default(now())
+}
+
+model ApprovalRequest {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  requestedBy   String   @db.ObjectId
+  type          String
+  description   String
+  amount        Float?
+  status        String   @default("PENDING")
+  referenceId   String?
+  createdAt     DateTime @default(now())
+  actionDate    DateTime?
 }

@@ -12,7 +12,6 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode
 }) {
-  const [role, setRole] = useState('admin')
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
@@ -28,16 +27,16 @@ export default function DashboardLayout({
       <LanguageProvider>
         <div className="flex h-screen bg-background overflow-hidden font-sans">
           <Toaster position="top-right" />
-          <Sidebar currentRole={role} />
-          
+          <Sidebar />
+
           <div className="flex-grow flex flex-col min-w-0">
-            <Topbar role={role} setRole={setRole} />
-            
+            <Topbar />
+
             <main className="flex-grow overflow-y-auto p-8 lg:p-12 bg-muted/30">
-            {children}
-          </main>
+              {children}
+            </main>
+          </div>
         </div>
-      </div>
       </LanguageProvider>
     </ThemeProvider>
   )
