@@ -9,6 +9,8 @@ import '../globals.css';
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Dashboard - Nurjahan Private Hospital & Diagnostic Center-2',
   description: 'Manage hospital operations, appointments, and patient records.',
@@ -28,10 +30,8 @@ export default function DashboardRootLayout({
         <ReactQueryProvider>
           <LanguageProvider>
             {children}
-            <Toaster position="top-center" />
           </LanguageProvider>
         </ReactQueryProvider>
-        <Analytics />
       </body>
     </html>
   )
