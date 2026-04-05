@@ -17,13 +17,19 @@ export class UsersService {
     });
   }
 
-  async uploadProfilePic(userId: string, file: Express.Multer.File): Promise<User> {
+  async uploadProfilePic(
+    userId: string,
+    file: Express.Multer.File,
+  ): Promise<User> {
     return new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         { folder: 'nurjahan_profiles' },
         async (error, result) => {
-          if (error || !result) return reject(error || new Error('Upload failed'));
-          const user = await this.update(userId, { profilePic: result.secure_url });
+          if (error || !result)
+            return reject(error || new Error('Upload failed'));
+          const user = await this.update(userId, {
+            profilePic: result.secure_url,
+          });
           resolve(user);
         },
       );
@@ -31,15 +37,23 @@ export class UsersService {
     });
   }
 
-  async changePassword(userId: string, currentPassword: string, newPassword: string) {
+  async changePassword(
+    userId: string,
+    currentPassword: string,
+    newPassword: string,
+  ) {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
     if (!user) throw new BadRequestException('User not found');
 
     const isMatch = await bcrypt.compare(currentPassword, user.password);
-    if (!isMatch) throw new BadRequestException('Current password is incorrect');
+    if (!isMatch)
+      throw new BadRequestException('Current password is incorrect');
 
     const hashed = await bcrypt.hash(newPassword, 10);
-    await this.prisma.user.update({ where: { id: userId }, data: { password: hashed } });
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { password: hashed },
+    });
     return { message: 'Password updated successfully' };
   }
 
@@ -64,7 +78,8 @@ export class UsersService {
 
   async verify2FA(userId: string, token: string) {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
-    if (!user || !user.twoFactorSecret) throw new BadRequestException('2FA not set up');
+    if (!user || !user.twoFactorSecret)
+      throw new BadRequestException('2FA not set up');
 
     const verified = speakeasy.totp.verify({
       secret: user.twoFactorSecret,
@@ -99,21 +114,33 @@ export class UsersService {
     });
   }
 
-  async recordLogin(userId: string, meta: { ip?: string; userAgent?: string; success?: boolean }) {
+  async recordLogin(
+    userId: string,
+    meta: { ip?: string; userAgent?: string; success?: boolean },
+  ) {
     const ua = meta.userAgent || '';
     // Simple UA parsing
     const isMobile = /mobile|android|iphone|ipad/i.test(ua);
-    const browser =
-      /chrome/i.test(ua) ? 'Chrome' :
-      /firefox/i.test(ua) ? 'Firefox' :
-      /safari/i.test(ua) ? 'Safari' :
-      /edge/i.test(ua) ? 'Edge' : 'Unknown';
-    const os =
-      /windows/i.test(ua) ? 'Windows' :
-      /android/i.test(ua) ? 'Android' :
-      /iphone|ipad/i.test(ua) ? 'iOS' :
-      /mac/i.test(ua) ? 'macOS' :
-      /linux/i.test(ua) ? 'Linux' : 'Unknown';
+    const browser = /chrome/i.test(ua)
+      ? 'Chrome'
+      : /firefox/i.test(ua)
+        ? 'Firefox'
+        : /safari/i.test(ua)
+          ? 'Safari'
+          : /edge/i.test(ua)
+            ? 'Edge'
+            : 'Unknown';
+    const os = /windows/i.test(ua)
+      ? 'Windows'
+      : /android/i.test(ua)
+        ? 'Android'
+        : /iphone|ipad/i.test(ua)
+          ? 'iOS'
+          : /mac/i.test(ua)
+            ? 'macOS'
+            : /linux/i.test(ua)
+              ? 'Linux'
+              : 'Unknown';
 
     return this.prisma.loginHistory.create({
       data: {
@@ -160,7 +187,13 @@ export class UsersService {
     });
   }
 
-  async createUser(data: { name: string; email: string; password: string; role: string; permissions?: string[] }) {
+  async createUser(data: {
+    name: string;
+    email: string;
+    password: string;
+    role: string;
+    permissions?: string[];
+  }) {
     const userExists = await this.findByEmail(data.email);
     if (userExists) throw new BadRequestException('User already exists');
 
@@ -170,7 +203,7 @@ export class UsersService {
         name: data.name,
         email: data.email,
         password: hashedPassword,
-        role: data.role.toUpperCase(),
+        role: data.role.toUpperCase() as any,
         permissions: data.permissions || ['READ'],
       },
     });

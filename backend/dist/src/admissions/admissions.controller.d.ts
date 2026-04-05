@@ -4,49 +4,63 @@ export declare class AdmissionsController {
     constructor(admissionsService: AdmissionsService);
     create(createAdmissionDto: any): Promise<{
         id: string;
+        status: string;
         patientId: string;
         admissionDate: Date;
         dischargeDate: Date | null;
         wardNo: string;
         bedNo: string;
         doctorInCharge: string;
-        status: string;
         reason: string | null;
     }>;
     findAll(): Promise<({
         patient: {
-            name: string;
             id: string;
-            patientId: string;
             email: string | null;
+            name: string;
+            createdAt: Date;
+            updatedAt: Date;
+            patientId: string;
             phone: string;
             gender: string;
             age: number;
             bloodGroup: string | null;
             address: string | null;
-            createdAt: Date;
-            updatedAt: Date;
         };
     } & {
         id: string;
+        status: string;
         patientId: string;
         admissionDate: Date;
         dischargeDate: Date | null;
         wardNo: string;
         bedNo: string;
         doctorInCharge: string;
-        status: string;
         reason: string | null;
     })[]>;
     discharge(id: string): Promise<{
+        patient: {
+            id: string;
+            email: string | null;
+            name: string;
+            createdAt: Date;
+            updatedAt: Date;
+            patientId: string;
+            phone: string;
+            gender: string;
+            age: number;
+            bloodGroup: string | null;
+            address: string | null;
+        };
+    } & {
         id: string;
+        status: string;
         patientId: string;
         admissionDate: Date;
         dischargeDate: Date | null;
         wardNo: string;
         bedNo: string;
         doctorInCharge: string;
-        status: string;
         reason: string | null;
     }>;
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import React, { useState, useEffect } from 'react'
 import RecentAppointments from '@/components/dashboard/recent-appointments'
 import StatCards from '@/components/dashboard/stat-cards'
 import { motion } from 'framer-motion'
@@ -16,26 +17,36 @@ import {
     YAxis
 } from 'recharts'
 import { useLanguage } from '@/contexts/LanguageContext'
-
-const data = [
-  { name: 'Jan', patients: 400, revenue: 2400 },
-  { name: 'Feb', patients: 300, revenue: 1398 },
-  { name: 'Mar', patients: 200, revenue: 9800 },
-  { name: 'Apr', patients: 278, revenue: 3908 },
-  { name: 'May', patients: 189, revenue: 4800 },
-  { name: 'Jun', patients: 239, revenue: 3800 },
-  { name: 'Jul', patients: 349, revenue: 4300 },
-]
-
-const barData = [
-  { name: 'Cards', value: 400, color: '#0ea5e9' },
-  { name: 'Neurology', value: 300, color: '#6366f1' },
-  { name: 'Ortho', value: 200, color: '#10b981' },
-  { name: 'Oncology', value: 278, color: '#f59e0b' },
-]
+import { Info, User } from 'lucide-react'
 
 export default function DashboardPage() {
   const { t } = useLanguage()
+  const [stats, setStats] = useState<any>(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const token = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
+        if (!token) return
+
+        const res = await fetch('http://localhost:5000/stats/overview', {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        if (res.ok) {
+          const data = await res.json()
+          setStats(data)
+        }
+      } catch (err) {
+        console.error("Failed to fetch dashboard stats", err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchStats()
+  }, [])
+
+  if (isLoading) return <div className="p-20 text-center font-black animate-pulse text-muted-foreground">{t('Loading System Data...')}</div>
 
   return (
     <div className="space-y-10">
@@ -51,38 +62,50 @@ export default function DashboardPage() {
         
         <div className="flex items-center gap-3">
           <div className="flex -space-x-3">
-            {[1,2,3,4].map(i => (
-              <div key={i} className="w-10 h-10 rounded-xl border-4 border-border/50 bg-zinc-200 overflow-hidden shadow-sm">
-                <img src={`https://i.pravatar.cc/150?u=${i}`} alt="user" className="w-full h-full object-cover" />
+            {stats?.activeStaff?.map((s: any) => (
+              <div key={s.id} className="w-10 h-10 rounded-lg border-4 border-border/50 bg-zinc-200 overflow-hidden shadow-sm">
+                {s.profilePic ? (
+                  <img src={s.profilePic} alt={s.name} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-primary/10 text-primary uppercase font-black text-xs">
+                    {s.name[0]}
+                  </div>
+                )}
               </div>
             ))}
-            <div className="w-10 h-10 rounded-xl border-4 border-border/50 bg-primary text-background flex items-center justify-center text-[10px] font-black shadow-sm">+12</div>
+            <div className="w-10 h-10 rounded-lg border-4 border-border/50 bg-primary text-background flex items-center justify-center text-[10px] font-black shadow-sm">
+              +{stats?.activeStaff?.length || 0}
+            </div>
           </div>
           <span className="text-sm font-bold text-muted-foreground/70 ml-2">{t('Active Staff')}</span>
         </div>
       </div>
 
-      {/* Stats */}
-      <StatCards />
+      {/* Stats Cards */}
+      <StatCards 
+        earnings={stats?.earnings} 
+        salaries={stats?.salaries} 
+        patients={stats?.patients} 
+        netProfit={stats?.netProfit} 
+      />
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Area Chart */}
-        <div className="lg:col-span-2 bg-card rounded-[2.5rem] border border-border shadow-sm p-8 flex flex-col">
+        <div className="lg:col-span-2 bg-card rounded-2xl border border-border shadow-sm p-8 flex flex-col">
           <div className="flex justify-between items-start mb-10">
             <div>
               <h3 className="text-xl font-black text-card-foreground tracking-tight">{t('Patient Statistics')}</h3>
-              <p className="text-sm text-muted-foreground font-medium">{t('Historical data of patient inflow')}</p>
+              <p className="text-sm text-muted-foreground font-medium">{t('Real-time inflow and revenue analysis')}</p>
             </div>
-            <select className="bg-muted border-none rounded-xl px-4 py-2 text-xs font-black uppercase tracking-widest outline-none">
-              <option>{t('Last 7 Months')}</option>
-              <option>{t('Last Year')}</option>
-            </select>
+            <div className="flex items-center gap-2 px-4 py-2 bg-muted rounded-xl text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+               <Info size={12} /> {t('LAST 7 MONTHS')}
+            </div>
           </div>
           
           <div className="h-80 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data}>
+              <AreaChart data={stats?.monthlyHistory}>
                 <defs>
                   <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#0ea5e9" stopOpacity={0.1}/>
@@ -119,16 +142,16 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Small Bar Chart */}
-        <div className="bg-card rounded-[2.5rem] border border-border shadow-sm p-8 flex flex-col">
+        {/* Department Bar Chart */}
+        <div className="bg-card rounded-2xl border border-border shadow-sm p-8 flex flex-col">
           <h3 className="text-xl font-black text-card-foreground tracking-tight mb-2">{t('Department Load')}</h3>
-          <p className="text-sm text-muted-foreground font-medium mb-10 text-balance">{t('Workload distribution across major units')}</p>
+          <p className="text-sm text-muted-foreground font-medium mb-10 text-balance">{t('Appointment distribution across units')}</p>
           
           <div className="h-64 mt-auto">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={barData}>
+              <BarChart data={stats?.departmentLoad}>
                 <Bar dataKey="value" radius={[10, 10, 10, 10]}>
-                  {barData.map((entry, index) => (
+                  {stats?.departmentLoad?.map((entry: any, index: number) => (
                     <Cell key={`cell-${index}`} fill={entry.color} opacity={0.8} />
                   ))}
                 </Bar>
@@ -141,14 +164,14 @@ export default function DashboardPage() {
             </ResponsiveContainer>
           </div>
           
-          <div className="mt-8 space-y-4">
-            {barData.map((dept, i) => (
+          <div className="mt-8 space-y-4 max-h-48 overflow-y-auto custom-scrollbar pr-2">
+            {stats?.departmentLoad?.map((dept: any, i: number) => (
               <div key={i} className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full" style={{ backgroundColor: dept.color }} />
-                  <span className="text-sm font-bold text-muted-foreground">{dept.name}</span>
+                  <span className="text-sm font-bold text-muted-foreground">{t(dept.name)}</span>
                 </div>
-                <span className="text-sm font-black text-card-foreground">{((dept.value / 1178) * 100).toFixed(0)}%</span>
+                <span className="text-sm font-black text-card-foreground">{dept.value} {t('Appts')}</span>
               </div>
             ))}
           </div>

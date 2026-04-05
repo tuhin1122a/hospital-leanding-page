@@ -11,11 +11,13 @@ const common_1 = require("@nestjs/common");
 const billing_service_1 = require("./billing.service");
 const billing_controller_1 = require("./billing.controller");
 const prisma_service_1 = require("../prisma.service");
+const notifications_module_1 = require("../notifications/notifications.module");
 let BillingModule = class BillingModule {
 };
 exports.BillingModule = BillingModule;
 exports.BillingModule = BillingModule = __decorate([
     (0, common_1.Module)({
+        imports: [notifications_module_1.NotificationsModule],
         controllers: [billing_controller_1.BillingController],
         providers: [billing_service_1.BillingService, prisma_service_1.PrismaService],
         exports: [billing_service_1.BillingService],

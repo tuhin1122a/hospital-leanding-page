@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { AdmissionsService } from './admissions.service';
 import { AccessTokenGuard } from '../auth/guards/accessToken.guard';
 

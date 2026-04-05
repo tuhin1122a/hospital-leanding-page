@@ -77,13 +77,17 @@ let AuthService = class AuthService {
         }
         const passwordMatches = await bcrypt.compare(data.password, user.password);
         if (!passwordMatches) {
-            await this.usersService.recordLogin(user.id, { ...meta, success: false }).catch(() => { });
+            await this.usersService
+                .recordLogin(user.id, { ...meta, success: false })
+                .catch(() => { });
             throw new common_1.BadRequestException('Invalid credentials');
         }
         if (user.twoFactorEnabled) {
             return { requiresTwoFactor: true, userId: user.id };
         }
-        await this.usersService.recordLogin(user.id, { ...meta, success: true }).catch(() => { });
+        await this.usersService
+            .recordLogin(user.id, { ...meta, success: true })
+            .catch(() => { });
         const tokens = await this.getTokens(user.id, user.email, user.role);
         await this.updateRefreshToken(user.id, tokens.refreshToken);
         return tokens;
@@ -100,16 +104,23 @@ let AuthService = class AuthService {
             window: 1,
         });
         if (!isValid) {
-            await this.usersService.recordLogin(userId, { ...meta, success: false }).catch(() => { });
+            await this.usersService
+                .recordLogin(userId, { ...meta, success: false })
+                .catch(() => { });
             throw new common_1.BadRequestException('Invalid authenticator code');
         }
-        await this.usersService.recordLogin(userId, { ...meta, success: true }).catch(() => { });
+        await this.usersService
+            .recordLogin(userId, { ...meta, success: true })
+            .catch(() => { });
         const tokens = await this.getTokens(user.id, user.email, user.role);
         await this.updateRefreshToken(user.id, tokens.refreshToken);
         return tokens;
     }
     async logout(userId) {
-        return this.usersService.update(userId, { refreshToken: null });
+        return this.usersService.update(userId, {
+            refreshToken: null,
+            lastActive: new Date(),
+        });
     }
     async generateResetOtp(email) {
         const user = await this.usersService.findByEmail(email);

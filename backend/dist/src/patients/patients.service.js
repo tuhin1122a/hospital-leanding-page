@@ -12,20 +12,35 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PatientsService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma.service");
+const notifications_service_1 = require("../notifications/notifications.service");
 let PatientsService = class PatientsService {
     prisma;
-    constructor(prisma) {
+    notificationsService;
+    constructor(prisma, notificationsService) {
         this.prisma = prisma;
+        this.notificationsService = notificationsService;
     }
     async create(data) {
         const count = await this.prisma.patient.count();
         const patientId = `NH-${1001 + count}`;
-        return this.prisma.patient.create({
+        const patient = await this.prisma.patient.create({
             data: {
                 ...data,
                 patientId,
             },
         });
+        const admin = await this.prisma.user.findFirst({
+            where: { role: 'ADMIN' },
+        });
+        if (admin) {
+            await this.notificationsService.create({
+                userId: admin.id,
+                title: 'New Patient Registered',
+                message: `${patient.name} has been added to the registry (ID: ${patientId})`,
+                type: 'SUCCESS',
+            });
+        }
+        return patient;
     }
     async findAll() {
         return this.prisma.patient.findMany({
@@ -44,6 +59,8 @@ let PatientsService = class PatientsService {
                 admissions: true,
                 appointments: true,
                 billings: true,
+                records: true,
+                labTests: true,
             },
         });
     }
@@ -56,10 +73,19 @@ let PatientsService = class PatientsService {
     async remove(id) {
         return this.prisma.patient.delete({ where: { id } });
     }
+    async addRecord(patientId, data) {
+        return this.prisma.medicalRecord.create({
+            data: {
+                ...data,
+                patientId,
+            },
+        });
+    }
 };
 exports.PatientsService = PatientsService;
 exports.PatientsService = PatientsService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        notifications_service_1.NotificationsService])
 ], PatientsService);
 //# sourceMappingURL=patients.service.js.map

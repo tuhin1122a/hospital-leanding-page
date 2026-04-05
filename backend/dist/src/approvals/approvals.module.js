@@ -11,11 +11,13 @@ const common_1 = require("@nestjs/common");
 const approvals_service_1 = require("./approvals.service");
 const approvals_controller_1 = require("./approvals.controller");
 const prisma_service_1 = require("../prisma.service");
+const notifications_module_1 = require("../notifications/notifications.module");
 let ApprovalsModule = class ApprovalsModule {
 };
 exports.ApprovalsModule = ApprovalsModule;
 exports.ApprovalsModule = ApprovalsModule = __decorate([
     (0, common_1.Module)({
+        imports: [notifications_module_1.NotificationsModule],
         controllers: [approvals_controller_1.ApprovalsController],
         providers: [approvals_service_1.ApprovalsService, prisma_service_1.PrismaService],
         exports: [approvals_service_1.ApprovalsService],

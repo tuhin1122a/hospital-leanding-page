@@ -12,10 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApprovalsService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma.service");
+const notifications_service_1 = require("../notifications/notifications.service");
 let ApprovalsService = class ApprovalsService {
     prisma;
-    constructor(prisma) {
+    notificationsService;
+    constructor(prisma, notificationsService) {
         this.prisma = prisma;
+        this.notificationsService = notificationsService;
     }
     async create(data) {
         return this.prisma.approvalRequest.create({
@@ -31,18 +34,26 @@ let ApprovalsService = class ApprovalsService {
         });
     }
     async updateStatus(id, status) {
-        return this.prisma.approvalRequest.update({
+        const request = await this.prisma.approvalRequest.update({
             where: { id },
             data: {
                 status,
                 actionDate: new Date(),
             },
         });
+        await this.notificationsService.create({
+            userId: request.requestedBy,
+            title: 'Approval Update',
+            message: `Your ${request.type} request has been ${status.toLowerCase()}`,
+            type: status === 'APPROVED' ? 'SUCCESS' : 'WARNING',
+        });
+        return request;
     }
 };
 exports.ApprovalsService = ApprovalsService;
 exports.ApprovalsService = ApprovalsService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        notifications_service_1.NotificationsService])
 ], ApprovalsService);
 //# sourceMappingURL=approvals.service.js.map

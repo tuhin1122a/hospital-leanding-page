@@ -18,12 +18,30 @@ const admissions_module_1 = require("./admissions/admissions.module");
 const billing_module_1 = require("./billing/billing.module");
 const approvals_module_1 = require("./approvals/approvals.module");
 const appointments_module_1 = require("./appointments/appointments.module");
+const notifications_module_1 = require("./notifications/notifications.module");
+const chat_module_1 = require("./chat/chat.module");
+const websockets_module_1 = require("./websockets/websockets.module");
+const salary_module_1 = require("./salary/salary.module");
+const stats_module_1 = require("./stats/stats.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [auth_module_1.AuthModule, users_module_1.UsersModule, patients_module_1.PatientsModule, admissions_module_1.AdmissionsModule, billing_module_1.BillingModule, approvals_module_1.ApprovalsModule, appointments_module_1.AppointmentsModule],
+        imports: [
+            auth_module_1.AuthModule,
+            users_module_1.UsersModule,
+            patients_module_1.PatientsModule,
+            admissions_module_1.AdmissionsModule,
+            billing_module_1.BillingModule,
+            approvals_module_1.ApprovalsModule,
+            appointments_module_1.AppointmentsModule,
+            notifications_module_1.NotificationsModule,
+            chat_module_1.ChatModule,
+            websockets_module_1.WebsocketsModule,
+            salary_module_1.SalaryModule,
+            stats_module_1.StatsModule,
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService, prisma_service_1.PrismaService],
     })

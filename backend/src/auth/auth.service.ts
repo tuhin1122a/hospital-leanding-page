@@ -1,4 +1,8 @@
-import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -26,7 +30,11 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    const tokens = await this.getTokens(newUser.id, newUser.email, newUser.role);
+    const tokens = await this.getTokens(
+      newUser.id,
+      newUser.email,
+      newUser.role,
+    );
     await this.updateRefreshToken(newUser.id, tokens.refreshToken);
     return tokens;
   }
@@ -39,7 +47,9 @@ export class AuthService {
 
     const passwordMatches = await bcrypt.compare(data.password, user.password);
     if (!passwordMatches) {
-      await this.usersService.recordLogin(user.id, { ...meta, success: false }).catch(() => {});
+      await this.usersService
+        .recordLogin(user.id, { ...meta, success: false })
+        .catch(() => {});
       throw new BadRequestException('Invalid credentials');
     }
 
@@ -48,13 +58,19 @@ export class AuthService {
       return { requiresTwoFactor: true, userId: user.id };
     }
 
-    await this.usersService.recordLogin(user.id, { ...meta, success: true }).catch(() => {});
+    await this.usersService
+      .recordLogin(user.id, { ...meta, success: true })
+      .catch(() => {});
     const tokens = await this.getTokens(user.id, user.email, user.role);
     await this.updateRefreshToken(user.id, tokens.refreshToken);
     return tokens;
   }
 
-  async verifyLoginTwoFactor(userId: string, token: string, meta?: { ip?: string; userAgent?: string }) {
+  async verifyLoginTwoFactor(
+    userId: string,
+    token: string,
+    meta?: { ip?: string; userAgent?: string },
+  ) {
     const user = await this.usersService.findById(userId);
     if (!user || !user.twoFactorSecret) {
       throw new BadRequestException('2FA not configured');
@@ -68,24 +84,32 @@ export class AuthService {
     });
 
     if (!isValid) {
-      await this.usersService.recordLogin(userId, { ...meta, success: false }).catch(() => {});
+      await this.usersService
+        .recordLogin(userId, { ...meta, success: false })
+        .catch(() => {});
       throw new BadRequestException('Invalid authenticator code');
     }
 
-    await this.usersService.recordLogin(userId, { ...meta, success: true }).catch(() => {});
+    await this.usersService
+      .recordLogin(userId, { ...meta, success: true })
+      .catch(() => {});
     const tokens = await this.getTokens(user.id, user.email, user.role);
     await this.updateRefreshToken(user.id, tokens.refreshToken);
     return tokens;
   }
 
   async logout(userId: string) {
-    return this.usersService.update(userId, { refreshToken: null });
+    return this.usersService.update(userId, {
+      refreshToken: null,
+      lastActive: new Date(),
+    });
   }
 
   // ── Forgot Password ───────────────────────────────────────────────
   async generateResetOtp(email: string) {
     const user = await this.usersService.findByEmail(email);
-    if (!user) throw new BadRequestException('No account found with this email');
+    if (!user)
+      throw new BadRequestException('No account found with this email');
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
@@ -102,7 +126,8 @@ export class AuthService {
 
   async verifyResetOtp(email: string, otp: string) {
     const entry = resetOtpStore.get(email);
-    if (!entry) throw new BadRequestException('No OTP requested for this email');
+    if (!entry)
+      throw new BadRequestException('No OTP requested for this email');
     if (Date.now() > entry.expiresAt) {
       resetOtpStore.delete(email);
       throw new BadRequestException('OTP expired. Request a new one.');
@@ -161,7 +186,8 @@ export class AuthService {
   }
 
   private async getTokens(userId: string, email: string, role: string) {
-    const jwtSecret = process.env.JWT_SECRET || 'super-secret-jwt-key-change-this';
+    const jwtSecret =
+      process.env.JWT_SECRET || 'super-secret-jwt-key-change-this';
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
         {

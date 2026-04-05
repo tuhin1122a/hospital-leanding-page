@@ -12,6 +12,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PatientsController = void 0;
 const common_1 = require("@nestjs/common");
 const patients_service_1 = require("./patients.service");
 const accessToken_guard_1 = require("../auth/guards/accessToken.guard");
@@ -35,7 +36,11 @@ let PatientsController = class PatientsController {
     remove(id) {
         return this.patientsService.remove(id);
     }
+    addRecord(id, data) {
+        return this.patientsService.addRecord(id, data);
+    }
 };
+exports.PatientsController = PatientsController;
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
@@ -71,10 +76,17 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], PatientsController.prototype, "remove", null);
-PatientsController = __decorate([
+__decorate([
+    (0, common_1.Post)(':id/records'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], PatientsController.prototype, "addRecord", null);
+exports.PatientsController = PatientsController = __decorate([
     (0, common_1.Controller)('patients'),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     __metadata("design:paramtypes", [patients_service_1.PatientsService])
 ], PatientsController);
-exports.default = PatientsController;
 //# sourceMappingURL=patients.controller.js.map

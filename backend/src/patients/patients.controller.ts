@@ -1,10 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { PatientsService } from './patients.service';
 import { AccessTokenGuard } from '../auth/guards/accessToken.guard';
 
 @Controller('patients')
 @UseGuards(AccessTokenGuard)
-export default class PatientsController {
+export class PatientsController {
   constructor(private readonly patientsService: PatientsService) {}
 
   @Post()
@@ -30,5 +39,10 @@ export default class PatientsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.patientsService.remove(id);
+  }
+
+  @Post(':id/records')
+  addRecord(@Param('id') id: string, @Body() data: any) {
+    return this.patientsService.addRecord(id, data);
   }
 }

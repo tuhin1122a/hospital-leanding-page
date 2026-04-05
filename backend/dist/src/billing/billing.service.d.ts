@@ -1,46 +1,48 @@
 import { PrismaService } from '../prisma.service';
 import { Billing, Prisma } from '@prisma/client';
+import { NotificationsService } from '../notifications/notifications.service';
 export declare class BillingService {
     private prisma;
-    constructor(prisma: PrismaService);
+    private notificationsService;
+    constructor(prisma: PrismaService, notificationsService: NotificationsService);
     create(data: Prisma.BillingUncheckedCreateInput): Promise<Billing>;
     private calculateStatus;
     findAll(): Promise<({
         patient: {
             id: string;
-            patientId: string;
-            createdAt: Date;
-            name: string;
             email: string | null;
+            name: string;
+            createdAt: Date;
+            updatedAt: Date;
+            patientId: string;
             phone: string;
             gender: string;
             age: number;
             bloodGroup: string | null;
             address: string | null;
-            updatedAt: Date;
         };
     } & {
         id: string;
+        createdAt: Date;
+        status: string;
         patientId: string;
         invoiceNo: string;
         totalAmount: number;
         discount: number;
         paidAmount: number;
         dueAmount: number;
-        status: string;
         items: Prisma.JsonValue | null;
-        createdAt: Date;
     })[]>;
     update(id: string, data: any): Promise<{
         id: string;
+        createdAt: Date;
+        status: string;
         patientId: string;
         invoiceNo: string;
         totalAmount: number;
         discount: number;
         paidAmount: number;
         dueAmount: number;
-        status: string;
         items: Prisma.JsonValue | null;
-        createdAt: Date;
     }>;
 }

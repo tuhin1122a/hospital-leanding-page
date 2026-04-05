@@ -65,7 +65,9 @@ let UsersService = class UsersService {
             const uploadStream = cloudinary_1.v2.uploader.upload_stream({ folder: 'nurjahan_profiles' }, async (error, result) => {
                 if (error || !result)
                     return reject(error || new Error('Upload failed'));
-                const user = await this.update(userId, { profilePic: result.secure_url });
+                const user = await this.update(userId, {
+                    profilePic: result.secure_url,
+                });
                 resolve(user);
             });
             streamifier.createReadStream(file.buffer).pipe(uploadStream);
@@ -79,7 +81,10 @@ let UsersService = class UsersService {
         if (!isMatch)
             throw new common_1.BadRequestException('Current password is incorrect');
         const hashed = await bcrypt.hash(newPassword, 10);
-        await this.prisma.user.update({ where: { id: userId }, data: { password: hashed } });
+        await this.prisma.user.update({
+            where: { id: userId },
+            data: { password: hashed },
+        });
         return { message: 'Password updated successfully' };
     }
     async generate2FASecret(userId) {
@@ -132,15 +137,26 @@ let UsersService = class UsersService {
     async recordLogin(userId, meta) {
         const ua = meta.userAgent || '';
         const isMobile = /mobile|android|iphone|ipad/i.test(ua);
-        const browser = /chrome/i.test(ua) ? 'Chrome' :
-            /firefox/i.test(ua) ? 'Firefox' :
-                /safari/i.test(ua) ? 'Safari' :
-                    /edge/i.test(ua) ? 'Edge' : 'Unknown';
-        const os = /windows/i.test(ua) ? 'Windows' :
-            /android/i.test(ua) ? 'Android' :
-                /iphone|ipad/i.test(ua) ? 'iOS' :
-                    /mac/i.test(ua) ? 'macOS' :
-                        /linux/i.test(ua) ? 'Linux' : 'Unknown';
+        const browser = /chrome/i.test(ua)
+            ? 'Chrome'
+            : /firefox/i.test(ua)
+                ? 'Firefox'
+                : /safari/i.test(ua)
+                    ? 'Safari'
+                    : /edge/i.test(ua)
+                        ? 'Edge'
+                        : 'Unknown';
+        const os = /windows/i.test(ua)
+            ? 'Windows'
+            : /android/i.test(ua)
+                ? 'Android'
+                : /iphone|ipad/i.test(ua)
+                    ? 'iOS'
+                    : /mac/i.test(ua)
+                        ? 'macOS'
+                        : /linux/i.test(ua)
+                            ? 'Linux'
+                            : 'Unknown';
         return this.prisma.loginHistory.create({
             data: {
                 userId,

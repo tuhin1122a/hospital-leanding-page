@@ -49,8 +49,10 @@ export declare class AuthController {
         refreshToken: string | null;
         twoFactorSecret: string | null;
         twoFactorEnabled: boolean;
+        lastActive: Date | null;
         createdAt: Date;
         updatedAt: Date;
+        baseSalary: number | null;
     }>;
     refreshTokens(req: any): Promise<{
         accessToken: string;
@@ -66,7 +68,9 @@ export declare class AuthController {
         refreshToken: string | null;
         twoFactorSecret: string | null;
         twoFactorEnabled: boolean;
+        lastActive: Date | null;
         createdAt: Date;
         updatedAt: Date;
+        baseSalary: number | null;
     } | null>;
 }

@@ -33,7 +33,10 @@ let AuthController = class AuthController {
     signinTwoFactor(body, req) {
         const ip = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'Unknown';
         const userAgent = req.headers['user-agent'] || '';
-        return this.authService.verifyLoginTwoFactor(body.userId, body.token, { ip: String(ip), userAgent });
+        return this.authService.verifyLoginTwoFactor(body.userId, body.token, {
+            ip: String(ip),
+            userAgent,
+        });
     }
     forgotPassword(body) {
         return this.authService.generateResetOtp(body.email);

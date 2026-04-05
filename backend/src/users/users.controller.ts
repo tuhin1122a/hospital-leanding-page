@@ -1,4 +1,16 @@
-import { Controller, Post, Get, Delete, UseInterceptors, UploadedFile, UseGuards, Req, Body, ForbiddenException, Param } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Delete,
+  UseInterceptors,
+  UploadedFile,
+  UseGuards,
+  Req,
+  Body,
+  ForbiddenException,
+  Param,
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UsersService } from './users.service';
 import { AccessTokenGuard } from '../auth/guards/accessToken.guard';
@@ -10,15 +22,25 @@ export class UsersController {
   @Post('profile-pic')
   @UseGuards(AccessTokenGuard)
   @UseInterceptors(FileInterceptor('file'))
-  async uploadProfilePic(@Req() req: any, @UploadedFile() file: Express.Multer.File) {
+  async uploadProfilePic(
+    @Req() req: any,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
     const userId = req.user['sub'];
     return this.usersService.uploadProfilePic(userId, file);
   }
 
   @Post('change-password')
   @UseGuards(AccessTokenGuard)
-  async changePassword(@Req() req: any, @Body() body: { currentPassword: string; newPassword: string }) {
-    return this.usersService.changePassword(req.user['sub'], body.currentPassword, body.newPassword);
+  async changePassword(
+    @Req() req: any,
+    @Body() body: { currentPassword: string; newPassword: string },
+  ) {
+    return this.usersService.changePassword(
+      req.user['sub'],
+      body.currentPassword,
+      body.newPassword,
+    );
   }
 
   @Get('2fa/generate')
@@ -57,7 +79,17 @@ export class UsersController {
 
   @Post('create')
   @UseGuards(AccessTokenGuard)
-  async createUser(@Req() req: any, @Body() body: { name: string; email: string; password: string; role: string; permissions: string[] }) {
+  async createUser(
+    @Req() req: any,
+    @Body()
+    body: {
+      name: string;
+      email: string;
+      password: string;
+      role: string;
+      permissions: string[];
+    },
+  ) {
     if (req.user['role'] !== 'ADMIN') {
       throw new ForbiddenException('Access denied: Admins only');
     }
@@ -66,7 +98,11 @@ export class UsersController {
 
   @Post(':id/permissions')
   @UseGuards(AccessTokenGuard)
-  async updatePermissions(@Req() req: any, @Param('id') id: string, @Body() body: { permissions: string[] }) {
+  async updatePermissions(
+    @Req() req: any,
+    @Param('id') id: string,
+    @Body() body: { permissions: string[] },
+  ) {
     if (req.user['role'] !== 'ADMIN') {
       throw new ForbiddenException('Access denied: Admins only');
     }

@@ -12,18 +12,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdmissionsService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma.service");
+const notifications_service_1 = require("../notifications/notifications.service");
 let AdmissionsService = class AdmissionsService {
     prisma;
-    constructor(prisma) {
+    notificationsService;
+    constructor(prisma, notificationsService) {
         this.prisma = prisma;
+        this.notificationsService = notificationsService;
     }
     async create(data) {
-        return this.prisma.admission.create({
+        const admission = await this.prisma.admission.create({
             data: {
                 ...data,
                 status: 'ADMITTED',
             },
+            include: { patient: true },
         });
+        const patientName = admission.patient?.name || `ID: ${data.patientId}`;
+        await this.notificationsService.create({
+            title: 'Patient Admitted',
+            message: `Patient ${patientName} has been admitted to Ward ${data.wardNo}, Bed ${data.bedNo} under Dr. ${data.doctorInCharge}.`,
+            type: 'INFO',
+        });
+        return admission;
     }
     async findAll() {
         return this.prisma.admission.findMany({
@@ -34,18 +45,27 @@ let AdmissionsService = class AdmissionsService {
         });
     }
     async discharge(id) {
-        return this.prisma.admission.update({
+        const admission = await this.prisma.admission.update({
             where: { id },
             data: {
                 status: 'DISCHARGED',
                 dischargeDate: new Date(),
             },
+            include: { patient: true },
         });
+        const patientName = admission.patient?.name || `ID: ${admission.patientId}`;
+        await this.notificationsService.create({
+            title: 'Patient Discharged',
+            message: `Patient ${patientName} has been discharged from Ward ${admission.wardNo}.`,
+            type: 'SUCCESS',
+        });
+        return admission;
     }
 };
 exports.AdmissionsService = AdmissionsService;
 exports.AdmissionsService = AdmissionsService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        notifications_service_1.NotificationsService])
 ], AdmissionsService);
 //# sourceMappingURL=admissions.service.js.map

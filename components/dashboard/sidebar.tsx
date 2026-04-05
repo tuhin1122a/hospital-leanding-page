@@ -14,7 +14,8 @@ import {
     ShieldCheck,
     Stethoscope,
     UserRound,
-    Users
+    Users,
+    MessageSquare
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -23,6 +24,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 
 const menuItems = [
   { title: 'Overview', href: '/dashboard', icon: LayoutDashboard, roles: ['ADMIN', 'DOCTOR', 'RECEPTIONIST', 'STAFF', 'PHARMACIST'] },
+  { title: 'Messages', href: '/dashboard/messages', icon: MessageSquare, roles: ['ADMIN', 'DOCTOR', 'RECEPTIONIST', 'STAFF', 'PHARMACIST'] },
   { title: 'Appointments', href: '/dashboard/appointments', icon: Calendar, roles: ['DOCTOR', 'RECEPTIONIST', 'STAFF'] },
   { title: 'Patients', href: '/dashboard/patients', icon: UserRound, roles: ['ADMIN', 'DOCTOR', 'RECEPTIONIST', 'STAFF'] },
   { title: 'Admissions', href: '/dashboard/admissions', icon: Hotel, roles: ['RECEPTIONIST'] },
@@ -30,6 +32,7 @@ const menuItems = [
   { title: 'Medical Records', href: '/dashboard/records', icon: ClipboardList, roles: ['DOCTOR', 'ADMIN'] },
   { title: 'Pharmacy', href: '/dashboard/pharmacy', icon: Pill, roles: ['PHARMACIST', 'ADMIN'] },
   { title: 'Billing', href: '/dashboard/billing', icon: CreditCard, roles: ['RECEPTIONIST'] },
+  { title: 'Salaries', href: '/dashboard/salaries', icon: CreditCard, roles: ['ADMIN', 'DOCTOR', 'RECEPTIONIST', 'STAFF', 'PHARMACIST'] },
   { title: 'Staff', href: '/dashboard/staff', icon: Users, roles: ['ADMIN'] },
   { title: 'Department', href: '/dashboard/departments', icon: ClipboardList, roles: ['ADMIN'] },
   { title: 'Security', href: '/dashboard/security', icon: ShieldCheck, roles: ['ADMIN'] },
@@ -43,6 +46,7 @@ export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false)
   const [role, setRole] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [unreadMessages, setUnreadMessages] = useState<number>(0)
   const { t } = useLanguage()
 
   useEffect(() => {
@@ -66,7 +70,29 @@ export default function Sidebar() {
         setIsLoading(false)
       }
     }
+    
+    const fetchUnreadMessages = async () => {
+      const token = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
+      if (!token) return
+      try {
+        const res = await fetch('http://localhost:5000/chat/unread-count', {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        if (res.ok) {
+          const count = await res.text()
+          setUnreadMessages(parseInt(count) || 0)
+        }
+      } catch (err) {}
+    }
+
     fetchRole()
+    fetchUnreadMessages()
+
+    window.addEventListener('unreadMessageUpdate', fetchUnreadMessages);
+    
+    return () => {
+      window.removeEventListener('unreadMessageUpdate', fetchUnreadMessages);
+    }
   }, [])
 
   const filteredMenu = menuItems.filter(item => !role || item.roles.includes(role))
@@ -108,12 +134,24 @@ export default function Sidebar() {
               key={item.href} 
               href={item.href}
               className={cn(
-                "flex items-center gap-3 px-3 py-3 rounded-xl transition-all group",
+                "flex items-center justify-between px-3 py-3 rounded-xl transition-all group",
                 active ? "bg-primary text-background shadow-lg shadow-primary/20" : "text-sidebar-foreground hover:bg-sidebar-accent"
               )}
             >
-              <Icon size={20} className={cn("transition-colors", active ? "text-background" : "group-hover:text-sidebar-primary")} />
-              {!collapsed && <span className="text-sm font-bold">{t(item.title)}</span>}
+              <div className="flex items-center gap-3">
+                <Icon size={20} className={cn("transition-colors", active ? "text-background" : "group-hover:text-sidebar-primary")} />
+                {!collapsed && <span className="text-sm font-bold">{t(item.title)}</span>}
+              </div>
+              
+              {!collapsed && item.title === 'Messages' && unreadMessages > 0 && (
+                <span className="w-5 h-5 bg-red-500 rounded-full text-[10px] font-black text-white flex items-center justify-center shadow-lg shadow-red-500/20">
+                  {unreadMessages}
+                </span>
+              )}
+              
+              {collapsed && item.title === 'Messages' && unreadMessages > 0 && (
+                <span className="absolute right-2 w-2.5 h-2.5 bg-red-500 rounded-full border border-card shadow-sm" />
+              )}
             </Link>
           )
         })}

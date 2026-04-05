@@ -11,11 +11,13 @@ const common_1 = require("@nestjs/common");
 const appointments_service_1 = require("./appointments.service");
 const appointments_controller_1 = require("./appointments.controller");
 const prisma_service_1 = require("../prisma.service");
+const notifications_module_1 = require("../notifications/notifications.module");
 let AppointmentsModule = class AppointmentsModule {
 };
 exports.AppointmentsModule = AppointmentsModule;
 exports.AppointmentsModule = AppointmentsModule = __decorate([
     (0, common_1.Module)({
+        imports: [notifications_module_1.NotificationsModule],
         controllers: [appointments_controller_1.AppointmentsController],
         providers: [appointments_service_1.AppointmentsService, prisma_service_1.PrismaService],
         exports: [appointments_service_1.AppointmentsService],

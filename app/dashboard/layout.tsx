@@ -25,7 +25,7 @@ export default function DashboardLayout({
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <div className="flex h-screen bg-background overflow-hidden font-sans">
+        <div className="flex h-screen bg-background overflow-hidden font-sans relative">
           <Toaster position="top-right" />
           <Sidebar />
 

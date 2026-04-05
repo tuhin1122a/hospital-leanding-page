@@ -4,35 +4,35 @@ export declare class ApprovalsController {
     constructor(approvalsService: ApprovalsService);
     create(createDto: any): Promise<{
         id: string;
-        requestedBy: string;
+        createdAt: Date;
         type: string;
-        description: string;
         amount: number | null;
         status: string;
+        description: string;
+        requestedBy: string;
         referenceId: string | null;
-        createdAt: Date;
         actionDate: Date | null;
     }>;
     findAll(): Promise<{
         id: string;
-        requestedBy: string;
+        createdAt: Date;
         type: string;
-        description: string;
         amount: number | null;
         status: string;
+        description: string;
+        requestedBy: string;
         referenceId: string | null;
-        createdAt: Date;
         actionDate: Date | null;
     }[]>;
     updateStatus(id: string, status: string): Promise<{
         id: string;
-        requestedBy: string;
+        createdAt: Date;
         type: string;
-        description: string;
         amount: number | null;
         status: string;
+        description: string;
+        requestedBy: string;
         referenceId: string | null;
-        createdAt: Date;
         actionDate: Date | null;
     }>;
 }

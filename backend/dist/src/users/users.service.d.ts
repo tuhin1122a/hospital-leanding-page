@@ -74,8 +74,10 @@ export declare class UsersService {
         refreshToken: string | null;
         twoFactorSecret: string | null;
         twoFactorEnabled: boolean;
+        lastActive: Date | null;
         createdAt: Date;
         updatedAt: Date;
+        baseSalary: number | null;
     }>;
     updatePermissions(id: string, permissions: string[]): Promise<{
         id: string;
@@ -88,8 +90,10 @@ export declare class UsersService {
         refreshToken: string | null;
         twoFactorSecret: string | null;
         twoFactorEnabled: boolean;
+        lastActive: Date | null;
         createdAt: Date;
         updatedAt: Date;
+        baseSalary: number | null;
     }>;
     deleteUser(id: string): Promise<{
         id: string;
@@ -102,7 +106,9 @@ export declare class UsersService {
         refreshToken: string | null;
         twoFactorSecret: string | null;
         twoFactorEnabled: boolean;
+        lastActive: Date | null;
         createdAt: Date;
         updatedAt: Date;
+        baseSalary: number | null;
     }>;
 }

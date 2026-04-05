@@ -1,7 +1,26 @@
+'use client'
+
+import { useNotificationSound } from '@/hooks/useSound'
 import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react'
 import Link from 'next/link'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { CheckCircle } from 'lucide-react'
 
 export default function Footer() {
+  const { playNotification } = useNotificationSound()
+  const [email, setEmail] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!email.trim()) return
+    setSubscribed(true)
+    playNotification()
+    setEmail('')
+    setTimeout(() => setSubscribed(false), 3500)
+  }
+
   return (
     <footer className="bg-[#011632] text-white py-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -59,19 +78,43 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: Opening Hours */}
+          {/* Column 4: Newsletter Subscribe with notification sound */}
           <div className="space-y-6">
-             <h4 className="text-lg font-bold">Opening Hours</h4>
-             <ul className="space-y-4 text-sm text-zinc-400 font-medium">
-               <li className="flex justify-between">
-                  <span>Sat - Thu</span>
-                  <span className="text-primary font-bold">24 Hours</span>
-               </li>
-               <li className="flex justify-between">
-                  <span>Emergency</span>
-                  <span className="text-primary font-bold">Always Open</span>
-               </li>
-            </ul>
+            <h4 className="text-lg font-bold">Newsletter</h4>
+            <p className="text-sm text-zinc-400">স্বাস্থ্য টিপস ও হাসপাতালের আপডেট পেতে subscribe করুন।</p>
+
+            <form onSubmit={handleSubscribe} className="space-y-3">
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="Your email address"
+                className="w-full bg-white/8 border border-white/15 text-white placeholder-zinc-500 text-sm px-4 py-3 rounded-xl focus:outline-none focus:border-primary/60 transition-colors"
+              />
+              <motion.button
+                type="submit"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                className="w-full bg-primary hover:bg-primary/90 text-white font-bold text-sm py-3 rounded-xl transition-all shadow-lg shadow-primary/20"
+              >
+                Subscribe 🔔
+              </motion.button>
+            </form>
+
+            {/* Success notification */}
+            <AnimatePresence>
+              {subscribed && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 6 }}
+                  className="flex items-center gap-2 bg-green-500/15 border border-green-500/30 text-green-400 text-xs font-semibold px-3 py-2.5 rounded-xl"
+                >
+                  <CheckCircle className="w-4 h-4 shrink-0" />
+                  সফলভাবে subscribe হয়েছে! 🎉
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
         </div>
