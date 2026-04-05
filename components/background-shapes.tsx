@@ -1,8 +1,17 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
 
 export default function BackgroundShapes() {
+  const [mounted, setMounted] = useState(false)
+  
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
+
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
       {/* Premium Mesh Gradient */}
