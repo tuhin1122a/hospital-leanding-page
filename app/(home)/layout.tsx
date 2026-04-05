@@ -56,10 +56,6 @@ export const metadata: Metadata = {
     creator: '@NurjahanHosp',
     images: ['/hero-hospital.jpg'],
   },
-  icons: {
-    icon: '/icon.svg',
-    apple: '/apple-icon.png',
-  },
 }
 
 export default function HomeLayout({
