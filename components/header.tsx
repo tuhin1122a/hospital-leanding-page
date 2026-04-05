@@ -48,10 +48,22 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-10">
-            {navLinks.map((link) => (
+            {navLinks.map((link) => {
+              const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+                if (href.startsWith('#')) {
+                  e.preventDefault();
+                  const element = document.querySelector(href);
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }
+              };
+
+              return (
               <Link 
                 key={link.name} 
                 href={link.href} 
+                onClick={(e) => handleSmoothScroll(e, link.href)}
                 className={`text-[14.5px] font-bold transition-all relative group ${link.name === 'Home' ? 'text-[#ff6b35]' : 'text-[#0f172a] hover:text-[#1a4bde]'}`}
               >
                 {link.name}
@@ -61,7 +73,7 @@ export default function Header() {
                   <span className="absolute -bottom-1 left-0 w-0 h-[2.5px] bg-[#1a4bde] transition-all duration-300 group-hover:w-full rounded-full" />
                 )}
               </Link>
-            ))}
+            )})}
           </nav>
 
           {/* Right section */}
@@ -93,16 +105,30 @@ export default function Header() {
             className="lg:hidden absolute top-full left-0 w-full bg-white border-t border-slate-100 shadow-2xl overflow-hidden"
           >
             <div className="px-6 py-10 space-y-6 text-center">
-              {navLinks.map((link) => (
+              {navLinks.map((link) => {
+                const handleSmoothScrollMobile = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+                  if (href.startsWith('#')) {
+                    e.preventDefault();
+                    setMobileMenuOpen(false);
+                    const element = document.querySelector(href);
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  } else {
+                    setMobileMenuOpen(false);
+                  }
+                };
+
+                return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={(e) => handleSmoothScrollMobile(e, link.href)}
                   className="block text-[20px] font-bold text-slate-900 hover:text-[#ff6b35] transition-colors"
                 >
                   {link.name}
                 </Link>
-              ))}
+              )})}
               <Link href="/contact" className="block px-3 py-2">
                 <Button className="w-full bg-[#ff6b35] hover:bg-[#e55420] text-white font-bold rounded-xl h-12 shadow-lg shadow-[#ff6b35]/20">
                   Contact With Us

@@ -8,21 +8,40 @@ import LocationMap from '@/components/location-map';
 import Services from '@/components/services';
 import Stats from '@/components/stats';
 import Testimonials from '@/components/testimonials';
+import ScrollReveal from '@/components/scroll-reveal'; // Added ScrollReveal
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
       <Hero />
-      <Services />
-      <MedicalFacilities />
-      <SpecialistSection />
-      <AboutServices />
-      <SharedCommitment />
-      <Stats />
-      <Testimonials />
+      <ScrollReveal>
+        <Services />
+      </ScrollReveal>
+      <ScrollReveal>
+        <MedicalFacilities />
+      </ScrollReveal>
+      <ScrollReveal>
+        <SpecialistSection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <AboutServices />
+      </ScrollReveal>
+      <ScrollReveal>
+        <SharedCommitment />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Stats />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Testimonials />
+      </ScrollReveal>
       {/* <FAQ /> */}
-      <ScheduleSection />
-      <LocationMap />
+      <ScrollReveal>
+        <ScheduleSection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <LocationMap />
+      </ScrollReveal>
     </main>
   )
 }
