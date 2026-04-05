@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Search, Filter } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -20,11 +20,26 @@ const mockRecords = [
 ]
 
 export default function RecordsPage() {
-  const { t } = useLanguage(); const queryClient = useQueryClient()
+  const { t } = useLanguage();
+  const queryClient = useQueryClient()
+  const [isMounted, setIsMounted] = useState(false)
   const [search, setSearch] = useState(''); const [showUpload, setShowUpload] = useState(false)
   const [formData, setFormData] = useState({ patient: '', type: 'Lab Report', doctor: '' })
 
-  const { data: records = [], isLoading } = useQuery({ queryKey: ['medical-records'], queryFn: () => fetch(API_BASE, { headers: authHeader() }).then(r => r.ok ? r.json() : mockRecords).then(d => Array.isArray(d) ? d : Array.isArray(d?.data) ? d.data : Array.isArray(d?.records) ? d.records : []) })
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  const { data: records = [], isLoading } = useQuery({ 
+    queryKey: ['medical-records'], 
+    queryFn: () => {
+      if (typeof window === 'undefined') return []
+      return fetch(API_BASE, { headers: authHeader() })
+        .then(r => r.ok ? r.json() : mockRecords)
+        .then(d => Array.isArray(d) ? d : Array.isArray(d?.data) ? d.data : Array.isArray(d?.records) ? d.records : [])
+    },
+    enabled: isMounted
+  })
 
   const mutation = useMutation({
     mutationFn: (d: any) => fetch(API_BASE, { method: 'POST', headers: authHeader(), body: JSON.stringify(d) }),
