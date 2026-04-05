@@ -1,10 +1,10 @@
-import { Analytics } from '@vercel/analytics/next';
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { Toaster } from "react-hot-toast";
 import { Geist, Geist_Mono } from 'next/font/google';
 import type { Metadata } from 'next';
 import './globals.css';
+import WrapperAnalytics from '@/components/analytics';
 
 const _geist = Geist({ 
   subsets: ["latin"], 
@@ -27,13 +27,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${_geist.variable} ${_geistMono.variable}`}>
+    <html lang="en" className={`${_geist.variable} ${_geistMono.variable} scroll-smooth`}>
       <body className="font-sans antialiased">
         <ReactQueryProvider>
           <LanguageProvider>
             {children}
             <Toaster position="top-center" />
-            <Analytics />
+            <WrapperAnalytics />
           </LanguageProvider>
         </ReactQueryProvider>
       </body>
