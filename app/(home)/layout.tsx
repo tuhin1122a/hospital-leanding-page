@@ -1,16 +1,7 @@
-import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
-import { LanguageProvider } from "@/contexts/LanguageContext";
-import ReactQueryProvider from "@/providers/ReactQueryProvider";
-import { Toaster } from "react-hot-toast";
-import { Geist, Geist_Mono } from 'next/font/google';
-import '../globals.css';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import BackgroundShapes from '@/components/background-shapes';
-
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: 'Nurjahan Private Hospital & Diagnostic Center-2 | World-Class Healthcare',
@@ -43,27 +34,17 @@ export const metadata: Metadata = {
   },
 }
 
-export default function HomeRootLayout({
+export default function HomeLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${_geist.variable} font-sans antialiased bg-white`}>
-        <ReactQueryProvider>
-          <LanguageProvider>
-            <div className="relative isolate min-h-screen">
-              <BackgroundShapes />
-              <Header />
-              {children}
-              <Footer />
-            </div>
-            <Toaster position="top-center" />
-            <Analytics />
-          </LanguageProvider>
-        </ReactQueryProvider>
-      </body>
-    </html>
+    <div className="bg-white min-h-screen relative isolate">
+      <BackgroundShapes />
+      <Header />
+      {children}
+      <Footer />
+    </div>
   )
 }

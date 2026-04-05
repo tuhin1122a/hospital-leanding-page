@@ -1,0 +1,42 @@
+import { Analytics } from '@vercel/analytics/next';
+import { LanguageProvider } from "@/contexts/LanguageContext";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
+import { Toaster } from "react-hot-toast";
+import { Geist, Geist_Mono } from 'next/font/google';
+import type { Metadata } from 'next';
+import './globals.css';
+
+const _geist = Geist({ 
+  subsets: ["latin"], 
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], 
+  variable: '--font-geist' 
+});
+const _geistMono = Geist_Mono({ 
+  subsets: ["latin"], 
+  variable: '--font-geist-mono' 
+});
+
+export const metadata: Metadata = {
+  title: 'Nurjahan Private Hospital & Diagnostic Center-2',
+  description: 'World-class healthcare services provided 24/7.',
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en" className={`${_geist.variable} ${_geistMono.variable}`}>
+      <body className="font-sans antialiased">
+        <ReactQueryProvider>
+          <LanguageProvider>
+            {children}
+            <Toaster position="top-center" />
+            <Analytics />
+          </LanguageProvider>
+        </ReactQueryProvider>
+      </body>
+    </html>
+  )
+}

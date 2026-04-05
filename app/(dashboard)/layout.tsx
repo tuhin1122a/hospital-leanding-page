@@ -1,13 +1,4 @@
-import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
-import { LanguageProvider } from "@/contexts/LanguageContext";
-import ReactQueryProvider from "@/providers/ReactQueryProvider";
-import { Toaster } from "react-hot-toast";
-import { Geist, Geist_Mono } from 'next/font/google';
-import '../globals.css';
-
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const dynamic = 'force-dynamic'
 
@@ -19,22 +10,14 @@ export const metadata: Metadata = {
   },
 }
 
-export default function DashboardRootLayout({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${_geist.variable} font-sans antialiased bg-slate-50/50`}>
-        <ReactQueryProvider>
-          <LanguageProvider>
-            {children}
-            <Toaster position="top-right" />
-            <Analytics />
-          </LanguageProvider>
-        </ReactQueryProvider>
-      </body>
-    </html>
+    <div className="bg-slate-50/50 min-h-screen">
+      {children}
+    </div>
   )
 }
