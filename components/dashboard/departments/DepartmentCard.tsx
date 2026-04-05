@@ -17,9 +17,9 @@ export default function DepartmentCard({ unit, index }: DepartmentCardProps) {
 
   return (
     <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: index * 0.05 }}>
-      <Card className="p-8 border-border rounded-[3rem] shadow-sm hover:shadow-2xl hover:shadow-zinc-200/50 transition-all duration-500 group cursor-pointer overflow-hidden relative">
+      <Card className="p-8 border-border rounded-2xl shadow-sm hover:shadow-2xl hover:shadow-zinc-200/50 transition-all duration-500 group cursor-pointer overflow-hidden relative">
         <div className="flex justify-between items-start mb-10">
-           <div className={`p-5 rounded-[2rem] transition-transform duration-500 group-hover:scale-110 ${unit.bg} ${unit.color}`}>
+           <div className={`p-5 rounded-xl transition-transform duration-500 group-hover:scale-110 ${unit.bg} ${unit.color}`}>
               <Hotel size={32} />
            </div>
            <Badge className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border-none ${

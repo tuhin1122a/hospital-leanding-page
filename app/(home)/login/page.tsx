@@ -164,7 +164,7 @@ export default function LoginPage() {
         className="w-full max-w-md"
       >
         {/* Login Card */}
-        <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border border-white/20 dark:border-zinc-800 rounded-3xl shadow-2xl p-8 md:p-12">
+        <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border border-white/20 dark:border-zinc-800 rounded-2xl shadow-2xl p-8 md:p-12">
 
           {/* Header */}
           <div className="text-center mb-10">
@@ -173,7 +173,7 @@ export default function LoginPage() {
               transition={{ duration: 2, repeat: Infinity }}
               className="inline-block mb-6"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-3xl flex items-center justify-center shadow-2xl shadow-primary/30">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center shadow-2xl shadow-primary/30">
                 {twoFactorStep
                   ? <KeyRound size={32} className="text-white" />
                   : <Stethoscope size={32} className="text-white" />
@@ -189,7 +189,7 @@ export default function LoginPage() {
           </div>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-100 rounded-2xl border-2 border-red-500/20 text-red-600 text-sm font-bold text-center">
+            <div className="mb-6 p-4 bg-red-100 rounded-xl border-2 border-red-500/20 text-red-600 text-sm font-bold text-center">
               {error}
             </div>
           )}
@@ -221,7 +221,7 @@ export default function LoginPage() {
                         value={digit}
                         onChange={(e) => handleDigitChange(i, e.target.value)}
                         onKeyDown={(e) => handleDigitKeyDown(i, e)}
-                        className="w-12 h-14 text-center text-2xl font-black rounded-2xl border-2 border-primary/20 bg-primary/5 focus:border-primary focus:ring-4 focus:ring-primary/10 text-foreground outline-none transition-all"
+                        className="w-12 h-14 text-center text-2xl font-black rounded-xl border-2 border-primary/20 bg-primary/5 focus:border-primary focus:ring-4 focus:ring-primary/10 text-foreground outline-none transition-all"
                         autoFocus={i === 0}
                       />
                     ))}
@@ -230,7 +230,7 @@ export default function LoginPage() {
                   <Button
                     type="submit"
                     disabled={isLoading || twoFactorCode.join('').length < 6}
-                    className="w-full h-14 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-black text-base rounded-2xl shadow-xl shadow-primary/30 hover:shadow-primary/50 transition-all group disabled:opacity-70"
+                    className="w-full h-14 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-black text-base rounded-xl shadow-xl shadow-primary/30 hover:shadow-primary/50 transition-all group disabled:opacity-70"
                   >
                     {isLoading ? 'Verifying...' : 'Verify & Sign In'}
                     {!isLoading && <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />}
@@ -271,7 +271,7 @@ export default function LoginPage() {
                         placeholder="Enter your email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="h-14 pl-12 pr-4 rounded-2xl border-2 border-primary/20 bg-primary/5 focus:border-primary focus:ring-4 focus:ring-primary/10 text-foreground placeholder:text-muted-foreground font-medium transition-all"
+                        className="h-14 pl-12 pr-4 rounded-xl border-2 border-primary/20 bg-primary/5 focus:border-primary focus:ring-4 focus:ring-primary/10 text-foreground placeholder:text-muted-foreground font-medium transition-all"
                       />
                     </div>
                   </div>
@@ -286,7 +286,7 @@ export default function LoginPage() {
                         placeholder="Enter your password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full h-14 pl-12 pr-12 rounded-2xl border-2 border-primary/20 bg-primary/5 focus:border-primary focus:ring-4 focus:ring-primary/10 text-foreground placeholder:text-muted-foreground font-medium transition-all outline-none"
+                        className="w-full h-14 pl-12 pr-12 rounded-xl border-2 border-primary/20 bg-primary/5 focus:border-primary focus:ring-4 focus:ring-primary/10 text-foreground placeholder:text-muted-foreground font-medium transition-all outline-none"
                       />
                       <button
                         type="button"
@@ -320,7 +320,7 @@ export default function LoginPage() {
                   <Button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full h-14 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-black text-base rounded-2xl shadow-xl shadow-primary/30 hover:shadow-primary/50 transition-all group disabled:opacity-70"
+                    className="w-full h-14 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-black text-base rounded-xl shadow-xl shadow-primary/30 hover:shadow-primary/50 transition-all group disabled:opacity-70"
                   >
                     {isLoading ? 'Signing In...' : 'Sign In'}
                     {!isLoading && <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />}

@@ -17,7 +17,7 @@ export default function PharmacyStats() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {stats.map((s, i) => (
-        <Card key={i} className="p-6 border-border rounded-[2rem] shadow-sm flex items-center justify-between group overflow-hidden relative transition-all hover:shadow-md">
+        <Card key={i} className="p-6 border-border rounded-xl shadow-sm flex items-center justify-between group overflow-hidden relative transition-all hover:shadow-md">
           <div><p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/70 mb-1">{s.label}</p><h4 className="text-2xl font-black text-card-foreground tracking-tight">{s.value}</h4></div>
           <div className={`${s.bg} ${s.color} w-14 h-14 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}><s.icon size={24} /></div>
         </Card>

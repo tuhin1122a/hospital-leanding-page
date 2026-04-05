@@ -22,7 +22,7 @@ export default function BillingStats({ invoices }: BillingStatsProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
       {stats.map((stat, i) => (
-        <Card key={i} className="p-8 border-none rounded-[2.5rem] bg-card shadow-xl shadow-zinc-200/40 relative overflow-hidden group">
+        <Card key={i} className="p-8 border-none rounded-xl bg-card shadow-xl shadow-zinc-200/40 relative overflow-hidden group">
           <div className="relative z-10 flex items-start justify-between">
             <div>
               <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/70 mb-2">{stat.label}</p>

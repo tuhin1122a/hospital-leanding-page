@@ -149,7 +149,7 @@ export default function Messenger() {
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            className={`w-[400px] h-[600px] bg-card border border-border shadow-2xl rounded-3xl flex flex-col overflow-hidden pointer-events-auto transform-gpu ${isMinimized ? 'h-20' : ''}`}
+            className={`w-[400px] h-[600px] bg-card border border-border shadow-2xl rounded-2xl flex flex-col overflow-hidden pointer-events-auto transform-gpu ${isMinimized ? 'h-20' : ''}`}
           >
             {/* Header */}
             <div className={`p-5 bg-foreground text-background flex items-center justify-between transition-all ${isMinimized ? 'rounded-full mx-2 mt-2 h-16' : ''}`}>

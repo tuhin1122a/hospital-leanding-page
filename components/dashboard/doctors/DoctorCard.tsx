@@ -17,7 +17,7 @@ export default function DoctorCard({ doctor, index }: DoctorCardProps) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}>
-      <Card className="p-0 border-border rounded-[2.5rem] overflow-hidden hover:shadow-2xl hover:shadow-zinc-200/50 transition-all duration-500 relative group">
+      <Card className="p-0 border-border rounded-xl overflow-hidden hover:shadow-2xl hover:shadow-zinc-200/50 transition-all duration-500 relative group">
         <div className="p-8">
           <div className="flex justify-between items-start mb-6">
             <div className="relative">

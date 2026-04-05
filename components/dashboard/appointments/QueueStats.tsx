@@ -15,7 +15,7 @@ export default function QueueStats({ appointments }: QueueStatsProps) {
 
   return (
     <div className="space-y-8">
-      <Card className="p-8 rounded-[2.5rem] border-border shadow-sm bg-foreground text-background relative overflow-hidden">
+      <Card className="p-8 rounded-xl border-border shadow-sm bg-foreground text-background relative overflow-hidden">
         <div className="relative z-10">
           <h3 className="text-lg font-black tracking-tight mb-2">{t('Queue Status')}</h3>
           <p className="text-sm text-muted-foreground/70 font-medium mb-8">{t('Live monitor of clinic traffic')}</p>

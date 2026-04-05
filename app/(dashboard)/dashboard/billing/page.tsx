@@ -21,8 +21,8 @@ export default function BillingPage() {
   const [showModal, setShowModal] = useState(false); const [searchQuery, setSearchQuery] = useState('')
   const [formData, setFormData] = useState({ patientId: '', items: [{ name: '', price: 0 }], discount: 0, paidAmount: 0 })
 
-  const { data: invoices = [], isLoading } = useQuery({ queryKey: ['invoices'], queryFn: () => fetch(API, { headers: authHeader() }).then(r => r.json()) })
-  const { data: patients = [] } = useQuery({ queryKey: ['patients-list'], queryFn: () => fetch(PATIENTS_API, { headers: authHeader() }).then(r => r.json()) })
+  const { data: invoices = [], isLoading } = useQuery({ queryKey: ['invoices'], queryFn: () => fetch(API, { headers: authHeader() }).then(r => r.json()).then(d => Array.isArray(d) ? d : Array.isArray(d?.data) ? d.data : Array.isArray(d?.invoices) ? d.invoices : []) })
+  const { data: patients = [] } = useQuery({ queryKey: ['patients-list'], queryFn: () => fetch(PATIENTS_API, { headers: authHeader() }).then(r => r.json()).then(d => Array.isArray(d) ? d : Array.isArray(d?.data) ? d.data : Array.isArray(d?.patients) ? d.patients : []) })
 
   const createMutation = useMutation({
     mutationFn: (data: any) => fetch(API, { method: 'POST', headers: authHeader(), body: JSON.stringify(data) }).then(r => r.ok ? r.json() : r.json().then(e => { throw e })),
@@ -52,7 +52,7 @@ export default function BillingPage() {
 
       <BillingStats invoices={invoices} />
 
-      <div className="bg-card rounded-[2.5rem] border border-border shadow-sm overflow-hidden text-card-foreground">
+      <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden text-card-foreground">
         <div className="p-10 flex flex-col lg:flex-row items-center justify-between gap-8 border-b border-border/50">
            <div className="relative flex-grow w-full"><Search size={20} className="absolute left-6 top-1/2 -translate-y-1/2 text-muted-foreground/70" /><input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder={t("Search by invoice ID or patient name...")} className="w-full h-14 pl-16 pr-8 rounded-2xl bg-muted border border-border outline-none transition-all font-bold" /></div>
         </div>

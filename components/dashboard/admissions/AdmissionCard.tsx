@@ -17,7 +17,7 @@ export default function AdmissionCard({ adm, index, onDischarge }: AdmissionCard
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}>
-      <Card className="p-8 rounded-[3rem] border border-border bg-card hover:shadow-2xl transition-all duration-500 overflow-hidden relative group">
+      <Card className="p-8 rounded-2xl border border-border bg-card hover:shadow-2xl transition-all duration-500 overflow-hidden relative group">
         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[5rem] -mr-8 -mt-8 transition-all group-hover:bg-primary/10" />
         
         <div className="flex justify-between items-start mb-6">

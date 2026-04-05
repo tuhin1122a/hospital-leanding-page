@@ -34,7 +34,7 @@ export default function TwoFaModal({ show, qrCode, secret, token, loading, onClo
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="bg-card rounded-[2.5rem] border border-border p-8 max-w-md w-full shadow-2xl"
+            className="bg-card rounded-2xl border border-border p-8 max-w-md w-full shadow-2xl"
           >
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-black text-card-foreground">{t('Setup Google Authenticator')}</h3>

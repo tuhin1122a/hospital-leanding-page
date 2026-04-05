@@ -24,7 +24,7 @@ export default function RecordsPage() {
   const [search, setSearch] = useState(''); const [showUpload, setShowUpload] = useState(false)
   const [formData, setFormData] = useState({ patient: '', type: 'Lab Report', doctor: '' })
 
-  const { data: records = [], isLoading } = useQuery({ queryKey: ['medical-records'], queryFn: () => fetch(API_BASE, { headers: authHeader() }).then(r => r.ok ? r.json() : mockRecords) })
+  const { data: records = [], isLoading } = useQuery({ queryKey: ['medical-records'], queryFn: () => fetch(API_BASE, { headers: authHeader() }).then(r => r.ok ? r.json() : mockRecords).then(d => Array.isArray(d) ? d : Array.isArray(d?.data) ? d.data : Array.isArray(d?.records) ? d.records : []) })
 
   const mutation = useMutation({
     mutationFn: (d: any) => fetch(API_BASE, { method: 'POST', headers: authHeader(), body: JSON.stringify(d) }),
@@ -40,7 +40,7 @@ export default function RecordsPage() {
         <div className="flex items-center gap-3"><Button variant="outline" className="h-14 px-8 rounded-2xl border-border font-black">{t('Access Logs')}</Button><Button className="h-14 px-8 rounded-2xl bg-foreground text-background font-black shadow-xl shadow-zinc-950/20">{t('Digital Vault')}</Button></div>
       </div>
       <RecordsStats />
-      <div className="bg-card rounded-[2.5rem] border border-border shadow-sm overflow-hidden">
+      <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
         <div className="p-8 border-b border-border/50 flex flex-col lg:flex-row items-center gap-6">
           <div className="relative flex-grow w-full"><Search size={20} className="absolute left-6 top-1/2 -translate-y-1/2 text-muted-foreground/70" /><input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t("Search by ID, patient, or document type...")} className="w-full h-14 pl-16 rounded-2xl bg-muted/50 border border-border/50 focus:bg-card outline-none font-bold" /></div>
           <div className="flex items-center gap-3 w-full lg:w-auto"><Button variant="outline" className="h-14 px-6 rounded-2xl border-border font-bold text-muted-foreground"><Filter size={18} className="mr-2" /> {t('Filter')}</Button><Button onClick={() => setShowUpload(true)} className="h-14 px-8 rounded-2xl bg-primary text-background font-black">{t('Upload File')}</Button></div>

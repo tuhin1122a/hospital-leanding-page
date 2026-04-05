@@ -58,7 +58,7 @@ export default function NotificationsPage() {
       <NotificationFilters filter={filter} setFilter={setFilter} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <div className="space-y-4 relative min-h-[400px]">
         {isLoading ? <div className="absolute inset-0 flex items-center justify-center"><div className="w-10 h-10 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div></div> : filtered.length === 0 ? (
-          <div className="h-64 flex flex-col items-center justify-center bg-card rounded-3xl border border-border border-dashed"><div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center text-muted-foreground mb-4"><Info size={32} /></div><h3 className="text-xl font-black">{t("No events found")}</h3></div>
+          <div className="h-64 flex flex-col items-center justify-center bg-card rounded-2xl border border-border border-dashed"><div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center text-muted-foreground mb-4"><Info size={32} /></div><h3 className="text-xl font-black">{t("No events found")}</h3></div>
         ) : <AnimatePresence>{filtered.map((n:any, i:number) => <NotificationItem key={n.id} notification={n} index={i} onMarkRead={(id, e) => { e.stopPropagation(); markReadMutation.mutate(id) }} onClick={() => router.push(n.message.toLowerCase().includes('payment') ? '/dashboard/billing' : n.message.toLowerCase().includes('admit') ? '/dashboard/admissions' : '/dashboard/notifications')} />)}</AnimatePresence>}
       </div>
     </div>

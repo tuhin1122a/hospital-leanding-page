@@ -30,7 +30,7 @@ export default function NewInvoiceModal({ show, onClose, patients, formData, set
             onClick={() => !isSubmitting && onClose()} className="absolute inset-0 bg-black/60 backdrop-blur-sm"
           />
           <motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="relative w-full max-w-2xl bg-card border border-border rounded-[3rem] shadow-2xl overflow-hidden"
+            className="relative w-full max-w-2xl bg-card border border-border rounded-2xl shadow-2xl overflow-hidden"
           >
             <div className="p-8 md:p-10 max-h-[90vh] overflow-y-auto custom-scrollbar">
               <div className="flex items-center justify-between mb-8">

@@ -33,11 +33,11 @@ export default function ScheduleSection() {
           
           {/* Left: Doctor Image with Opening Time */}
           <div className="relative">
-            <div className="relative z-10 w-full aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl">
+            <div className="relative z-10 w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
               <Image src="/masked-doctor.png" alt="Schedule doctor" fill className="object-cover" />
               
               {/* Opening Time Overlay */}
-              <div className="absolute bottom-10 left-10 right-10 bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-white/20">
+              <div className="absolute bottom-10 left-10 right-10 bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-2xl border border-white/20">
                 <h4 className="text-xl font-bold text-primary mb-4">Opening time</h4>
                 <div className="space-y-2 text-sm font-semibold text-[#011632]">
                   <div className="flex justify-between border-b pb-2">

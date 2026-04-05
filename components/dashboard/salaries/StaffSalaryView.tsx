@@ -18,7 +18,7 @@ export default function StaffSalaryView({ history }: StaffSalaryViewProps) {
   return (
     <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} className="grid grid-cols-1 lg:grid-cols-3 gap-10">
       <Card className="p-10 rounded-2xl border border-border shadow-xl flex items-center gap-8 relative overflow-hidden group col-span-1 bg-gradient-to-br from-primary to-primary-foreground text-background">
-        <div className="w-20 h-20 bg-background/20 rounded-3xl flex items-center justify-center text-background shrink-0 transform group-hover:rotate-6 transition-transform shadow-inner">
+        <div className="w-20 h-20 bg-background/20 rounded-2xl flex items-center justify-center text-background shrink-0 transform group-hover:rotate-6 transition-transform shadow-inner">
           <CreditCard size={36} />
         </div>
         <div>

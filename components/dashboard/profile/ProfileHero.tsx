@@ -16,7 +16,7 @@ export default function ProfileHero({ user, isUploading, onFileSelect }: Profile
   const { t } = useLanguage(); const fileInputRef = useRef<HTMLInputElement>(null)
 
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="bg-card rounded-[3rem] border border-border overflow-hidden shadow-sm">
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="bg-card rounded-2xl border border-border overflow-hidden shadow-sm">
       <div className="h-44 bg-gradient-to-br from-primary via-primary/70 to-blue-400 relative">
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='1'%3E%3Ccircle cx='20' cy='20' r='3'/%3E%3C/g%3E%3C/svg%3E")` }} />
       </div>
@@ -24,7 +24,7 @@ export default function ProfileHero({ user, isUploading, onFileSelect }: Profile
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 -mt-16">
           <div className="flex items-end gap-6">
             <div className="relative group shrink-0">
-              <div onClick={() => !isUploading && fileInputRef.current?.click()} className="w-32 h-32 rounded-[2.5rem] border-4 border-card shadow-2xl overflow-hidden cursor-pointer bg-muted">
+              <div onClick={() => !isUploading && fileInputRef.current?.click()} className="w-32 h-32 rounded-xl border-4 border-card shadow-2xl overflow-hidden cursor-pointer bg-muted">
                 {isUploading ? <div className="w-full h-full flex items-center justify-center bg-primary/10"><span className="text-primary font-black text-xs animate-pulse">...</span></div> : user?.profilePic ? <img src={user.profilePic} className="w-full h-full object-cover" alt="" /> : <div className="w-full h-full flex items-center justify-center"><User size={40} className="text-muted-foreground" /></div>}
                 <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all gap-1"><Camera size={20} className="text-white" /><span className="text-white text-[10px] font-black uppercase tracking-widest">{t('Change')}</span></div>
               </div>

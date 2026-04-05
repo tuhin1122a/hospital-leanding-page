@@ -28,8 +28,8 @@ export default function DoctorsPage() {
       </div>
 
       <div className="flex flex-col lg:flex-row items-center gap-6">
-        <div className="relative flex-grow w-full"><Search size={20} className="absolute left-6 top-1/2 -translate-y-1/2 text-muted-foreground/70" /><input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder={t("Search by name, specialty, or ID...")} className="w-full h-16 pl-16 pr-8 rounded-3xl bg-card border border-border shadow-sm focus:ring-4 focus:ring-primary/5 outline-none font-bold text-card-foreground" /></div>
-        <Button variant="outline" className="h-16 px-8 rounded-3xl border-border font-black text-muted-foreground gap-2"><Filter size={18} className="text-primary" /> {t('Filter')}</Button>
+        <div className="relative flex-grow w-full"><Search size={20} className="absolute left-6 top-1/2 -translate-y-1/2 text-muted-foreground/70" /><input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder={t("Search by name, specialty, or ID...")} className="w-full h-16 pl-16 pr-8 rounded-2xl bg-card border border-border shadow-sm focus:ring-4 focus:ring-primary/5 outline-none font-bold text-card-foreground" /></div>
+        <Button variant="outline" className="h-16 px-8 rounded-2xl border-border font-black text-muted-foreground gap-2"><Filter size={18} className="text-primary" /> {t('Filter')}</Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">

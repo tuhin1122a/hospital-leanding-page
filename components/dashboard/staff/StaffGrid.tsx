@@ -20,7 +20,7 @@ export default function StaffGrid({ staff, onUpdatePerm, onDelete }: StaffGridPr
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
       {staff.map((member, i) => (
         <motion.div key={member.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
-          <Card className="p-0 border-border rounded-[2.5rem] overflow-hidden hover:shadow-2xl hover:shadow-zinc-200/50 transition-all duration-500 relative group bg-card">
+          <Card className="p-0 border-border rounded-xl overflow-hidden hover:shadow-2xl hover:shadow-zinc-200/50 transition-all duration-500 relative group bg-card">
             <div className="p-8">
               <div className="flex justify-between items-start mb-6">
                 <div className="relative">

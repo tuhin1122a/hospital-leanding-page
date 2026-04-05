@@ -16,7 +16,7 @@ export default function AccountDetails({ user }: AccountDetailsProps) {
   ]
 
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-card rounded-[2.5rem] border border-border p-8 space-y-5 shadow-sm">
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-card rounded-xl border border-border p-8 space-y-5 shadow-sm">
       <div className="flex items-center gap-3 mb-2"><div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center"><User size={18} className="text-primary" /></div><h3 className="font-black text-card-foreground">{t('Account Details')}</h3></div>
       {items.map((item, i) => (
         <div key={i} className="flex items-center gap-4 p-4 rounded-2xl bg-muted/50 border border-transparent hover:border-border transition-all">

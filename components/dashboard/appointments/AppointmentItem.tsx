@@ -15,7 +15,7 @@ export default function AppointmentItem({ app, index }: AppointmentItemProps) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}
-      className="group flex flex-col md:flex-row md:items-center gap-6 p-6 rounded-[2rem] border border-border/50 hover:bg-muted/30 transition-all cursor-pointer"
+      className="group flex flex-col md:flex-row md:items-center gap-6 p-6 rounded-xl border border-border/50 hover:bg-muted/30 transition-all cursor-pointer"
     >
       <div className="flex flex-col items-center justify-center w-24 h-24 rounded-2xl bg-primary/5 text-primary">
          <p className="text-[10px] font-black uppercase tracking-tighter">{t('SL NO')}</p>

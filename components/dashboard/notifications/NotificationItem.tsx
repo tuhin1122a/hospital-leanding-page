@@ -28,7 +28,7 @@ export default function NotificationItem({ notification, index, onMarkRead, onCl
   const styles = getStyles(notification)
 
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }} onClick={onClick} className={`group bg-card border rounded-3xl p-5 md:p-6 flex flex-col md:flex-row md:items-center gap-5 transition-all cursor-pointer shadow-sm hover:shadow-md ${!notification.read ? 'border-primary/40 bg-primary/[0.03]' : 'border-border/60 hover:border-border'}`}>
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }} onClick={onClick} className={`group bg-card border rounded-2xl p-5 md:p-6 flex flex-col md:flex-row md:items-center gap-5 transition-all cursor-pointer shadow-sm hover:shadow-md ${!notification.read ? 'border-primary/40 bg-primary/[0.03]' : 'border-border/60 hover:border-border'}`}>
       <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 border ${styles.bg} ${styles.border}`}>{styles.icon}</div>
       <div className="flex-1">
         <div className="flex items-center gap-3 mb-1.5 align-middle">

@@ -24,7 +24,7 @@ export default function PharmacyPage() {
   const [search, setSearch] = useState(''); const [showAdd, setShowAdd] = useState(false)
   const [formData, setFormData] = useState({ name: '', stock: '', price: '', expiry: '' })
 
-  const { data: meds = [], isLoading } = useQuery({ queryKey: ['pharmacy-inventory'], queryFn: () => fetch(API_BASE, { headers: authHeader() }).then(r => r.ok ? r.json() : mockMeds) })
+  const { data: meds = [], isLoading } = useQuery({ queryKey: ['pharmacy-inventory'], queryFn: () => fetch(API_BASE, { headers: authHeader() }).then(r => r.ok ? r.json() : mockMeds).then(d => Array.isArray(d) ? d : Array.isArray(d?.data) ? d.data : Array.isArray(d?.medicines) ? d.medicines : []) })
 
   const mutation = useMutation({
     mutationFn: (d: any) => fetch(API_BASE, { method: 'POST', headers: authHeader(), body: JSON.stringify(d) }),
@@ -40,7 +40,7 @@ export default function PharmacyPage() {
         <div className="flex items-center gap-3"><Button variant="outline" className="h-14 px-8 rounded-2xl bg-card font-black">{t('Purchase Orders')}</Button><Button onClick={() => setShowAdd(true)} className="h-14 px-8 rounded-2xl bg-foreground text-background font-black shadow-xl shadow-zinc-950/20"><Plus size={20} className="mr-2" /> {t('Add Inventory')}</Button></div>
       </div>
       <PharmacyStats />
-      <div className="bg-card rounded-[2.5rem] border border-border shadow-sm overflow-hidden">
+      <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
         <div className="p-10 border-b border-border/50">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8 mb-10">
             <h3 className="text-2xl font-black tracking-tighter">{t('Current Stock')}</h3>
@@ -50,7 +50,7 @@ export default function PharmacyPage() {
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {isLoading ? [1,2,3].map(i => <div key={i} className="h-48 rounded-[2rem] bg-muted animate-pulse" />) : filtered.map((item: any, i: number) => <MedicineCard key={item.id} item={item} index={i} />)}
+            {isLoading ? [1,2,3].map(i => <div key={i} className="h-48 rounded-xl bg-muted animate-pulse" />) : filtered.map((item: any, i: number) => <MedicineCard key={item.id} item={item} index={i} />)}
           </div>
         </div>
       </div>

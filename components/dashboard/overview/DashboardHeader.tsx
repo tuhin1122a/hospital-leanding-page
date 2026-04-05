@@ -6,12 +6,19 @@ import { Sun, Cloud, CalendarDays, Users } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 interface DashboardHeaderProps {
-  activeStaff?: number
+  activeStaff?: number | any[]
 }
 
 export default function DashboardHeader({ activeStaff = 0 }: DashboardHeaderProps) {
   const { t } = useLanguage()
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+  const activeStaffCount = Array.isArray(activeStaff)
+    ? activeStaff.length
+    : typeof activeStaff === 'number'
+    ? activeStaff
+    : activeStaff && typeof activeStaff === 'object'
+    ? 1 // single staff object returned instead of count
+    : 0
 
   return (
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-4">
@@ -29,13 +36,13 @@ export default function DashboardHeader({ activeStaff = 0 }: DashboardHeaderProp
           </div>
           <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-xl shadow-sm text-sm text-emerald-600">
             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-            {activeStaff} {t('Active Personnel')}
+            {activeStaffCount} {t('Active Personnel')}
           </div>
         </div>
       </motion.div>
 
       <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="hidden lg:flex items-center gap-4">
-         <div className="bg-card border border-border p-4 rounded-[1.5rem] shadow-sm flex items-center gap-4">
+         <div className="bg-card border border-border p-4 rounded-lg shadow-sm flex items-center gap-4">
             <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500">
                <Cloud size={24} />
             </div>

@@ -23,7 +23,7 @@ export default function AddStaffModal({ show, onClose, onSubmit, formData, setFo
       {show && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-          <motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} className="relative w-full max-w-lg bg-card border border-border rounded-[3rem] shadow-2xl overflow-hidden">
+          <motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} className="relative w-full max-w-lg bg-card border border-border rounded-2xl shadow-2xl overflow-hidden">
             <div className="p-8 md:p-10">
               <div className="flex items-center justify-between mb-8"><div><h2 className="text-3xl font-black text-card-foreground tracking-tighter">{t('Add New Staff')}</h2><p className="text-muted-foreground font-medium">{t('Create a professional medical account')}</p></div><button onClick={onClose} className="p-3 rounded-2xl bg-muted hover:bg-border transition-all text-muted-foreground"><X size={24} /></button></div>
               <form onSubmit={onSubmit} className="space-y-6">

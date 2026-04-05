@@ -15,7 +15,7 @@ export default function MedicineCard({ item, index }: MedicineCardProps) {
   const { t } = useLanguage()
 
   return (
-    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }} className="p-6 rounded-[2rem] border border-border hover:border-primary/20 hover:bg-primary/[0.01] transition-all group cursor-pointer shadow-sm">
+    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }} className="p-6 rounded-xl border border-border hover:border-primary/20 hover:bg-primary/[0.01] transition-all group cursor-pointer shadow-sm">
       <div className="flex justify-between items-start mb-6">
         <div className="w-14 h-14 rounded-2xl bg-muted flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-background transition-all"><Pill size={24} /></div>
         <Badge className={`px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border-none ${item.status === 'In Stock' ? 'bg-emerald-500 text-background' : item.status === 'Low Stock' ? 'bg-amber-500 text-background' : 'bg-red-500 text-background'}`}>{item.status}</Badge>

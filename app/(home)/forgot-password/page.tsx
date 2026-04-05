@@ -112,7 +112,7 @@ export default function ForgotPasswordPage() {
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-[120px] -z-0" />
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">
-        <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border border-white/20 dark:border-zinc-800 rounded-3xl shadow-2xl p-8 md:p-10">
+        <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border border-white/20 dark:border-zinc-800 rounded-2xl shadow-2xl p-8 md:p-10">
 
           {/* Header */}
           <div className="text-center mb-8">
@@ -121,7 +121,7 @@ export default function ForgotPasswordPage() {
               transition={{ duration: 2, repeat: Infinity }}
               className="inline-block mb-5"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-3xl flex items-center justify-center shadow-2xl shadow-primary/30">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center shadow-2xl shadow-primary/30">
                 {step === 'done' ? <CheckCircle size={32} className="text-white" /> : <Lock size={32} className="text-white" />}
               </div>
             </motion.div>
@@ -147,7 +147,7 @@ export default function ForgotPasswordPage() {
 
           {/* Error */}
           {error && (
-            <div className="mb-5 p-4 bg-red-100 rounded-2xl border-2 border-red-500/20 text-red-600 text-sm font-bold text-center">
+            <div className="mb-5 p-4 bg-red-100 rounded-xl border-2 border-red-500/20 text-red-600 text-sm font-bold text-center">
               {error}
             </div>
           )}
@@ -171,7 +171,7 @@ export default function ForgotPasswordPage() {
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       placeholder="your@email.com"
-                      className="w-full h-13 pl-10 pr-4 py-3.5 rounded-2xl border-2 border-primary/20 bg-primary/5 focus:border-primary focus:ring-4 focus:ring-primary/10 text-foreground placeholder:text-muted-foreground font-medium outline-none transition-all"
+                      className="w-full h-13 pl-10 pr-4 py-3.5 rounded-xl border-2 border-primary/20 bg-primary/5 focus:border-primary focus:ring-4 focus:ring-primary/10 text-foreground placeholder:text-muted-foreground font-medium outline-none transition-all"
                       autoFocus
                     />
                   </div>
@@ -179,7 +179,7 @@ export default function ForgotPasswordPage() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full h-13 py-3.5 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-black text-sm rounded-2xl shadow-xl shadow-primary/30 transition-all disabled:opacity-70"
+                  className="w-full h-13 py-3.5 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-black text-sm rounded-xl shadow-xl shadow-primary/30 transition-all disabled:opacity-70"
                 >
                   {isLoading ? 'পাঠাচ্ছি...' : 'OTP পাঠান →'}
                 </button>
@@ -203,14 +203,14 @@ export default function ForgotPasswordPage() {
                     value={otp}
                     onChange={e => setOtp(e.target.value.replace(/\D/g, ''))}
                     placeholder="000000"
-                    className="w-full py-4 px-5 rounded-2xl border-2 border-primary/20 bg-primary/5 focus:border-primary focus:ring-4 focus:ring-primary/10 text-foreground font-mono font-black text-center text-2xl tracking-[0.4em] outline-none transition-all"
+                    className="w-full py-4 px-5 rounded-xl border-2 border-primary/20 bg-primary/5 focus:border-primary focus:ring-4 focus:ring-primary/10 text-foreground font-mono font-black text-center text-2xl tracking-[0.4em] outline-none transition-all"
                     autoFocus
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={isLoading || otp.length < 6}
-                  className="w-full py-3.5 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-black text-sm rounded-2xl shadow-xl shadow-primary/30 transition-all disabled:opacity-70"
+                  className="w-full py-3.5 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-black text-sm rounded-xl shadow-xl shadow-primary/30 transition-all disabled:opacity-70"
                 >
                   {isLoading ? 'Verifying...' : 'Verify করুন →'}
                 </button>
@@ -235,7 +235,7 @@ export default function ForgotPasswordPage() {
                       value={newPass}
                       onChange={e => setNewPass(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full py-3.5 px-5 rounded-2xl border-2 border-primary/20 bg-primary/5 focus:border-primary focus:ring-4 focus:ring-primary/10 text-foreground font-bold outline-none transition-all"
+                      className="w-full py-3.5 px-5 rounded-xl border-2 border-primary/20 bg-primary/5 focus:border-primary focus:ring-4 focus:ring-primary/10 text-foreground font-bold outline-none transition-all"
                     />
                     {strength && (
                       <div className="mt-2 space-y-1">
@@ -253,7 +253,7 @@ export default function ForgotPasswordPage() {
                       value={confirmPass}
                       onChange={e => setConfirmPass(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full py-3.5 px-5 rounded-2xl border-2 border-primary/20 bg-primary/5 focus:border-primary focus:ring-4 focus:ring-primary/10 text-foreground font-bold outline-none transition-all"
+                      className="w-full py-3.5 px-5 rounded-xl border-2 border-primary/20 bg-primary/5 focus:border-primary focus:ring-4 focus:ring-primary/10 text-foreground font-bold outline-none transition-all"
                     />
                     {confirmPass && (
                       <p className={`text-[10px] font-black uppercase tracking-widest mt-1 ${newPass === confirmPass ? 'text-emerald-500' : 'text-red-500'}`}>
@@ -265,7 +265,7 @@ export default function ForgotPasswordPage() {
                 <button
                   type="submit"
                   disabled={isLoading || newPass.length < 8 || newPass !== confirmPass}
-                  className="w-full py-3.5 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-black text-sm rounded-2xl shadow-xl shadow-primary/30 transition-all disabled:opacity-70"
+                  className="w-full py-3.5 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-black text-sm rounded-xl shadow-xl shadow-primary/30 transition-all disabled:opacity-70"
                 >
                   {isLoading ? 'Saving...' : 'Password Reset করুন →'}
                 </button>
@@ -292,7 +292,7 @@ export default function ForgotPasswordPage() {
                   </p>
                 </div>
                 <Link href="/login"
-                  className="block w-full py-3.5 bg-gradient-to-r from-primary to-secondary text-white font-black text-sm rounded-2xl shadow-xl shadow-primary/30 text-center transition-all hover:from-primary/90 hover:to-secondary/90"
+                  className="block w-full py-3.5 bg-gradient-to-r from-primary to-secondary text-white font-black text-sm rounded-xl shadow-xl shadow-primary/30 text-center transition-all hover:from-primary/90 hover:to-secondary/90"
                 >
                   Login করুন →
                 </Link>

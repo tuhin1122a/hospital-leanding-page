@@ -13,7 +13,7 @@ export default function NotificationHeader({ onRefresh, onMarkAllRead }: Notific
   const { t } = useLanguage()
 
   return (
-    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-card p-6 md:p-8 rounded-[2.5rem] border border-border shadow-sm relative overflow-hidden">
+    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-card p-6 md:p-8 rounded-xl border border-border shadow-sm relative overflow-hidden">
       <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
       <div className="flex items-center gap-5 relative z-10">
         <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shrink-0 border border-primary/20 shadow-inner"><Bell size={28} /></div>

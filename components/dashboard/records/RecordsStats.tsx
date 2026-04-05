@@ -16,7 +16,7 @@ export default function RecordsStats() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {stats.map((s, i) => (
-        <div key={i} className="bg-card p-6 rounded-[2rem] border border-border shadow-sm flex items-center gap-4 transition-all hover:shadow-md">
+        <div key={i} className="bg-card p-6 rounded-xl border border-border shadow-sm flex items-center gap-4 transition-all hover:shadow-md">
           <div className={`p-4 rounded-2xl ${s.bg} flex items-center justify-center`}><s.icon size={20} className={s.color} /></div>
           <div><p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/70 leading-none mb-1">{s.label}</p><p className="text-xl font-black text-card-foreground">{s.value}</p></div>
         </div>

@@ -21,7 +21,7 @@ export default function TwoFactorCard({ twoFaEnabled, loading2fa, onGenerate, on
     <div className="space-y-5">
       {/* 2FA Card */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
-        className="bg-card rounded-[2.5rem] border border-border p-8"
+        className="bg-card rounded-xl border border-border p-8"
       >
         <div className="flex items-center gap-3 mb-6">
           <div className="w-10 h-10 rounded-2xl bg-purple-500/10 flex items-center justify-center">
@@ -60,7 +60,7 @@ export default function TwoFactorCard({ twoFaEnabled, loading2fa, onGenerate, on
 
       {/* API Key Card */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-        className="bg-card rounded-[2.5rem] border border-border p-8"
+        className="bg-card rounded-xl border border-border p-8"
       >
         <div className="flex items-center gap-3 mb-5">
           <div className="w-10 h-10 rounded-2xl bg-amber-500/10 flex items-center justify-center">

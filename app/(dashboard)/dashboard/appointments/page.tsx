@@ -20,8 +20,8 @@ export default function AppointmentsPage() {
   const [showModal, setShowModal] = useState(false)
   const [formData, setFormData] = useState({ patientId: '', department: 'General Medicine', doctorName: '', appointmentDate: new Date().toISOString().split('T')[0], fee: 500 })
 
-  const { data: appointments = [], isLoading } = useQuery({ queryKey: ['appointments'], queryFn: () => fetch(API, { headers: authHeader() }).then(r => r.json()) })
-  const { data: patients = [] } = useQuery({ queryKey: ['patients-list'], queryFn: () => fetch(PATIENTS_API, { headers: authHeader() }).then(r => r.json()) })
+  const { data: appointments = [], isLoading } = useQuery({ queryKey: ['appointments'], queryFn: () => fetch(API, { headers: authHeader() }).then(r => r.json()).then(d => Array.isArray(d) ? d : Array.isArray(d?.data) ? d.data : []) })
+  const { data: patients = [] } = useQuery({ queryKey: ['patients-list'], queryFn: () => fetch(PATIENTS_API, { headers: authHeader() }).then(r => r.json()).then(d => Array.isArray(d) ? d : Array.isArray(d?.data) ? d.data : Array.isArray(d?.patients) ? d.patients : []) })
 
   const bookMutation = useMutation({
     mutationFn: (data: any) => fetch(API, { method: 'POST', headers: authHeader(), body: JSON.stringify({ ...data, fee: Number(data.fee), appointmentDate: new Date(data.appointmentDate).toISOString() }) }).then(r => r.ok ? r.json() : r.json().then(e => { throw e })),
@@ -41,12 +41,12 @@ export default function AppointmentsPage() {
 
       <div className="grid grid-cols-1 xl:grid-cols-4 gap-10">
         <div className="xl:col-span-3 space-y-8">
-          <div className="bg-card rounded-[3rem] border border-border p-10 min-h-[600px]">
+          <div className="bg-card rounded-2xl border border-border p-10 min-h-[600px]">
              <div className="flex items-center justify-between mb-10"><h2 className="text-2xl font-black text-card-foreground tracking-tight">{new Date().toDateString()}</h2></div>
              {isLoading ? (
                 <div className="space-y-4">{[1,2,3].map(i => <div key={i} className="h-24 rounded-2xl bg-muted animate-pulse" />)}</div>
              ) : appointments.length === 0 ? (
-                <div className="text-center py-20 bg-muted/20 rounded-[2rem] border border-dashed border-border"><Calendar size={48} className="mx-auto text-muted-foreground/30 mb-4" /><p className="text-lg font-bold text-muted-foreground">{t('No appointments found for today')}</p></div>
+                <div className="text-center py-20 bg-muted/20 rounded-xl border border-dashed border-border"><Calendar size={48} className="mx-auto text-muted-foreground/30 mb-4" /><p className="text-lg font-bold text-muted-foreground">{t('No appointments found for today')}</p></div>
              ) : (
                 <div className="space-y-4">{appointments.map((app: any, i: number) => <AppointmentItem key={app.id} app={app} index={i} />)}</div>
              )}

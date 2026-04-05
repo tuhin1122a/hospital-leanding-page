@@ -20,7 +20,7 @@ export default function RegisterDoctorModal({ show, onClose, onSubmit }: Registe
       {show && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-          <motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} className="relative w-full max-w-2xl bg-card border border-border rounded-[3rem] shadow-2xl overflow-hidden">
+          <motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} className="relative w-full max-w-2xl bg-card border border-border rounded-2xl shadow-2xl overflow-hidden">
             <div className="p-8 md:p-10 max-h-[90vh] overflow-y-auto custom-scrollbar">
               <div className="flex items-center justify-between mb-8">
                 <div><h2 className="text-3xl font-black text-card-foreground tracking-tighter">{t('Register New Doctor')}</h2><p className="text-muted-foreground font-medium">{t('Add a new specialist to the medical faculty')}</p></div>
@@ -28,7 +28,7 @@ export default function RegisterDoctorModal({ show, onClose, onSubmit }: Registe
               </div>
               <form onSubmit={onSubmit} className="space-y-6">
                 <div className="flex justify-center mb-8">
-                   <div className="w-32 h-32 rounded-[2.5rem] bg-muted border-2 border-dashed border-border flex flex-col items-center justify-center text-muted-foreground hover:border-primary/50 cursor-pointer transition-all">
+                   <div className="w-32 h-32 rounded-xl bg-muted border-2 border-dashed border-border flex flex-col items-center justify-center text-muted-foreground hover:border-primary/50 cursor-pointer transition-all">
                       <Upload size={24} className="mb-2" />
                       <span className="text-[10px] font-black uppercase tracking-widest">{t('Upload Photo')}</span>
                    </div>

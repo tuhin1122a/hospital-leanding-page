@@ -19,8 +19,8 @@ export default function AdmissionsPage() {
   const [showModal, setShowModal] = useState(false); const [searchQuery, setSearchQuery] = useState('')
   const [formData, setFormData] = useState({ patientId: '', wardNo: '', bedNo: '', doctorInCharge: '', reason: '' })
 
-  const { data: admissions = [], isLoading: loadingAdm } = useQuery({ queryKey: ['admissions'], queryFn: () => fetch(API, { headers: authHeader() }).then(r => r.json()) })
-  const { data: patients = [] } = useQuery({ queryKey: ['patients-list'], queryFn: () => fetch(PATIENTS_API, { headers: authHeader() }).then(r => r.json()) })
+  const { data: admissions = [], isLoading: loadingAdm } = useQuery({ queryKey: ['admissions'], queryFn: () => fetch(API, { headers: authHeader() }).then(r => r.json()).then(d => Array.isArray(d) ? d : Array.isArray(d?.data) ? d.data : []) })
+  const { data: patients = [] } = useQuery({ queryKey: ['patients-list'], queryFn: () => fetch(PATIENTS_API, { headers: authHeader() }).then(r => r.json()).then(d => Array.isArray(d) ? d : Array.isArray(d?.data) ? d.data : Array.isArray(d?.patients) ? d.patients : []) })
 
   const admitMutation = useMutation({
     mutationFn: (data: any) => fetch(API, { method: 'POST', headers: authHeader(), body: JSON.stringify(data) }).then(r => r.ok ? r.json() : r.json().then(e => { throw e })),
@@ -49,16 +49,16 @@ export default function AdmissionsPage() {
       <div className="relative max-w-2xl">
          <Search size={20} className="absolute left-6 top-1/2 -translate-y-1/2 text-muted-foreground/70" />
          <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder={t("Search by patient name, ID, or ward...")} 
-          className="w-full h-16 pl-16 pr-8 rounded-3xl bg-card border border-border shadow-sm focus:ring-4 focus:ring-primary/5 outline-none font-bold text-card-foreground"
+          className="w-full h-16 pl-16 pr-8 rounded-2xl bg-card border border-border shadow-sm focus:ring-4 focus:ring-primary/5 outline-none font-bold text-card-foreground"
          />
       </div>
 
       {loadingAdm ? (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-           {[1,2,3].map(i => <div key={i} className="h-64 rounded-[3rem] bg-muted animate-pulse" />)}
+           {[1,2,3].map(i => <div key={i} className="h-64 rounded-2xl bg-muted animate-pulse" />)}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-20 bg-muted/30 rounded-[3rem] border border-dashed border-border">
+          <div className="text-center py-20 bg-muted/30 rounded-2xl border border-dashed border-border">
           <Hotel size={48} className="mx-auto text-muted-foreground/40 mb-4" />
           <p className="text-xl font-bold text-muted-foreground">{t('No active admissions')}</p>
         </div>

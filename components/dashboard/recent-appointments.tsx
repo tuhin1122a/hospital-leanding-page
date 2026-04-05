@@ -64,7 +64,7 @@ export default function RecentAppointments() {
   const { t } = useLanguage()
 
   return (
-    <div className="bg-card rounded-[2.5rem] border border-border shadow-sm p-8 overflow-hidden">
+    <div className="bg-card rounded-xl border border-border shadow-sm p-8 overflow-hidden">
       <div className="flex items-center justify-between mb-8">
         <div>
           <h3 className="text-xl font-black text-card-foreground tracking-tight">{t('Recent Appointments')}</h3>

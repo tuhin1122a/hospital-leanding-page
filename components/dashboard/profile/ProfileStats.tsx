@@ -19,7 +19,7 @@ export default function ProfileStats({ user }: ProfileStatsProps) {
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
       {stats.map((s, i) => (
-        <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 * i }} className="bg-card rounded-[2rem] border border-border p-6 flex items-center gap-4 hover:shadow-md transition-all">
+        <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 * i }} className="bg-card rounded-xl border border-border p-6 flex items-center gap-4 hover:shadow-md transition-all">
           <div className={`w-12 h-12 rounded-2xl ${s.bg} flex items-center justify-center shrink-0`}><s.icon size={20} className={s.color} /></div>
           <div><p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{s.label}</p><p className="text-lg font-black text-card-foreground mt-0.5">{s.value}</p></div>
         </motion.div>

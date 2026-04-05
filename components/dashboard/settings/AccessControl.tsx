@@ -20,7 +20,7 @@ export default function AccessControl({ show, users, onUpdatePerm, onDelete, isL
   return (
     <AnimatePresence>
       {show && (
-        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.4, ease: "easeInOut" }} className="bg-card rounded-[3rem] border border-border overflow-hidden shadow-sm mt-8">
+        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.4, ease: "easeInOut" }} className="bg-card rounded-2xl border border-border overflow-hidden shadow-sm mt-8">
           <div className="p-8 md:p-10">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
               <div className="flex items-center gap-4"><div className="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 shadow-xl shadow-indigo-500/5"><ShieldCheck size={28} /></div><div><h3 className="text-2xl font-black text-card-foreground tracking-tighter">{t('Staff Access Control')}</h3><p className="text-sm font-medium text-muted-foreground">{t('Manage granular permissions for all users')}</p></div></div>

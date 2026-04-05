@@ -11,7 +11,7 @@ export default function AuditLogs({ logs }: AuditLogsProps) {
   const { t } = useLanguage()
 
   return (
-    <div className="bg-card rounded-[3rem] border border-border p-10 shadow-sm">
+    <div className="bg-card rounded-2xl border border-border p-10 shadow-sm">
       <div className="flex items-center justify-between mb-10"><div><h3 className="text-2xl font-black text-card-foreground tracking-tight">{t('Security Audit Logs')}</h3><p className="text-sm text-muted-foreground font-medium">{t('Real-time monitoring of system-wide interactions')}</p></div></div>
       <div className="space-y-4">
         {logs.map((log, i) => (
