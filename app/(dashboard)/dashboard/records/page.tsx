@@ -46,6 +46,10 @@ export default function RecordsPage() {
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['medical-records'] }); setShowUpload(false); toast.success('File Uploaded & Encrypted!') }
   })
 
+  if (!isMounted) {
+    return <div className="p-20 text-center animate-pulse font-black text-muted-foreground/50">{t('SYNCING CLINICAL DATA...')}</div>;
+  }
+
   const filtered = records.filter((r: any) => (r.patient + r.id + r.type).toLowerCase().includes(search.toLowerCase()))
 
   return (
