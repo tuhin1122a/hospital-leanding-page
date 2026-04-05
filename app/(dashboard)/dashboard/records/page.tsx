@@ -10,7 +10,7 @@ import RecordsStats from '@/components/dashboard/records/RecordsStats'
 import RecordsTable from '@/components/dashboard/records/RecordsTable'
 import UploadRecordModal from '@/components/dashboard/records/UploadRecordModal'
 
-const API_BASE = 'http://localhost:5000/records'
+const API_BASE = process.env.NEXT_PUBLIC_API_URL/records'
 const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
 const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
 

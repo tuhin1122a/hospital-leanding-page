@@ -11,7 +11,7 @@ import NotificationHeader from '@/components/dashboard/notifications/Notificatio
 import NotificationFilters from '@/components/dashboard/notifications/NotificationFilters'
 import NotificationItem from '@/components/dashboard/notifications/NotificationItem'
 
-const API_BASE = 'http://localhost:5000'
+const API_BASE = process.env.NEXT_PUBLIC_API_URL
 const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
 const authHeader = () => ({ Authorization: `Bearer ${getToken()}` })
 

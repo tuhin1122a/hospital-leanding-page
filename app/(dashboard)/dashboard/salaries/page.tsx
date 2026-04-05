@@ -12,7 +12,7 @@ import StaffPayrollTable from '@/components/dashboard/salaries/StaffPayrollTable
 import AdminPayoutHistory from '@/components/dashboard/salaries/AdminPayoutHistory'
 import StaffSalaryView from '@/components/dashboard/salaries/StaffSalaryView'
 
-const API = 'http://localhost:5000'
+const API = process.env.NEXT_PUBLIC_API_URL
 const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
 const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
 

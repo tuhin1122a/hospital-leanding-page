@@ -5,7 +5,7 @@ import { ArrowLeft, CheckCircle, Lock, Mail, Stethoscope } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
-const API = 'http://localhost:5000'
+const API = process.env.NEXT_PUBLIC_API_URL
 
 type Step = 'email' | 'otp' | 'newpass' | 'done'
 

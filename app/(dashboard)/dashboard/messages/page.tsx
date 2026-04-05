@@ -7,7 +7,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import ContactList from '@/components/dashboard/messages/ContactList'
 import ChatWindow from '@/components/dashboard/messages/ChatWindow'
 
-const API_BASE = 'http://localhost:5000'
+const API_BASE = process.env.NEXT_PUBLIC_API_URL
 const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
 const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
 

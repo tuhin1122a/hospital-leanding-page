@@ -10,7 +10,7 @@ import PharmacyStats from '@/components/dashboard/pharmacy/PharmacyStats'
 import MedicineCard from '@/components/dashboard/pharmacy/MedicineCard'
 import AddInventoryModal from '@/components/dashboard/pharmacy/AddInventoryModal'
 
-const API_BASE = 'http://localhost:5000/pharmacy'
+const API_BASE = process.env.NEXT_PUBLIC_API_URL/pharmacy'
 const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
 const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
 

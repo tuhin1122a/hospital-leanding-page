@@ -10,9 +10,9 @@ import BillingStats from '@/components/dashboard/billing/BillingStats'
 import InvoiceTable from '@/components/dashboard/billing/InvoiceTable'
 import NewInvoiceModal from '@/components/dashboard/billing/NewInvoiceModal'
 
-const API = 'http://localhost:5000/billing'
-const PATIENTS_API = 'http://localhost:5000/patients'
-const APPROVALS_API = 'http://localhost:5000/approvals'
+const API = process.env.NEXT_PUBLIC_API_URL/billing'
+const PATIENTS_API = process.env.NEXT_PUBLIC_API_URL/patients'
+const APPROVALS_API = process.env.NEXT_PUBLIC_API_URL/approvals'
 const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
 const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
 

@@ -11,7 +11,7 @@ import LoginHistoryCard from '@/components/dashboard/account-security/LoginHisto
 import TwoFaModal from '@/components/dashboard/account-security/TwoFaModal'
 import { useLanguage } from '@/contexts/LanguageContext'
 
-const API = 'http://localhost:5000'
+const API = process.env.NEXT_PUBLIC_API_URL
 const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
 const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
 

@@ -48,11 +48,11 @@ export default function Messenger() {
     const token = getToken()
     if (token) {
       // Decode user ID (or just fetch /me)
-      fetch('http://localhost:5000/auth/me', { headers: authHeader() })
+      fetch('process.env.NEXT_PUBLIC_API_URL/auth/me', { headers: authHeader() })
         .then(res => res.json())
         .then(user => {
           setCurrentUser(user)
-          socketRef.current = io('http://localhost:5000', {
+          socketRef.current = io('process.env.NEXT_PUBLIC_API_URL', {
             query: { userId: user.id }
           })
 
@@ -60,7 +60,7 @@ export default function Messenger() {
              if (activeContact?.id === msg.senderId) {
                 setMessages(prev => [...prev, msg])
                 // if we are actively open contact, emit read receipt back immediately
-                fetch(`http://localhost:5000/chat/mark-read/${msg.senderId}`, { method: 'POST', headers: authHeader() })
+                fetch(`process.env.NEXT_PUBLIC_API_URL/chat/mark-read/${msg.senderId}`, { method: 'POST', headers: authHeader() })
              } else {
                 fetchRecentChats()
              }
@@ -94,21 +94,21 @@ export default function Messenger() {
 
   const fetchProfile = async () => {
     try {
-      const res = await fetch('http://localhost:5000/auth/me', { headers: authHeader() })
+      const res = await fetch('process.env.NEXT_PUBLIC_API_URL/auth/me', { headers: authHeader() })
       if (res.ok) setCurrentUser(await res.json())
     } catch (err) {}
   }
 
   const fetchRecentChats = async () => {
     try {
-      const res = await fetch('http://localhost:5000/chat/recent', { headers: authHeader() })
+      const res = await fetch('process.env.NEXT_PUBLIC_API_URL/chat/recent', { headers: authHeader() })
       if (res.ok) setContacts(await res.json())
     } catch (err) {}
   }
 
   const fetchMessages = async (contactId: string) => {
     try {
-      const res = await fetch(`http://localhost:5000/chat/messages/${contactId}`, { headers: authHeader() })
+      const res = await fetch(`process.env.NEXT_PUBLIC_API_URL/chat/messages/${contactId}`, { headers: authHeader() })
       if (res.ok) setMessages(await res.json())
     } catch (err) {}
   }
@@ -122,7 +122,7 @@ export default function Messenger() {
     setNewMessage('')
 
     try {
-      await fetch('http://localhost:5000/chat/send', {
+      await fetch('process.env.NEXT_PUBLIC_API_URL/chat/send', {
         method: 'POST',
         headers: authHeader(),
         body: JSON.stringify(msg)
@@ -136,7 +136,7 @@ export default function Messenger() {
     setIsMinimized(false)
     // Mark as read when selecting
     if (contact.unreadCount > 0) {
-       fetch(`http://localhost:5000/chat/mark-read/${contact.id}`, { method: 'POST', headers: authHeader() })
+       fetch(`process.env.NEXT_PUBLIC_API_URL/chat/mark-read/${contact.id}`, { method: 'POST', headers: authHeader() })
        .then(() => fetchRecentChats())
     }
   }

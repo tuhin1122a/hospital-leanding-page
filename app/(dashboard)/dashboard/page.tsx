@@ -8,7 +8,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import DashboardHeader from '@/components/dashboard/overview/DashboardHeader'
 import DashboardCharts from '@/components/dashboard/overview/DashboardCharts'
 
-const API = 'http://localhost:5000'
+const API = process.env.NEXT_PUBLIC_API_URL
 const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
 const authHeader = () => ({ Authorization: `Bearer ${getToken()}` })
 

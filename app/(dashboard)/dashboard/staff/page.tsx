@@ -10,7 +10,7 @@ import StaffStats from '@/components/dashboard/staff/StaffStats'
 import StaffGrid from '@/components/dashboard/staff/StaffGrid'
 import AddStaffModal from '@/components/dashboard/staff/AddStaffModal'
 
-const USERS_API = 'http://localhost:5000/users'
+const USERS_API = `${process.env.NEXT_PUBLIC_API_URL}/users`
 const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
 const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
 

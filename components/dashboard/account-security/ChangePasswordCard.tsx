@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { useLanguage } from '@/contexts/LanguageContext'
 import toast from 'react-hot-toast'
 
-const API = 'http://localhost:5000'
+const API = 'process.env.NEXT_PUBLIC_API_URL'
 function getToken() { return localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || '' }
 function authHeader() { return { Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' } }
 

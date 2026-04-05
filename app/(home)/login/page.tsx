@@ -39,7 +39,7 @@ export default function LoginPage() {
     setIsLoading(true)
 
     try {
-      const res = await fetch('http://localhost:5000/auth/signin', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signin`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: loginEmail, password: loginPassword }),
@@ -78,7 +78,7 @@ export default function LoginPage() {
     setIsLoading(true)
 
     try {
-      const res = await fetch('http://localhost:5000/auth/signin/2fa', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signin/2fa`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, token }),
