@@ -43,6 +43,13 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
 export const useLanguage = () => {
   const context = useContext(LanguageContext)
-  if (!context) throw new Error('useLanguage must be used within LanguageProvider')
+  if (!context) {
+    // Return a fallback for SSR/Build time to prevent "Cannot read properties of null"
+    return {
+      lang: 'en' as Language,
+      setLang: () => {},
+      t: (key: string) => translations['en']?.[key] || key
+    }
+  }
   return context
 }
