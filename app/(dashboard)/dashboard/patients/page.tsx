@@ -10,7 +10,7 @@ import PatientCard from '@/components/dashboard/patients/PatientCard'
 import RegisterPatientModal from '@/components/dashboard/patients/RegisterPatientModal'
 import PatientHistoryModal from '@/components/dashboard/patients/PatientHistoryModal'
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL/patients'
+const API_BASE = `${process.env.NEXT_PUBLIC_API_URL}/patients`
 const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
 const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
 

@@ -57,7 +57,7 @@ export default function Sidebar() {
         return
       }
       try {
-        const res = await fetch('process.env.NEXT_PUBLIC_API_URL/auth/me', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
           headers: { Authorization: `Bearer ${token}` }
         })
         if (res.ok) {
@@ -75,7 +75,7 @@ export default function Sidebar() {
       const token = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
       if (!token) return
       try {
-        const res = await fetch('process.env.NEXT_PUBLIC_API_URL/chat/unread-count', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat/unread-count`, {
           headers: { Authorization: `Bearer ${token}` }
         })
         if (res.ok) {

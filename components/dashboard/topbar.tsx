@@ -29,7 +29,7 @@ export default function Topbar() {
     const token = lsToken || ssToken
     if (!token) return
     try {
-      const res = await fetch('process.env.NEXT_PUBLIC_API_URL/auth/me', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       if (res.ok) {
@@ -45,7 +45,7 @@ export default function Topbar() {
     const token = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
     if (!token) return
     try {
-      const res = await fetch('process.env.NEXT_PUBLIC_API_URL/notifications', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notifications`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       if (res.ok) {
@@ -60,7 +60,7 @@ export default function Topbar() {
     e.stopPropagation()
     const token = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
     try {
-      await fetch(`process.env.NEXT_PUBLIC_API_URL/notifications/${id}/read`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notifications/${id}/read`, {
         method: 'PATCH',
         headers: { Authorization: `Bearer ${token}` }
       })
@@ -85,7 +85,7 @@ export default function Topbar() {
     if (!n.read) {
       const token = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
       try {
-        await fetch(`process.env.NEXT_PUBLIC_API_URL/notifications/${n.id}/read`, {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notifications/${n.id}/read`, {
           method: 'PATCH',
           headers: { Authorization: `Bearer ${token}` }
         })
@@ -102,7 +102,7 @@ export default function Topbar() {
     const token = lsToken || ssToken
     try {
       if (token) {
-        await fetch('process.env.NEXT_PUBLIC_API_URL/auth/logout', {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
           headers: { Authorization: `Bearer ${token}` }
         })
       }
@@ -138,7 +138,7 @@ export default function Topbar() {
        try { parsedUser = JSON.parse(atob(token.split('.')[1])); } catch {}
     }
 
-    const socket = io('process.env.NEXT_PUBLIC_API_URL', {
+    const socket = io(process.env.NEXT_PUBLIC_API_URL!, {
       query: { userId: parsedUser?.sub || '' }
     });
 

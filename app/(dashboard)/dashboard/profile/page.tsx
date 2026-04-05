@@ -16,12 +16,12 @@ export default function ProfilePage() {
   const { t } = useLanguage(); const queryClient = useQueryClient()
   const [isUploading, setIsUploading] = useState(false)
 
-  const { data: user } = useQuery({ queryKey: ['me'], queryFn: () => fetch(process.env.NEXT_PUBLIC_API_URL/auth/me', { headers: authHeader() }).then(r => r.json()) })
+  const { data: user } = useQuery({ queryKey: ['me'], queryFn: () => fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, { headers: authHeader() }).then(r => r.json()) })
 
   const uploadMutation = useMutation({
     mutationFn: async (file: File) => {
       const fd = new FormData(); fd.append('file', file)
-      return fetch(process.env.NEXT_PUBLIC_API_URL/users/profile-pic', { method: 'POST', headers: authHeader(), body: fd }).then(r => r.json())
+      return fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/profile-pic`, { method: 'POST', headers: authHeader(), body: fd }).then(r => r.json())
     },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['me'] }); window.dispatchEvent(new Event('profileUpdated')); toast.success('Profile picture updated!') },
     onMutate: () => setIsUploading(true),

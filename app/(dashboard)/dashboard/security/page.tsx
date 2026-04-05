@@ -10,7 +10,7 @@ import ApprovalCenter from '@/components/dashboard/security/ApprovalCenter'
 import AuditLogs from '@/components/dashboard/security/AuditLogs'
 import SecuritySettings from '@/components/dashboard/security/SecuritySettings'
 
-const APPROVALS_API = process.env.NEXT_PUBLIC_API_URL/approvals'
+const APPROVALS_API = `${process.env.NEXT_PUBLIC_API_URL}/approvals`
 const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
 const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
 

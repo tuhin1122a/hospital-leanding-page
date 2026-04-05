@@ -10,8 +10,8 @@ import AppointmentItem from '@/components/dashboard/appointments/AppointmentItem
 import QueueStats from '@/components/dashboard/appointments/QueueStats'
 import BookingModal from '@/components/dashboard/appointments/BookingModal'
 
-const API = process.env.NEXT_PUBLIC_API_URL/appointments'
-const PATIENTS_API = process.env.NEXT_PUBLIC_API_URL/patients'
+const API = `${process.env.NEXT_PUBLIC_API_URL}/appointments`
+const PATIENTS_API = `${process.env.NEXT_PUBLIC_API_URL}/patients`
 const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
 const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
 

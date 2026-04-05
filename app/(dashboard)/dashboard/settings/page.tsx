@@ -13,8 +13,8 @@ import ThemePicker from '@/components/dashboard/settings/ThemePicker'
 import SettingsModules from '@/components/dashboard/settings/SettingsModules'
 import AccessControl from '@/components/dashboard/settings/AccessControl'
 
-const AUTH_API = process.env.NEXT_PUBLIC_API_URL/auth/me'
-const USERS_API = process.env.NEXT_PUBLIC_API_URL/users'
+const AUTH_API = `${process.env.NEXT_PUBLIC_API_URL}/auth/me`
+const USERS_API = `${process.env.NEXT_PUBLIC_API_URL}/users`
 const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
 const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
 

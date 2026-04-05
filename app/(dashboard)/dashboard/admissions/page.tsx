@@ -9,8 +9,8 @@ import toast from 'react-hot-toast'
 import AdmissionCard from '@/components/dashboard/admissions/AdmissionCard'
 import AdmissionModal from '@/components/dashboard/admissions/AdmissionModal'
 
-const API = process.env.NEXT_PUBLIC_API_URL/admissions'
-const PATIENTS_API = process.env.NEXT_PUBLIC_API_URL/patients'
+const API = `${process.env.NEXT_PUBLIC_API_URL}/admissions`
+const PATIENTS_API = `${process.env.NEXT_PUBLIC_API_URL}/patients`
 const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
 const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
 
