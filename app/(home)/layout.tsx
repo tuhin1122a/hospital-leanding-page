@@ -4,9 +4,13 @@ import Footer from '@/components/footer';
 import BackgroundShapes from '@/components/background-shapes';
 
 export const metadata: Metadata = {
-  title: 'Nurjahan Private Hospital & Diagnostic Center-2 | World-Class Healthcare',
+  metadataBase: new URL('https://nurjahandiagnostic.com'),
+  title: {
+    default: 'Nurjahan Private Hospital & Diagnostic Center-2 | Sylhet',
+    template: '%s | Nurjahan Hospital'
+  },
   description: 'Experience world-class healthcare at Nurjahan Private Hospital & Diagnostic Center-2. Expert doctors, advanced facilities, and compassionate care available 24/7 in Sylhet.',
-  keywords: 'hospital, diagnostic center, healthcare, medical services, Sylhet, nurjahan hospital, best doctors, emergency care',
+  keywords: ['hospital in sylhet', 'diagnostic center sylhet', 'healthcare', 'medical services', 'Sylhet hospital', 'nurjahan hospital', 'best doctors in sylhet', 'emergency care sylhet', 'ICU sylhet'],
   authors: [{ name: 'Nurjahan Hospital' }],
   creator: 'Nurjahan Hospital',
   publisher: 'Nurjahan Hospital',
@@ -15,18 +19,42 @@ export const metadata: Metadata = {
     address: true,
     telephone: true,
   },
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
     title: 'Nurjahan Private Hospital & Diagnostic Center-2',
-    description: 'Leading healthcare provider with advanced medical technology and expert clinical care.',
-    url: 'https://nurjahanhospital.com',
+    description: 'Leading healthcare provider with advanced medical technology and expert clinical care in Sylhet.',
+    url: 'https://nurjahandiagnostic.com',
     siteName: 'Nurjahan Hospital',
+    images: [
+      {
+        url: '/hero-hospital.jpg', // Using your beautiful hero image for social sharing
+        width: 1200,
+        height: 630,
+        alt: 'Nurjahan Hospital Hero Section',
+      },
+    ],
     locale: 'en_US',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Nurjahan Private Hospital & Diagnostic Center-2',
-    description: 'World-class healthcare at your service.',
+    description: 'World-class healthcare at your service in Sylhet. 24/7 emergency & diagnostic center.',
+    creator: '@NurjahanHosp',
+    images: ['/hero-hospital.jpg'],
   },
   icons: {
     icon: '/icon.svg',
