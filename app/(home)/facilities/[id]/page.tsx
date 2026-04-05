@@ -3,8 +3,6 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
 import { useParams } from 'next/navigation'
 import { Cpu, ShieldCheck, Zap, Activity, Microscope, ArrowRight, Settings } from 'lucide-react'
 
@@ -65,8 +63,7 @@ export default function TechDetails() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
-      <Header />
+    <div className="bg-white">
       
       {/* Visual Header */}
       <div className="pt-32 pb-20 bg-gradient-to-tr from-[#0a1b4d] to-[#1a4bde] text-white relative overflow-hidden">
@@ -160,7 +157,6 @@ export default function TechDetails() {
          </div>
       </section>
 
-      <Footer />
-    </main>
+    </div>
   )
 }

@@ -26,10 +26,12 @@ export default function DashboardRootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased bg-slate-50/50">
+      <body className={`${_geist.variable} font-sans antialiased bg-slate-50/50`}>
         <ReactQueryProvider>
           <LanguageProvider>
             {children}
+            <Toaster position="top-right" />
+            <Analytics />
           </LanguageProvider>
         </ReactQueryProvider>
       </body>

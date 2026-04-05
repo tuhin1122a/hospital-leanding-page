@@ -3,8 +3,6 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
 import { useParams } from 'next/navigation'
 import { CheckCircle2, Star, Clock, Phone, ArrowRight, ShieldCheck } from 'lucide-react'
 
@@ -79,8 +77,7 @@ export default function ServiceDetails() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
-      <Header />
+    <div className="bg-white">
       
       {/* Hero Header Section */}
       <div className="pt-32 pb-20 bg-[#f8faff] relative overflow-hidden">
@@ -200,7 +197,6 @@ export default function ServiceDetails() {
          </div>
       </section>
 
-      <Footer />
-    </main>
+    </div>
   )
 }

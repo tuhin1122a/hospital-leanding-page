@@ -13,12 +13,9 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: {
-    default: 'Nurjahan Private Hospital & Diagnostic Center-2 | World-Class Healthcare',
-    template: '%s | Nurjahan Hospital'
-  },
+  title: 'Nurjahan Private Hospital & Diagnostic Center-2 | World-Class Healthcare',
   description: 'Experience world-class healthcare at Nurjahan Private Hospital & Diagnostic Center-2. Expert doctors, advanced facilities, and compassionate care available 24/7 in Sylhet.',
-  keywords: ['hospital', 'diagnostic center', 'healthcare', 'medical services', 'Sylhet', 'nurjahan hospital', 'best doctors', 'emergency care'],
+  keywords: 'hospital, diagnostic center, healthcare, medical services, Sylhet, nurjahan hospital, best doctors, emergency care',
   authors: [{ name: 'Nurjahan Hospital' }],
   creator: 'Nurjahan Hospital',
   publisher: 'Nurjahan Hospital',
@@ -53,7 +50,7 @@ export default function HomeRootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased bg-white">
+      <body className={`${_geist.variable} font-sans antialiased bg-white`}>
         <ReactQueryProvider>
           <LanguageProvider>
             <div className="relative isolate min-h-screen">
@@ -63,9 +60,9 @@ export default function HomeRootLayout({
               <Footer />
             </div>
             <Toaster position="top-center" />
+            <Analytics />
           </LanguageProvider>
         </ReactQueryProvider>
-        <Analytics />
       </body>
     </html>
   )

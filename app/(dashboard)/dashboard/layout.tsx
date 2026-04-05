@@ -14,7 +14,6 @@ export default function DashboardLayout({
   return (
     <ThemeProvider>
       <div className="flex h-screen bg-background overflow-hidden font-sans relative">
-        <Toaster position="top-right" />
         <Sidebar />
 
         <div className="flex-grow flex flex-col min-w-0">
