@@ -60,8 +60,13 @@ const appointments = [
   }
 ]
 
-export default function RecentAppointments() {
+export default function RecentAppointments({ userRole = 'ADMIN', userName = '' }: { userRole?: string, userName?: string }) {
   const { t } = useLanguage()
+
+  // In a real app, this filtering would happen on the backend
+  const filteredAppointments = userRole === 'DOCTOR' 
+    ? appointments.filter(a => a.doctor.toLowerCase().includes(userName.toLowerCase()))
+    : appointments
 
   return (
     <div className="bg-card rounded-xl border border-border shadow-sm p-8 overflow-hidden">
@@ -87,7 +92,7 @@ export default function RecentAppointments() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {appointments.map((appt, i) => (
+            {filteredAppointments.map((appt, i) => (
               <TableRow key={i} className="group border-border/50 hover:bg-muted/50 transition-colors">
                 <TableCell className="px-6 py-5">
                   <div className="flex items-center gap-3">

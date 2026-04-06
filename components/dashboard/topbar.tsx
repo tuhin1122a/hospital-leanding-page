@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { io, Socket } from 'socket.io-client'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -12,9 +12,11 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Bell, ChevronDown, LogOut, Search, User, Check, X, Clock, Circle } from 'lucide-react'
+import { Bell, ChevronDown, LogOut, Search, User, Check, X, Clock, Circle, Menu } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import toast from 'react-hot-toast'
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet'
+import Sidebar from '@/components/dashboard/sidebar'
 
 export default function Topbar() {
   const [userProfile, setUserProfile] = useState<any>(null)
@@ -22,6 +24,12 @@ export default function Topbar() {
   const [unreadCount, setUnreadCount] = useState(0)
   const { t } = useLanguage()
   const router = useRouter()
+  const pathname = usePathname()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  useEffect(() => {
+    setMobileMenuOpen(false)
+  }, [pathname])
 
   const fetchProfile = async () => {
     const lsToken = localStorage.getItem('accessToken')
@@ -179,15 +187,30 @@ export default function Topbar() {
   }, [])
 
   return (
-    <div className="h-20 bg-card border-b border-border px-8 flex items-center justify-between sticky top-0 z-40 shadow-sm">
-      {/* Search */}
-      <div className="flex items-center gap-4 bg-muted px-4 py-2.5 rounded-2xl w-96 border border-border transition-all focus-within:bg-card focus-within:ring-2 focus-within:ring-primary/10">
-        <Search size={18} className="text-muted-foreground" />
-        <input
-          type="text"
-          placeholder={t("Search patient, record, appointment...")}
-          className="bg-transparent border-none outline-none text-sm w-full placeholder:text-muted-foreground font-medium text-card-foreground"
-        />
+    <div className="h-20 bg-card border-b border-border px-4 md:px-8 flex items-center justify-between sticky top-0 z-40 shadow-sm gap-2">
+      <div className="flex items-center gap-3 w-full max-w-sm lg:max-w-md">
+        {/* Mobile menu trigger */}
+        <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+          <SheetTrigger asChild>
+            <button className="md:hidden p-2.5 rounded-xl bg-muted hover:bg-border transition-all group outline-none shrink-0 border border-border">
+              <Menu size={20} className="text-muted-foreground group-hover:text-primary" />
+            </button>
+          </SheetTrigger>
+          <SheetContent side="left" className="p-0 border-r-0 w-64 bg-sidebar">
+            <SheetTitle className="hidden">Navigation Menu</SheetTitle>
+            <Sidebar className="flex w-full h-full border-none" />
+          </SheetContent>
+        </Sheet>
+
+        {/* Search */}
+        <div className="flex items-center gap-2 bg-muted px-4 py-2.5 rounded-2xl w-full border border-border transition-all focus-within:bg-card focus-within:ring-2 focus-within:ring-primary/10">
+          <Search size={18} className="text-muted-foreground shrink-0" />
+          <input
+            type="text"
+            placeholder={t("Search...")}
+            className="bg-transparent border-none outline-none text-sm w-full placeholder:text-muted-foreground font-medium text-card-foreground"
+          />
+        </div>
       </div>
 
       {/* Right side */}

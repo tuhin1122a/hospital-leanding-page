@@ -41,7 +41,7 @@ const menuItems = [
 
 
 
-export default function Sidebar() {
+export default function Sidebar({ className }: { className?: string }) {
   const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(false)
   const [role, setRole] = useState<string | null>(null)
@@ -100,7 +100,8 @@ export default function Sidebar() {
   return (
     <div className={cn(
       "flex flex-col h-screen bg-sidebar text-sidebar-foreground border-r border-sidebar-border transition-all duration-300",
-      collapsed ? "w-20" : "w-64"
+      collapsed ? "w-20" : "w-64",
+      className
     )}>
       {/* Logo Area */}
       <div className="p-6 flex items-center justify-between">

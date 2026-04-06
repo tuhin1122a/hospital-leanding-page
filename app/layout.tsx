@@ -1,4 +1,5 @@
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { SocketProvider } from "@/contexts/SocketContext";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { Toaster } from "react-hot-toast";
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -31,9 +32,11 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <ReactQueryProvider>
           <LanguageProvider>
-            {children}
-            <Toaster position="top-center" />
-            <WrapperAnalytics />
+            <SocketProvider>
+              {children}
+              <Toaster position="top-center" />
+              <WrapperAnalytics />
+            </SocketProvider>
           </LanguageProvider>
         </ReactQueryProvider>
       </body>

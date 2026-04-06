@@ -1,8 +1,8 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Sun, Cloud, CalendarDays, Users } from 'lucide-react'
+import { Sun, Cloud, CalendarDays, Clock, Users } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 interface DashboardHeaderProps {
@@ -11,7 +11,15 @@ interface DashboardHeaderProps {
 
 export default function DashboardHeader({ activeStaff = 0 }: DashboardHeaderProps) {
   const { t } = useLanguage()
-  const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+  const [time, setTime] = useState(new Date())
+
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const today = time.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+  const formattedTime = time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })
   const activeStaffCount = Array.isArray(activeStaff)
     ? activeStaff.length
     : typeof activeStaff === 'number'
@@ -41,8 +49,18 @@ export default function DashboardHeader({ activeStaff = 0 }: DashboardHeaderProp
         </div>
       </motion.div>
 
-      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="hidden lg:flex items-center gap-4">
-         <div className="bg-card border border-border p-4 rounded-lg shadow-sm flex items-center gap-4">
+      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-4">
+         <div className="bg-card border border-border p-4 px-6 rounded-2xl shadow-xl shadow-primary/5 flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500">
+               <Clock size={24} className="animate-pulse" />
+            </div>
+            <div>
+               <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground leading-none mb-1">{t('Local Time')}</p>
+               <p className="text-2xl font-black text-card-foreground leading-none tracking-tighter">{formattedTime}</p>
+            </div>
+         </div>
+
+         <div className="hidden lg:flex bg-card border border-border p-4 px-6 rounded-2xl shadow-xl shadow-primary/5 items-center gap-4">
             <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500">
                <Cloud size={24} />
             </div>

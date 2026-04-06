@@ -71,6 +71,13 @@ export default function AdmissionModal({ show, onClose, patients, formData, setF
                   />
                 </div>
 
+                <div className="space-y-2">
+                  <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">{t('Reason for Admission')}</label>
+                  <textarea value={formData.reason} onChange={(e) => setFormData({...formData, reason: e.target.value})} placeholder={t('Reason')}
+                    className="w-full h-24 p-6 rounded-2xl bg-muted border border-border focus:ring-4 focus:ring-primary/10 outline-none transition-all font-bold resize-none"
+                  />
+                </div>
+
                 <Button type="submit" disabled={isSubmitting} className="w-full h-16 rounded-2xl bg-primary hover:bg-primary/90 text-background font-black text-lg shadow-xl shadow-primary/20 mt-4">
                   {isSubmitting ? t('Admitting...') : t('Confirm Admission')}
                 </Button>

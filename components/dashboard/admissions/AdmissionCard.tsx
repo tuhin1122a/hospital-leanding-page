@@ -52,6 +52,11 @@ export default function AdmissionCard({ adm, index, onDischarge }: AdmissionCard
             <Clock size={14} className="text-primary" />
             {new Date(adm.admissionDate).toLocaleString()}
           </div>
+          {adm.reason && (
+            <div className="p-3 rounded-xl bg-orange-500/5 border border-orange-500/10 text-[11px] font-medium text-orange-600/80 leading-relaxed italic">
+               "{adm.reason}"
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-2 gap-3 pt-6 border-t border-border/50">

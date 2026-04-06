@@ -14,12 +14,12 @@ export default function DashboardLayout({
   return (
     <ThemeProvider>
       <div className="flex h-screen bg-background overflow-hidden font-sans relative">
-        <Sidebar />
+        <Sidebar className="hidden md:flex" />
 
         <div className="flex-grow flex flex-col min-w-0">
           <Topbar />
 
-          <main className="flex-grow overflow-y-auto p-8 lg:p-12 bg-muted/30">
+          <main className="flex-grow overflow-y-auto p-4 md:p-8 lg:p-12 bg-muted/30">
             {children}
           </main>
         </div>
