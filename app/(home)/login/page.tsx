@@ -61,10 +61,10 @@ export default function LoginPage() {
 
       // ---- Normal login ----
       const store = rememberMe ? localStorage : sessionStorage
-      store.setItem('accessToken', data.accessToken)
+      // Stop storing accessToken in localStorage/sessionStorage
       store.setItem('refreshToken', data.refreshToken)
       
-      // Set cookie for middleware
+      // Set cookie for middleware/session
       document.cookie = `accessToken=${data.accessToken}; path=/; max-age=${rememberMe ? 30 * 24 * 60 * 60 : 24 * 60 * 60}; SameSite=Lax`
       
       window.location.href = '/dashboard'
@@ -95,10 +95,9 @@ export default function LoginPage() {
 
       const data = await res.json()
       const store = rememberMe ? localStorage : sessionStorage
-      store.setItem('accessToken', data.accessToken)
       store.setItem('refreshToken', data.refreshToken)
 
-      // Set cookie for middleware
+      // Set cookie for middleware/session
       document.cookie = `accessToken=${data.accessToken}; path=/; max-age=${rememberMe ? 30 * 24 * 60 * 60 : 24 * 60 * 60}; SameSite=Lax`
 
       window.location.href = '/dashboard'

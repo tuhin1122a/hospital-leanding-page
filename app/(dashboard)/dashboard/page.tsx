@@ -20,17 +20,68 @@ export default function DashboardPage() {
   const [profile, setProfile] = useState<any>(null)
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      const token = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
-      if (!token) return
+    const handleReAuth = async () => {
+      // 1. First try with current accessToken from cookies
+      const getCookie = (name: string) => document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop()
+      let token = getCookie('accessToken')
+      
+      if (!token) {
+        // If no access token, try to refresh immediately
+        const success = await refreshSession()
+        if (!success) {
+           window.location.href = '/login'
+           return
+        }
+        token = getCookie('accessToken')
+      }
+
       try {
         const res = await fetch(`${API}/auth/me`, {
           headers: { Authorization: `Bearer ${token}` }
         })
-        if (res.ok) setProfile(await res.json())
-      } catch (err) {}
+        
+        if (res.ok) {
+           setProfile(await res.json())
+        } else if (res.status === 401) {
+           // Token expired? Try refreshing.
+           const success = await refreshSession()
+           if (success) {
+              // Retry me once more
+              const retryRes = await fetch(`${API}/auth/me`, {
+                headers: { Authorization: `Bearer ${getCookie('accessToken')}` }
+              })
+              if (retryRes.ok) setProfile(await retryRes.json())
+              else window.location.href = '/login'
+           } else {
+              window.location.href = '/login'
+           }
+        }
+      } catch (err) {
+         window.location.href = '/login'
+      }
     }
-    fetchProfile()
+
+    const refreshSession = async () => {
+       const refreshToken = localStorage.getItem('refreshToken') || sessionStorage.getItem('refreshToken')
+       if (!refreshToken) return false
+
+       try {
+          const res = await fetch(`${API}/auth/refresh`, {
+             headers: { Authorization: `Bearer ${refreshToken}` }
+          })
+          if (res.ok) {
+             const data = await res.json()
+             // Set new access token cookie
+             document.cookie = `accessToken=${data.accessToken}; path=/; max-age=86400; SameSite=Lax`
+             return true
+          }
+          return false
+       } catch (e) {
+          return false
+       }
+    }
+
+    handleReAuth()
   }, [])
 
   const { data: stats, isLoading } = useQuery({

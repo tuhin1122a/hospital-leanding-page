@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import AuthGuard from '@/components/providers/AuthGuard';
 
 export const dynamic = 'force-dynamic'
 
@@ -17,7 +18,9 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="bg-slate-50/50 min-h-screen">
-      {children}
+      <AuthGuard>
+        {children}
+      </AuthGuard>
     </div>
   )
 }
