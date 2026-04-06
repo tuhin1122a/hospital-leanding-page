@@ -11,9 +11,10 @@ import { useState, useEffect } from 'react'
 import { PlusCircle, Calendar as CalendarIcon, UserPlus, CreditCard, Bell, Zap, MoreVertical } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+import { getAccessToken } from '@/lib/utils'
+
 const API = process.env.NEXT_PUBLIC_API_URL
-const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
-const authHeader = () => ({ Authorization: `Bearer ${getToken()}` })
+const authHeader = () => ({ Authorization: `Bearer ${getAccessToken()}` })
 
 export default function DashboardPage() {
   const { t } = useLanguage()
@@ -22,8 +23,7 @@ export default function DashboardPage() {
   useEffect(() => {
     const handleReAuth = async () => {
       // 1. First try with current accessToken from cookies
-      const getCookie = (name: string) => document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop()
-      let token = getCookie('accessToken')
+      let token = getAccessToken()
       
       if (!token) {
         // If no access token, try to refresh immediately
@@ -48,7 +48,7 @@ export default function DashboardPage() {
            if (success) {
               // Retry me once more
               const retryRes = await fetch(`${API}/auth/me`, {
-                headers: { Authorization: `Bearer ${getCookie('accessToken')}` }
+                headers: { Authorization: `Bearer ${getAccessToken()}` }
               })
               if (retryRes.ok) setProfile(await retryRes.json())
               else window.location.href = '/login'

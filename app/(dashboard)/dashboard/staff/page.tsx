@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { Plus, Search, Filter } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { getAccessToken } from '@/lib/utils'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import StaffStats from '@/components/dashboard/staff/StaffStats'
@@ -11,8 +12,10 @@ import StaffGrid from '@/components/dashboard/staff/StaffGrid'
 import AddStaffModal from '@/components/dashboard/staff/AddStaffModal'
 
 const USERS_API = `${process.env.NEXT_PUBLIC_API_URL}/users`
-const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
-const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
+const authHeader = () => ({ 
+  Authorization: `Bearer ${getAccessToken()}`, 
+  'Content-Type': 'application/json' 
+})
 
 export default function StaffPage() {
   const { t } = useLanguage(); const queryClient = useQueryClient()

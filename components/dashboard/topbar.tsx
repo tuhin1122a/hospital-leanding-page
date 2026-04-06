@@ -32,9 +32,9 @@ export default function Topbar() {
   }, [pathname])
 
   const fetchProfile = async () => {
-    const lsToken = localStorage.getItem('accessToken')
-    const ssToken = sessionStorage.getItem('accessToken')
-    const token = lsToken || ssToken
+    // Use cookie instead of localStorage
+    const getCookie = (name: string) => document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop()
+    const token = getCookie('accessToken')
     if (!token) return
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
@@ -50,7 +50,8 @@ export default function Topbar() {
   }
 
   const fetchNotifications = async () => {
-    const token = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
+    const getCookie = (name: string) => document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop()
+    const token = getCookie('accessToken')
     if (!token) return
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notifications`, {
@@ -91,7 +92,8 @@ export default function Topbar() {
 
   const handleNotificationClick = async (n: any) => {
     if (!n.read) {
-      const token = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
+      const getCookie = (name: string) => document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop()
+      const token = getCookie('accessToken')
       try {
         await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notifications/${n.id}/read`, {
           method: 'PATCH',

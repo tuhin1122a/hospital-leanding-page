@@ -51,7 +51,10 @@ export default function Sidebar({ className }: { className?: string }) {
 
   useEffect(() => {
     const fetchRole = async () => {
-      const token = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
+      // Use cookie instead of localStorage
+      const getCookie = (name: string) => document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop()
+      const token = getCookie('accessToken')
+      
       if (!token) {
         setIsLoading(false)
         return
@@ -72,7 +75,8 @@ export default function Sidebar({ className }: { className?: string }) {
     }
     
     const fetchUnreadMessages = async () => {
-      const token = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
+      const getCookie = (name: string) => document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop()
+      const token = getCookie('accessToken')
       if (!token) return
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat/unread-count`, {

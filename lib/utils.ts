@@ -4,3 +4,10 @@ import { twMerge } from 'tailwind-merge'
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+export function getAccessToken() {
+  if (typeof document === 'undefined') return ''
+  const cookies = document.cookie.split('; ')
+  const accessTokenRow = cookies.find(row => row.trim().startsWith('accessToken='))
+  return accessTokenRow ? accessTokenRow.split('=')[1] : ''
+}

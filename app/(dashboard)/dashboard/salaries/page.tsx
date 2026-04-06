@@ -6,6 +6,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { getAccessToken } from '@/lib/utils'
 import { Download, TrendingUp } from 'lucide-react'
 import AdminSalaryStats from '@/components/dashboard/salaries/AdminSalaryStats'
 import StaffPayrollTable from '@/components/dashboard/salaries/StaffPayrollTable'
@@ -13,8 +14,7 @@ import AdminPayoutHistory from '@/components/dashboard/salaries/AdminPayoutHisto
 import StaffSalaryView from '@/components/dashboard/salaries/StaffSalaryView'
 
 const API = process.env.NEXT_PUBLIC_API_URL
-const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
-const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
+const authHeader = () => ({ Authorization: `Bearer ${getAccessToken()}`, 'Content-Type': 'application/json' })
 
 export default function SalariesPage() {
   const { t } = useLanguage(); const { toast } = useToast(); const queryClient = useQueryClient()
@@ -23,17 +23,22 @@ export default function SalariesPage() {
   const { data: me } = useQuery({ queryKey: ['me'], queryFn: () => fetch(`${API}/auth/me`, { headers: authHeader() }).then(r => r.json()) })
   const role = me?.role
 
-  const { data: staff = [], isLoading: loadingStaff } = useQuery({
+  const { data: staffData = [], isLoading: loadingStaff } = useQuery({
     queryKey: ['staff-list'],
     queryFn: () => fetch(`${API}/salary/staff`, { headers: authHeader() }).then(r => r.json()),
     enabled: role === 'ADMIN'
   })
 
-  const { data: history = [], isLoading: loadingHistory } = useQuery({
+  // Ensure staff is ALWAYS an array
+  const staff = Array.isArray(staffData) ? staffData : []
+
+  const { data: historyData = [], isLoading: loadingHistory } = useQuery({
     queryKey: ['salary-history', role],
     queryFn: () => fetch(`${API}/salary/${role === 'ADMIN' ? 'history' : 'my'}`, { headers: authHeader() }).then(r => r.json()),
     enabled: !!role
   })
+
+  const history = Array.isArray(historyData) ? historyData : []
 
   const payMutation = useMutation({
     mutationFn: (body: any) => fetch(`${API}/salary/pay`, { method: 'POST', headers: authHeader(), body: JSON.stringify(body) }).then(r => r.ok ? r.json() : r.json().then(e => { throw e })),
@@ -48,7 +53,10 @@ export default function SalariesPage() {
 
   if (loadingStaff || loadingHistory) return <div className="flex items-center justify-center h-screen text-muted-foreground font-black animate-pulse">{t('Loading Payroll...')}</div>
 
-  const filteredStaff = staff.filter((s: any) => s.name.toLowerCase().includes(searchQuery.toLowerCase()) || s.role.toLowerCase().includes(searchQuery.toLowerCase()))
+  const filteredStaff = staff.filter((s: any) => 
+    s.name?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    s.role?.toLowerCase().includes(searchQuery.toLowerCase())
+  )
 
   return (
     <div className="space-y-10 p-4 max-w-[1600px] mx-auto min-h-screen">

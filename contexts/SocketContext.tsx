@@ -3,6 +3,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { io, Socket } from 'socket.io-client'
 
+import { getAccessToken } from '@/lib/utils'
+
 interface SocketContextType {
   socket: Socket | null
   onlineUsers: Set<string>
@@ -25,7 +27,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
     // Get current user ID from profile fetch or storage
     const fetchAndConnect = async () => {
-      const token = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
+      const token = getAccessToken()
       if (!token) return
 
       try {

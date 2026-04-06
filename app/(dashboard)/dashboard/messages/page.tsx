@@ -7,9 +7,13 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import ContactList from '@/components/dashboard/messages/ContactList'
 import ChatWindow from '@/components/dashboard/messages/ChatWindow'
 
+import { getAccessToken } from '@/lib/utils'
+
 const API_BASE = process.env.NEXT_PUBLIC_API_URL
-const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
-const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
+const authHeader = () => ({ 
+  Authorization: `Bearer ${getAccessToken()}`, 
+  'Content-Type': 'application/json' 
+})
 
 export default function FullscreenMessenger() {
   const { t } = useLanguage(); const queryClient = useQueryClient()

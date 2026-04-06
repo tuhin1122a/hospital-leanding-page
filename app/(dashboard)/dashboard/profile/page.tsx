@@ -4,13 +4,16 @@ import React, { useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
+import { getAccessToken } from '@/lib/utils'
 import ProfileHero from '@/components/dashboard/profile/ProfileHero'
 import ProfileStats from '@/components/dashboard/profile/ProfileStats'
 import AccountDetails from '@/components/dashboard/profile/AccountDetails'
 import ActivityOverview from '@/components/dashboard/profile/ActivityOverview'
 
-const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
-const authHeader = () => ({ Authorization: `Bearer ${getToken()}` })
+const authHeader = () => ({ 
+  Authorization: `Bearer ${getAccessToken()}`,
+  'Content-Type': 'application/json'
+})
 
 export default function ProfilePage() {
   const { t } = useLanguage(); const queryClient = useQueryClient()

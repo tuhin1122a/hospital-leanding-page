@@ -10,12 +10,21 @@ import ApprovalCenter from '@/components/dashboard/security/ApprovalCenter'
 import AuditLogs from '@/components/dashboard/security/AuditLogs'
 import SecuritySettings from '@/components/dashboard/security/SecuritySettings'
 
+import { getAccessToken } from '@/lib/utils'
+
 const APPROVALS_API = `${process.env.NEXT_PUBLIC_API_URL}/approvals`
-const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
-const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
+const authHeader = () => ({ 
+  Authorization: `Bearer ${getAccessToken()}`, 
+  'Content-Type': 'application/json' 
+})
 
 export default function SecurityPage() {
   const { t } = useLanguage(); const queryClient = useQueryClient()
+
+  const { data: userProfile } = useQuery({ 
+    queryKey: ['me'], 
+    queryFn: () => fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, { headers: authHeader() }).then(r => r.json()) 
+  })
 
   const { data: approvals = [], isLoading: approvalsLoading } = useQuery({ queryKey: ['approvals'], queryFn: () => fetch(APPROVALS_API, { headers: authHeader() }).then(r => r.ok ? r.json() : []) })
 
@@ -24,12 +33,19 @@ export default function SecurityPage() {
     onSuccess: (_, variables) => { queryClient.invalidateQueries({ queryKey: ['approvals'] }); toast.success(`Request ${variables.status.toLowerCase()}`) }
   })
 
-  const logs = [
-    { event: 'Root Login', user: 'Admin (System)', time: '2 mins ago', ip: '192.168.1.1', status: 'Verified' },
-    { event: 'Failed Attempt', user: 'Unknown', time: '14 mins ago', ip: '45.12.33.2', status: 'Blocked' },
-    { event: 'DB Export', user: 'Dr. Rajesh', time: '1 hour ago', ip: '10.0.0.45', status: 'Authorized' },
-    { event: 'Password Change', user: 'Sneha Kapur', time: '3 hours ago', ip: '192.168.1.12', status: 'Verified' },
-  ]
+  const { data: auditLogs = [], isLoading: logsLoading } = useQuery({ 
+    queryKey: ['audit-logs'], 
+    queryFn: () => fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/admin/audit-logs`, { headers: authHeader() }).then(r => r.json()),
+    enabled: userProfile?.role === 'ADMIN'
+  })
+
+  const logs = auditLogs.map((l: any) => ({
+    event: l.success ? t('Successful Login') : t('Failed Login'),
+    user: l.user?.name || t('Unknown'),
+    time: new Date(l.createdAt).toLocaleString(),
+    ip: l.ip || '0.0.0.0',
+    status: l.success ? t('Verified') : t('Blocked')
+  }))
 
   return (
     <div className="space-y-10">
@@ -38,7 +54,7 @@ export default function SecurityPage() {
         <div className="flex items-center gap-3"><Button variant="outline" className="h-14 px-8 rounded-2xl border-border font-black"><ShieldAlert size={20} className="mr-2 text-red-500" /> {t('System Audit')}</Button><Button className="h-14 px-8 rounded-2xl bg-foreground text-background font-black shadow-xl"><Lock size={20} className="mr-2" /> {t('Lockdown Mode')}</Button></div>
       </div>
       <ApprovalCenter approvals={approvals} isLoading={approvalsLoading} onAction={(id, status) => actionMutation.mutate({ id, status })} />
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8"><div className="lg:col-span-2"><AuditLogs logs={logs} /></div><div><SecuritySettings /></div></div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8"><div className="lg:col-span-2"><AuditLogs logs={logs} /></div><div><SecuritySettings user={userProfile} /></div></div>
     </div>
   )
 }

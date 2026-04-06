@@ -11,9 +11,13 @@ import LoginHistoryCard from '@/components/dashboard/account-security/LoginHisto
 import TwoFaModal from '@/components/dashboard/account-security/TwoFaModal'
 import { useLanguage } from '@/contexts/LanguageContext'
 
+import { getAccessToken } from '@/lib/utils'
+
 const API = process.env.NEXT_PUBLIC_API_URL
-const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken') || ''
-const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
+const authHeader = () => ({ 
+  Authorization: `Bearer ${getAccessToken()}`, 
+  'Content-Type': 'application/json' 
+})
 
 export default function AccountSecurityPage() {
   const { t } = useLanguage()
