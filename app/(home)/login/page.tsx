@@ -63,6 +63,10 @@ export default function LoginPage() {
       const store = rememberMe ? localStorage : sessionStorage
       store.setItem('accessToken', data.accessToken)
       store.setItem('refreshToken', data.refreshToken)
+      
+      // Set cookie for middleware
+      document.cookie = `accessToken=${data.accessToken}; path=/; max-age=${rememberMe ? 30 * 24 * 60 * 60 : 24 * 60 * 60}; SameSite=Lax`
+      
       window.location.href = '/dashboard'
     } catch (err: any) {
       setError(err.message || 'Login failed. Please check your credentials.')
@@ -93,6 +97,10 @@ export default function LoginPage() {
       const store = rememberMe ? localStorage : sessionStorage
       store.setItem('accessToken', data.accessToken)
       store.setItem('refreshToken', data.refreshToken)
+
+      // Set cookie for middleware
+      document.cookie = `accessToken=${data.accessToken}; path=/; max-age=${rememberMe ? 30 * 24 * 60 * 60 : 24 * 60 * 60}; SameSite=Lax`
+
       window.location.href = '/dashboard'
     } catch (err: any) {
       setError(err.message || 'Verification failed.')

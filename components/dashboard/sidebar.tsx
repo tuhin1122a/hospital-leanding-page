@@ -160,13 +160,20 @@ export default function Sidebar({ className }: { className?: string }) {
 
       {/* User Area */}
       <div className="p-4 border-t border-sidebar-border">
-        <Link 
-          href="/login"
-          className="flex items-center gap-3 px-3 py-3 rounded-xl text-red-400 hover:bg-red-500/10 transition-all group"
+        <button 
+          onClick={() => {
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            sessionStorage.removeItem('accessToken');
+            sessionStorage.removeItem('refreshToken');
+            document.cookie = "accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Lax";
+            window.location.href = '/login';
+          }}
+          className="w-full flex items-center gap-3 px-3 py-3 rounded-xl text-red-500 hover:bg-red-500/10 transition-all group font-bold"
         >
           <LogOut size={20} />
-          {!collapsed && <span className="text-sm font-bold">{t('Logout')}</span>}
-        </Link>
+          {!collapsed && <span className="text-sm">{t('Logout')}</span>}
+        </button>
       </div>
     </div>
   )
