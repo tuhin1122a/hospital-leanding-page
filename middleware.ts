@@ -24,5 +24,9 @@ export function middleware(request: NextRequest) {
 
 // Config to specify which paths this middleware should run on
 export const config = {
-  matcher: ['/dashboard/:path*', '/login'],
+  matcher: [
+    '/dashboard', 
+    '/dashboard/:path*', 
+    '/login'
+  ],
 }
