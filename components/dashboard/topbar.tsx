@@ -12,7 +12,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Bell, ChevronDown, LogOut, Search, User, Check, X, Clock, Circle, Menu } from 'lucide-react'
+import { Bell, ChevronDown, LogOut, Search, User, Check, X, Clock, Circle, Menu, Moon, Sun } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import toast from 'react-hot-toast'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet'
@@ -22,10 +22,28 @@ export default function Topbar() {
   const [userProfile, setUserProfile] = useState<any>(null)
   const [notifications, setNotifications] = useState<any[]>([])
   const [unreadCount, setUnreadCount] = useState(0)
+  const [isDark, setIsDark] = useState(false)
   const { t } = useLanguage()
   const router = useRouter()
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  useEffect(() => {
+    setIsDark(document.documentElement.classList.contains('dark'))
+  }, [])
+
+  const toggleDark = () => {
+    const cl = document.documentElement.classList;
+    if (cl.contains('dark')) {
+      cl.remove('dark');
+      localStorage.theme = 'light';
+      setIsDark(false);
+    } else {
+      cl.add('dark');
+      localStorage.theme = 'dark';
+      setIsDark(true);
+    }
+  }
 
   useEffect(() => {
     setMobileMenuOpen(false)
@@ -219,6 +237,11 @@ export default function Topbar() {
 
       {/* Right side */}
       <div className="flex items-center gap-4">
+        {/* Dark Mode Toggle */}
+        <button onClick={toggleDark} className="p-2.5 rounded-xl bg-muted hover:bg-border transition-all text-muted-foreground outline-none border border-transparent hover:border-border group">
+           {isDark ? <Sun size={20} className="group-hover:text-amber-500" /> : <Moon size={20} className="group-hover:text-primary" />}
+        </button>
+
         {/* Notification Bell (Only for ADMIN) */}
         {userProfile?.role === 'ADMIN' && (
           <DropdownMenu>

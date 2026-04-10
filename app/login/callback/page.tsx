@@ -18,8 +18,15 @@ export default function GoogleCallback() {
       localStorage.setItem('refreshToken', refreshToken)
       document.cookie = `accessToken=${accessToken}; path=/; max-age=${24 * 60 * 60}; SameSite=Lax`
       
+      let redirectPath = '/dashboard'
+      try {
+        const payload = JSON.parse(atob(accessToken.split('.')[1]));
+        if (payload.role === 'RECEPTIONIST') redirectPath = '/dashboard/appointments';
+        else if (payload.role === 'DOCTOR') redirectPath = '/dashboard/patients';
+      } catch (e) {}
+
       // Redirect to dashboard
-      window.location.href = '/dashboard'
+      window.location.href = redirectPath
     } else {
       // Something went wrong, go back to login
       router.push('/login?error=google_auth_failed')

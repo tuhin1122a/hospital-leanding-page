@@ -67,7 +67,15 @@ export default function LoginPage() {
       // Set cookie for middleware/session
       document.cookie = `accessToken=${data.accessToken}; path=/; max-age=${rememberMe ? 30 * 24 * 60 * 60 : 24 * 60 * 60}; SameSite=Lax`
       
-      window.location.href = '/dashboard'
+      let redirectPath = '/dashboard'
+      // Try parsing the JWT securely
+      try {
+        const payload = JSON.parse(atob(data.accessToken.split('.')[1]));
+        if (payload.role === 'RECEPTIONIST') redirectPath = '/dashboard/appointments';
+        else if (payload.role === 'DOCTOR') redirectPath = '/dashboard/patients';
+      } catch (e) {}
+      
+      window.location.href = redirectPath
     } catch (err: any) {
       setError(err.message || 'Login failed. Please check your credentials.')
     } finally {
@@ -100,7 +108,14 @@ export default function LoginPage() {
       // Set cookie for middleware/session
       document.cookie = `accessToken=${data.accessToken}; path=/; max-age=${rememberMe ? 30 * 24 * 60 * 60 : 24 * 60 * 60}; SameSite=Lax`
 
-      window.location.href = '/dashboard'
+      let redirectPath = '/dashboard'
+      try {
+        const payload = JSON.parse(atob(data.accessToken.split('.')[1]));
+        if (payload.role === 'RECEPTIONIST') redirectPath = '/dashboard/appointments';
+        else if (payload.role === 'DOCTOR') redirectPath = '/dashboard/patients';
+      } catch (e) {}
+
+      window.location.href = redirectPath
     } catch (err: any) {
       setError(err.message || 'Verification failed.')
       setTwoFactorCode(['', '', '', '', '', ''])
