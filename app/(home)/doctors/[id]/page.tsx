@@ -1,12 +1,10 @@
 'use client'
 
-import React from 'react'
+import Header from '@/components/header'
+import { Award, CheckCircle2, Clock, GraduationCap, MapPin } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
 import { useParams } from 'next/navigation'
-import { Calendar, CheckCircle2, Award, Clock, GraduationCap, MapPin } from 'lucide-react'
 
 const doctorData = [
   {
@@ -172,8 +170,6 @@ export default function DoctorDetails() {
             </div>
          </div>
       </section>
-
-      <Footer />
     </main>
   )
 }

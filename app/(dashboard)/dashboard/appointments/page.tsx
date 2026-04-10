@@ -20,6 +20,19 @@ export default function AppointmentsPage() {
   const [showModal, setShowModal] = useState(false)
   const [formData, setFormData] = useState({ patientId: '', department: 'General Medicine', doctorName: '', appointmentDate: new Date().toISOString().split('T')[0], fee: 500 })
 
+  const [role, setRole] = useState('')
+
+  React.useEffect(() => {
+     const storedRole = localStorage.getItem('role');
+     if (storedRole) setRole(storedRole);
+     else {
+       fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, { headers: authHeader() })
+         .then(r => r.json())
+         .then(d => { setRole(d.role); localStorage.setItem('role', d.role) })
+         .catch(e => {})
+     }
+  }, [])
+
   const { data: appointments = [], isLoading } = useQuery({ queryKey: ['appointments'], queryFn: () => fetch(API, { headers: authHeader() }).then(r => r.json()).then(d => Array.isArray(d) ? d : Array.isArray(d?.data) ? d.data : []) })
   const { data: patients = [] } = useQuery({ queryKey: ['patients-list'], queryFn: () => fetch(PATIENTS_API, { headers: authHeader() }).then(r => r.json()).then(d => Array.isArray(d) ? d : Array.isArray(d?.data) ? d.data : Array.isArray(d?.patients) ? d.patients : []) })
 
@@ -27,6 +40,12 @@ export default function AppointmentsPage() {
     mutationFn: (data: any) => fetch(API, { method: 'POST', headers: authHeader(), body: JSON.stringify({ ...data, fee: Number(data.fee), appointmentDate: new Date(data.appointmentDate).toISOString() }) }).then(r => r.ok ? r.json() : r.json().then(e => { throw e })),
     onSuccess: () => { toast.success(t('Appointment booked successfully!')); setShowModal(false); setFormData({ ...formData, patientId: '', doctorName: '' }); queryClient.invalidateQueries({ queryKey: ['appointments'] }) },
     onError: () => toast.error(t('Failed to book appointment'))
+  })
+
+  const cancelMutation = useMutation({
+    mutationFn: (id: string) => fetch(`${API}/${id}/status`, { method: 'PATCH', headers: authHeader(), body: JSON.stringify({ status: 'CANCELLED' }) }).then(r => r.ok ? r.json() : r.json().then(e => { throw e })),
+    onSuccess: () => { toast.success(t('Appointment cancelled.')); queryClient.invalidateQueries({ queryKey: ['appointments'] }) },
+    onError: () => toast.error(t('Failed to cancel appointment'))
   })
 
   return (
@@ -48,7 +67,7 @@ export default function AppointmentsPage() {
              ) : appointments.length === 0 ? (
                 <div className="text-center py-20 bg-muted/20 rounded-xl border border-dashed border-border"><Calendar size={48} className="mx-auto text-muted-foreground/30 mb-4" /><p className="text-lg font-bold text-muted-foreground">{t('No appointments found for today')}</p></div>
              ) : (
-                <div className="space-y-4">{appointments.map((app: any, i: number) => <AppointmentItem key={app.id} app={app} index={i} />)}</div>
+                <div className="space-y-4">{appointments.map((app: any, i: number) => <AppointmentItem key={app.id} app={app} index={i} role={role} onCancel={(id) => cancelMutation.mutate(id)} />)}</div>
              )}
           </div>
         </div>

@@ -32,6 +32,14 @@ export default function StatCards({ earnings = 0, salaries = 0, patients = 0, ne
       { title: 'Pending Reports', value: '05', trend: '-2', positive: false, icon: Activity, color: 'text-amber-500', bg: 'bg-amber-500/10' },
       { title: 'Next Surgery', value: 'Today', trend: '14:00', positive: true, icon: Activity, color: 'text-blue-500', bg: 'bg-blue-500/10' }
     ]
+  } else if (userRole === 'PATIENT') {
+    const pStats = (arguments[0] as any).patientStats || { appointments: 0, records: 0, pendingBills: 0, status: 'New Registration' };
+    stats = [
+      { title: 'My Appointments', value: pStats.appointments < 10 ? `0${pStats.appointments}` : pStats.appointments, trend: 'Upcoming', positive: true, icon: Users, color: 'text-blue-500', bg: 'bg-blue-500/10' },
+      { title: 'Medical Records', value: pStats.records < 10 ? `0${pStats.records}` : pStats.records, trend: 'Latest', positive: true, icon: HeartPulse, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
+      { title: 'Bill Amount', value: `$${pStats.pendingBills}`, trend: 'Pending', positive: pStats.pendingBills === 0, icon: DollarSign, color: 'text-amber-500', bg: 'bg-amber-500/10' },
+      { title: 'Health Status', value: pStats.status, trend: 'Active', positive: true, icon: Activity, color: 'text-rose-500', bg: 'bg-rose-500/10' }
+    ]
   } else {
     stats = [
       { title: 'Today Check-ins', value: '15', trend: '+5', positive: true, icon: Users, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },

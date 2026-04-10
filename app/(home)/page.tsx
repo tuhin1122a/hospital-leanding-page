@@ -2,6 +2,7 @@ import ScheduleSection from '@/components/contact'; // Re-purposed
 import SpecialistSection from '@/components/doctors'; // Re-purposed
 import MedicalFacilities from '@/components/facilities';
 import AboutServices from '@/components/features'; // Re-purposed as About
+import BlogSection from '@/components/blog';
 import Hero from '@/components/hero';
 import SharedCommitment from '@/components/how-it-works'; // Re-purposed
 import LocationMap from '@/components/location-map';
@@ -31,6 +32,9 @@ export default function Home() {
       </ScrollReveal>
       <ScrollReveal>
         <Stats />
+      </ScrollReveal>
+      <ScrollReveal>
+        <BlogSection />
       </ScrollReveal>
       <ScrollReveal>
         <Testimonials />

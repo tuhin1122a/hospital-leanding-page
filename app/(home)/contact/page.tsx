@@ -1,6 +1,5 @@
-import Header from '@/components/header'
-import Footer from '@/components/footer'
 import ContactSection from '@/components/contact'
+import Header from '@/components/header'
 import LocationMap from '@/components/location-map'
 
 export default function ContactUsPage() {
@@ -18,8 +17,6 @@ export default function ContactUsPage() {
 
       <ContactSection />
       <LocationMap />
-
-      <Footer />
     </main>
   )
 }

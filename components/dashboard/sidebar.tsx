@@ -23,13 +23,13 @@ import { useState, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 const menuItems = [
-  { title: 'Overview', href: '/dashboard', icon: LayoutDashboard, roles: ['ADMIN', 'DOCTOR', 'RECEPTIONIST', 'STAFF', 'PHARMACIST'] },
-  { title: 'Messages', href: '/dashboard/messages', icon: MessageSquare, roles: ['ADMIN', 'DOCTOR', 'RECEPTIONIST', 'STAFF', 'PHARMACIST'] },
-  { title: 'Appointments', href: '/dashboard/appointments', icon: Calendar, roles: ['DOCTOR', 'RECEPTIONIST', 'STAFF'] },
+  { title: 'Overview', href: '/dashboard', icon: LayoutDashboard, roles: ['ADMIN', 'DOCTOR', 'RECEPTIONIST', 'STAFF', 'PHARMACIST', 'PATIENT'] },
+  { title: 'Messages', href: '/dashboard/messages', icon: MessageSquare, roles: ['ADMIN', 'DOCTOR', 'RECEPTIONIST', 'STAFF', 'PHARMACIST', 'PATIENT'] },
+  { title: 'Appointments', href: '/dashboard/appointments', icon: Calendar, roles: ['DOCTOR', 'RECEPTIONIST', 'STAFF', 'PATIENT'] },
   { title: 'Patients', href: '/dashboard/patients', icon: UserRound, roles: ['ADMIN', 'DOCTOR', 'RECEPTIONIST', 'STAFF'] },
   { title: 'Admissions', href: '/dashboard/admissions', icon: Hotel, roles: ['RECEPTIONIST'] },
   { title: 'Doctors', href: '/dashboard/doctors', icon: Stethoscope, roles: ['RECEPTIONIST', 'ADMIN'] },
-  { title: 'Medical Records', href: '/dashboard/records', icon: ClipboardList, roles: ['DOCTOR', 'ADMIN'] },
+  { title: 'Medical Records', href: '/dashboard/records', icon: ClipboardList, roles: ['DOCTOR', 'ADMIN', 'PATIENT'] },
   { title: 'Pharmacy', href: '/dashboard/pharmacy', icon: Pill, roles: ['PHARMACIST', 'ADMIN'] },
   { title: 'Billing', href: '/dashboard/billing', icon: CreditCard, roles: ['RECEPTIONIST'] },
   { title: 'Salaries', href: '/dashboard/salaries', icon: CreditCard, roles: ['ADMIN', 'DOCTOR', 'RECEPTIONIST', 'STAFF', 'PHARMACIST'] },

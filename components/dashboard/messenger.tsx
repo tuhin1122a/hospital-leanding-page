@@ -101,8 +101,25 @@ export default function Messenger() {
 
   const fetchRecentChats = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat/recent`, { headers: authHeader() })
-      if (res.ok) setContacts(await res.json())
+      const recentRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat/recent`, { headers: authHeader() })
+      const allRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat/contacts`, { headers: authHeader() })
+      
+      if (recentRes.ok && allRes.ok) {
+         const recents = await recentRes.json()
+         const all = await allRes.json()
+
+         const mergedMap = new Map()
+         recents.forEach((r: any) => mergedMap.set(r.id, r))
+         
+         all.forEach((a: any) => {
+             if (!mergedMap.has(a.id)) {
+                 mergedMap.set(a.id, { ...a, unreadCount: 0, lastMessage: 'Start a conversation', lastTime: a.lastActive || new Date().toISOString() })
+             }
+         })
+
+         const sorted = Array.from(mergedMap.values()).sort((a:any, b:any) => new Date(b.lastTime).getTime() - new Date(a.lastTime).getTime())
+         setContacts(sorted)
+      }
     } catch (err) {}
   }
 
@@ -244,16 +261,18 @@ export default function Messenger() {
                            <Search className="absolute left-4 top-3.5 text-muted-foreground" size={18} />
                            <input 
                               type="text" 
-                              placeholder={t('Search staff members...')}
+                              value={searchQuery}
+                              onChange={(e) => setSearchQuery(e.target.value)}
+                              placeholder={t('Search contacts...')}
                               className="w-full h-11 pl-12 pr-4 bg-muted rounded-2xl border-none outline-none text-xs font-bold"
                            />
                         </div>
                      </div>
                      <div className="flex-grow overflow-y-auto custom-scrollbar">
-                        {contacts.map((c, i) => (
+                        {contacts.filter(c => c.name.toLowerCase().includes(searchQuery.toLowerCase()) || c.role.toLowerCase().includes(searchQuery.toLowerCase())).map((c, i) => (
                            <div 
                               key={c.id || i} 
-                              onClick={() => selectContact(c)}
+                              onClick={() => { selectContact(c); setSearchQuery(''); }}
                               className="p-4 flex items-center gap-4 hover:bg-muted/50 cursor-pointer border-b border-border/50 mx-4 rounded-2xl transition-all"
                            >
                               <div className="relative shrink-0">

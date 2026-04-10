@@ -104,15 +104,59 @@ export default function DashboardPage() {
         patients={stats?.patients} 
         netProfit={stats?.netProfit} 
         userRole={role}
+        patientStats={stats?.patientStats}
       />
 
-      <DashboardCharts 
-        monthlyHistory={stats?.monthlyHistory || []} 
-        departmentLoad={stats?.departmentLoad || []} 
-        userRole={role}
-      />
+      {role === 'PATIENT' ? (
+        <div className="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm text-center">
+          <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+             <CalendarIcon className="w-8 h-8" />
+          </div>
+          <h2 className="text-2xl font-black text-slate-800 tracking-tight mb-2">
+            {stats?.isNewUser ? 'Welcome to your Patient Portal' : 'Your Medical Overview'}
+          </h2>
+          <p className="text-slate-500 font-medium mb-8 max-w-lg mx-auto">
+            {stats?.isNewUser 
+              ? 'You have successfully created your account. Book an appointment or message the reception to get started with your treatment.' 
+              : 'You can view your medical records, book new appointments, and message your doctor directly from this portal.'}
+          </p>
+          
+          <div className="flex items-center justify-center gap-4">
+            <button 
+              onClick={() => window.location.href = '/dashboard/appointments'}
+              className="bg-[#1a4bde] hover:bg-[#1a4bde]/90 text-white font-bold px-8 h-12 rounded-xl transition-all shadow-lg hover:-translate-y-1"
+            >
+              Book Appointment
+            </button>
+            <button 
+              onClick={() => window.location.href = '/dashboard/messages'}
+              className="bg-white border-2 border-slate-200 hover:border-[#1a4bde] text-slate-700 hover:text-[#1a4bde] font-bold px-8 h-12 rounded-xl transition-all flex items-center gap-2 hover:-translate-y-1"
+            >
+               <Bell className="w-4 h-4" /> Message {stats?.isNewUser ? 'Reception' : 'Doctor'}
+            </button>
+          </div>
+          {!stats?.isNewUser && (
+            <div className="mt-8 pt-8 border-t border-slate-100 flex justify-center">
+              <button 
+                onClick={() => window.location.href = '/dashboard/records'}
+                className="text-[#1a4bde] font-black uppercase text-sm tracking-wider flex items-center gap-2 hover:gap-4 transition-all"
+              >
+                View Full Medical History <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+        </div>
+      ) : (
+        <>
+          <DashboardCharts 
+            monthlyHistory={stats?.monthlyHistory || []} 
+            departmentLoad={stats?.departmentLoad || []} 
+            userRole={role}
+          />
 
-      <RecentAppointments userRole={role} userName={profile?.name} />
+          <RecentAppointments userRole={role} userName={profile?.name} />
+        </>
+      )}
     </div>
   )
 }

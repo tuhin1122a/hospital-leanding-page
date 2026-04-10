@@ -8,9 +8,11 @@ import { useLanguage } from '@/contexts/LanguageContext'
 interface AppointmentItemProps {
   app: any
   index: number
+  role?: string
+  onCancel?: (id: string) => void
 }
 
-export default function AppointmentItem({ app, index }: AppointmentItemProps) {
+export default function AppointmentItem({ app, index, role, onCancel }: AppointmentItemProps) {
   const { t } = useLanguage()
 
   return (
@@ -36,9 +38,16 @@ export default function AppointmentItem({ app, index }: AppointmentItemProps) {
             <p className="text-xs font-bold text-muted-foreground">ID: {app.patient?.patientId}</p>
          </div>
       </div>
-      
-      <div className="md:text-right">
-         <Badge className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border-none mb-2 shadow-sm ${app.status === 'PENDING' ? 'bg-amber-500 text-background' : 'bg-emerald-500 text-background'}`}>
+      <div className="md:text-right flex flex-col items-end gap-2">
+         {app.status === 'PENDING' && role === 'PATIENT' && (
+            <button 
+              onClick={(e) => { e.stopPropagation(); if (confirm('Are you sure you want to cancel this appointment?')) onCancel?.(app.id) }} 
+              className="text-[10px] font-black uppercase text-red-500 hover:text-red-600 transition-colors bg-red-50 hover:bg-red-100 px-3 py-1 rounded-lg"
+            >
+              Cancel Appointment
+            </button>
+         )}
+         <Badge className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border-none shadow-sm ${app.status === 'PENDING' ? 'bg-amber-500 text-background' : app.status === 'CANCELLED' ? 'bg-red-500 text-background' : 'bg-emerald-500 text-background'}`}>
            {app.status}
          </Badge>
          <p className="text-xs font-bold text-muted-foreground/70">{new Date(app.appointmentDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>

@@ -21,10 +21,10 @@ export default function Header() {
 
   const navLinks = [
     { name: 'Home', href: '/' },
-    { name: 'About', href: '#about' },
     { name: 'Services', href: '#services' },
+    { name: 'Specialist', href: '#specialists' },
+    { name: 'About', href: '#about' },
     { name: 'Blog', href: '#blog' },
-    { name: 'Specialist', href: '#specialist' },
   ]
 
   return (
@@ -51,9 +51,9 @@ export default function Header() {
             {navLinks.map((link) => {
               const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
                 if (href.startsWith('#')) {
-                  e.preventDefault();
                   const element = document.querySelector(href);
                   if (element) {
+                    e.preventDefault();
                     element.scrollIntoView({ behavior: 'smooth' });
                   }
                 }
@@ -77,10 +77,15 @@ export default function Header() {
           </nav>
 
           {/* Right section */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center gap-4">
             <Link href="/contact">
-              <Button className="bg-[#ff6b35] hover:bg-[#e55420] text-white font-bold px-9 h-[50px] rounded-[12px] transition-all shadow-[0_12px_24px_rgba(255,107,53,0.3)] border-0 text-[15px] hover:scale-105 hover:shadow-[0_15px_30px_rgba(255,107,53,0.4)] cursor-pointer">
-                Contact With Us
+              <Button className="bg-[#ff6b35] hover:bg-[#ff6b35]/90 text-white font-bold px-8 h-[50px] rounded-[12px] transition-all shadow-[0_12px_24px_rgba(255,107,53,0.15)] border-0 text-[15px] hover:scale-105 cursor-pointer">
+                Contact Us
+              </Button>
+            </Link>
+            <Link href="/login">
+              <Button className="bg-[#1a4bde] hover:bg-[#1a4bde]/90 text-white font-bold px-8 h-[50px] rounded-[12px] transition-all shadow-[0_12px_24px_rgba(26,75,222,0.15)] border-0 text-[15px] hover:scale-105 cursor-pointer">
+                Login
               </Button>
             </Link>
           </div>
@@ -108,11 +113,13 @@ export default function Header() {
               {navLinks.map((link) => {
                 const handleSmoothScrollMobile = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
                   if (href.startsWith('#')) {
-                    e.preventDefault();
-                    setMobileMenuOpen(false);
                     const element = document.querySelector(href);
                     if (element) {
+                      e.preventDefault();
+                      setMobileMenuOpen(false);
                       element.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      setMobileMenuOpen(false);
                     }
                   } else {
                     setMobileMenuOpen(false);
@@ -129,11 +136,16 @@ export default function Header() {
                   {link.name}
                 </Link>
               )})}
-              <Link href="/contact" className="block px-3 py-2">
-                <Button className="w-full bg-[#ff6b35] hover:bg-[#e55420] text-white font-bold rounded-xl h-12 shadow-lg shadow-[#ff6b35]/20">
-                  Contact With Us
-                </Button>
-              </Link>
+                <Link href="/login" className="block px-3 py-2" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="outline" className="w-full border-2 border-[#1a4bde] text-[#1a4bde] hover:bg-[#1a4bde] hover:text-white font-bold rounded-xl h-12">
+                    Login to Portal
+                  </Button>
+                </Link>
+                <Link href="/contact" className="block px-3 py-2" onClick={() => setMobileMenuOpen(false)}>
+                  <Button className="w-full bg-[#ff6b35] hover:bg-[#e55420] text-white font-bold rounded-xl h-12 shadow-lg shadow-[#ff6b35]/20">
+                    Contact With Us
+                  </Button>
+                </Link>
             </div>
           </motion.div>
         )}

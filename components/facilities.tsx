@@ -38,7 +38,7 @@ export default function MedicalFacilities() {
   ]
 
   return (
-    <section className="py-24 bg-[#f8faff] overflow-hidden">
+    <section id="facilities" className="py-24 bg-[#f8faff] overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-4xl lg:text-5xl font-black text-[#0a1b4d] tracking-tight">
