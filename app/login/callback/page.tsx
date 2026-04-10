@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Loader2 } from 'lucide-react'
 
-export default function GoogleCallback() {
+function GoogleCallbackInner() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -43,5 +43,20 @@ export default function GoogleCallback() {
       </motion.div>
       <p className="mt-6 text-slate-500 font-bold tracking-tight">Completing secure login...</p>
     </div>
+  )
+}
+
+export default function GoogleCallback() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex flex-col items-center justify-center bg-white">
+          <Loader2 className="w-12 h-12 text-[#1a4bde] animate-spin" />
+          <p className="mt-6 text-slate-500 font-bold tracking-tight">Completing secure login...</p>
+        </div>
+      }
+    >
+      <GoogleCallbackInner />
+    </Suspense>
   )
 }
