@@ -8,7 +8,16 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import DashboardCharts from '@/components/dashboard/overview/DashboardCharts'
 import WelcomeCard from '@/components/dashboard/overview/WelcomeCard'
 import { useState, useEffect } from 'react'
-import { PlusCircle, Calendar as CalendarIcon, UserPlus, CreditCard, Bell, Zap, MoreVertical, ArrowRight } from 'lucide-react'
+import { 
+  PlusCircle, 
+  Calendar as CalendarIcon, 
+  UserPlus, 
+  CreditCard, 
+  Bell, 
+  Zap, 
+  MoreVertical, 
+  ChevronRight 
+} from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import { getAccessToken } from '@/lib/utils'
@@ -32,7 +41,7 @@ export default function DashboardPage() {
            window.location.href = '/login'
            return
         }
-        token = getCookie('accessToken')
+        token = getAccessToken()
       }
 
       try {
@@ -141,7 +150,7 @@ export default function DashboardPage() {
                 onClick={() => window.location.href = '/dashboard/records'}
                 className="text-[#1a4bde] font-black uppercase text-sm tracking-wider flex items-center gap-2 hover:gap-4 transition-all"
               >
-                View Full Medical History <ArrowRight className="w-4 h-4" />
+                View Full Medical History <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           )}
