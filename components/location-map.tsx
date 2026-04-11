@@ -42,8 +42,8 @@ export default function LocationMap() {
                 <div>
                   <h4 className="text-lg font-bold text-[#0a1b4d]">Phone</h4>
                   <p className="text-[#64748b] font-medium leading-relaxed">
-                    +880 1XXX-XXXXXX<br />
-                    Available 24/7
+                    01722-414025<br />
+                    01718-955467
                   </p>
                 </div>
               </div>

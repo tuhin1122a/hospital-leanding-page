@@ -20,6 +20,10 @@ const _geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'Nurjahan Private Hospital & Diagnostic Center-2',
   description: 'World-class healthcare services provided 24/7.',
+  icons: {
+    icon: '/favicon (2).png',
+    apple: '/favicon (2).png',
+  }
 }
 
 export default function RootLayout({

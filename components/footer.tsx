@@ -29,8 +29,8 @@ export default function Footer() {
           {/* Column 1: Brand */}
           <div className="space-y-6">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-[52px] h-[52px] bg-gradient-to-tr from-primary to-primary/80 rounded-xl flex items-center justify-center border border-white/10 shadow-lg group-hover:rotate-6 transition-all duration-500">
-                <span className="text-white font-bold text-2xl group-hover:scale-110 transition-transform">+</span>
+              <div className="w-[52px] h-[52px] flex items-center justify-center group-hover:rotate-6 transition-all duration-500 overflow-hidden">
+                <img src="/favicon (2).png" alt="Logo" className="w-full h-full object-contain" />
               </div>
               <div className="flex flex-col text-left">
                 <h1 className="text-[17px] font-black text-white tracking-[-0.03em] leading-[1.1]">
@@ -77,10 +77,17 @@ export default function Footer() {
                   <div className="w-5 h-5 translate-y-0.5 text-primary">📍</div>
                   <span>Panti, Kumarkhali,<br />Kushtia, Bangladesh</span>
                </li>
-               <li className="flex items-center gap-3">
+                <li className="flex items-center gap-3">
                   <div className="w-5 h-5 text-primary">📞</div>
-                  <span>+880 1XXX-XXXXXX</span>
-               </li>
+                  <div className="flex flex-col">
+                    <span>01722-414025</span>
+                    <span>01718-955467</span>
+                  </div>
+                </li>
+                <li className="flex items-center gap-3 text-zinc-400">
+                  <div className="w-5 h-5 text-primary">📧</div>
+                  <span className="break-all font-medium">nurjahanprivatehospital2@gmail.com</span>
+                </li>
             </ul>
           </div>
 

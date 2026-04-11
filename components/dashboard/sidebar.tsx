@@ -111,7 +111,9 @@ export default function Sidebar({ className }: { className?: string }) {
       <div className="p-6 flex items-center justify-between">
         {!collapsed && (
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-sidebar-primary rounded-lg flex items-center justify-center text-sidebar-primary-foreground font-bold">NH</div>
+            <div className="w-8 h-8 flex items-center justify-center overflow-hidden">
+              <img src="/favicon (2).png" alt="Logo" className="w-full h-full object-contain" />
+            </div>
             <span className="text-sidebar-foreground font-black text-xl tracking-tighter">Nurjahan</span>
           </div>
         )}

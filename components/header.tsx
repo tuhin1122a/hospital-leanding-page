@@ -10,13 +10,49 @@ import { useEffect, useState } from 'react'
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState('Home')
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
+      if (window.scrollY < 100) setActiveSection('Home')
     }
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-40% 0px -40% 0px',
+      threshold: 0
+    }
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id
+          const matchingLink = navLinks.find(link => link.href === `#${id}`)
+          if (matchingLink) {
+            setActiveSection(matchingLink.name)
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    
+    // Define sections to watch based on navLinks (skipping Home '/')
+    const sectionIds = navLinks
+      .filter(link => link.href.startsWith('#'))
+      .map(link => link.href.substring(1));
+
+    sectionIds.forEach(id => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      observer.disconnect()
+    }
   }, [])
 
   const navLinks = [
@@ -33,10 +69,8 @@ export default function Header() {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group transition-transform hover:scale-[1.02]">
-            <div className="w-[48px] h-[48px] bg-gradient-to-tr from-[#1a4bde] to-[#4c7cf4] rounded-xl flex items-center justify-center border border-[#1a4bde]/20 rotate-[-8deg] group-hover:rotate-0 transition-all duration-500 shadow-lg shadow-[#1a4bde]/20">
-              <svg viewBox="0 0 24 24" fill="none" className="w-[28px] h-[28px] text-white" stroke="currentColor" strokeWidth="3.5">
-                <path d="M12 5V19M5 12H19" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+            <div className="w-[48px] h-[48px] flex items-center justify-center rotate-[-8deg] group-hover:rotate-0 transition-all duration-500 overflow-hidden">
+              <img src="/favicon (2).png" alt="Logo" className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col">
                <h1 className="text-[17px] font-black text-[#0a1b4d] tracking-[-0.04em] leading-[1.1]">
@@ -64,10 +98,10 @@ export default function Header() {
                 key={link.name} 
                 href={link.href} 
                 onClick={(e) => handleSmoothScroll(e, link.href)}
-                className={`text-[14.5px] font-bold transition-all relative group ${link.name === 'Home' ? 'text-[#ff6b35]' : 'text-[#0f172a] hover:text-[#1a4bde]'}`}
+                className={`text-[14.5px] font-bold transition-all relative group ${activeSection === link.name ? 'text-[#ff6b35]' : 'text-[#0f172a] hover:text-[#1a4bde]'}`}
               >
                 {link.name}
-                {link.name === 'Home' ? (
+                {activeSection === link.name ? (
                   <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-[#ff6b35] rounded-full" />
                 ) : (
                   <span className="absolute -bottom-1 left-0 w-0 h-[2.5px] bg-[#1a4bde] transition-all duration-300 group-hover:w-full rounded-full" />
@@ -131,7 +165,7 @@ export default function Header() {
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleSmoothScrollMobile(e, link.href)}
-                  className="block text-[20px] font-bold text-slate-900 hover:text-[#ff6b35] transition-colors"
+                  className={`block text-[20px] font-bold transition-colors ${activeSection === link.name ? 'text-[#ff6b35]' : 'text-slate-900 hover:text-[#ff6b35]'}`}
                 >
                   {link.name}
                 </Link>

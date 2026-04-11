@@ -7,7 +7,8 @@ export const metadata: Metadata = {
   title: 'Dashboard - Nurjahan Private Hospital & Diagnostic Center-2',
   description: 'Manage hospital operations, appointments, and patient records.',
   icons: {
-    icon: '/icon.svg',
+    icon: '/favicon (2).png',
+    apple: '/favicon (2).png',
   },
 }
 

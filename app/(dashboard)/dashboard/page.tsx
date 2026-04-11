@@ -8,7 +8,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import DashboardCharts from '@/components/dashboard/overview/DashboardCharts'
 import WelcomeCard from '@/components/dashboard/overview/WelcomeCard'
 import { useState, useEffect } from 'react'
-import { PlusCircle, Calendar as CalendarIcon, UserPlus, CreditCard, Bell, Zap, MoreVertical } from 'lucide-react'
+import { PlusCircle, Calendar as CalendarIcon, UserPlus, CreditCard, Bell, Zap, MoreVertical, ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import { getAccessToken } from '@/lib/utils'

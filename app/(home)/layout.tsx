@@ -6,11 +6,11 @@ import BackgroundShapes from '@/components/background-shapes';
 export const metadata: Metadata = {
   metadataBase: new URL('https://nurjahandiagnostic.com'),
   title: {
-    default: 'Nurjahan Private Hospital & Diagnostic Center-2 | Sylhet',
+    default: 'Nurjahan Private Hospital & Diagnostic Center-2 | Kushtia',
     template: '%s | Nurjahan Hospital'
   },
-  description: 'Experience world-class healthcare at Nurjahan Private Hospital & Diagnostic Center-2. Expert doctors, advanced facilities, and compassionate care available 24/7 in Sylhet.',
-  keywords: ['hospital in sylhet', 'diagnostic center sylhet', 'healthcare', 'medical services', 'Sylhet hospital', 'nurjahan hospital', 'best doctors in sylhet', 'emergency care sylhet', 'ICU sylhet'],
+  description: 'Experience world-class healthcare at Nurjahan Private Hospital & Diagnostic Center-2. Expert doctors, advanced facilities, and compassionate care available 24/7 in Kumarkhali, Kushtia.',
+  keywords: ['hospital in kushtia', 'diagnostic center kushtia', 'healthcare', 'medical services', 'Kushtia hospital', 'nurjahan hospital', 'best doctors in kushtia', 'emergency care kushtia', 'ICU kushtia'],
   authors: [{ name: 'Nurjahan Hospital' }],
   creator: 'Nurjahan Hospital',
   publisher: 'Nurjahan Hospital',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Nurjahan Private Hospital & Diagnostic Center-2',
-    description: 'Leading healthcare provider with advanced medical technology and expert clinical care in Sylhet.',
+    description: 'Leading healthcare provider with advanced medical technology and expert clinical care in Kumarkhali, Kushtia.',
     url: 'https://nurjahandiagnostic.com',
     siteName: 'Nurjahan Hospital',
     images: [
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Nurjahan Private Hospital & Diagnostic Center-2',
-    description: 'World-class healthcare at your service in Sylhet. 24/7 emergency & diagnostic center.',
+    description: 'World-class healthcare at your service in Kumarkhali, Kushtia. 24/7 emergency & diagnostic center.',
     creator: '@NurjahanHosp',
     images: ['/hero-hospital.jpg'],
   },
