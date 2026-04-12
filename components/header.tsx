@@ -59,13 +59,57 @@ export default function Header() {
     { name: 'Home', href: '/' },
     { name: 'Services', href: '#services' },
     { name: 'Specialist', href: '#specialists' },
+    { name: 'Booking', href: '#contact' },
     { name: 'About', href: '#about' },
     { name: 'Blog', href: '#blog' },
   ]
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/90 backdrop-blur-lg py-3 shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent py-7'}`}>
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 flex flex-col ${scrolled ? 'bg-white/90 backdrop-blur-lg shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
+      <style dangerouslySetInnerHTML={{__html: `
+        @import url('https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@600;700;800&display=swap');
+        
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 16s linear infinite;
+        }
+        .animate-marquee:hover {
+          animation-play-state: paused;
+        }
+      `}} />
+      
+      {/* Top Breaking News Banner */}
+      <div className={`bg-[#005C38] text-white w-full overflow-hidden flex items-center transition-all duration-300 border-b border-green-800 ${scrolled ? 'h-0 opacity-0 border-transparent' : 'h-[48px] md:h-[60px] opacity-100'}`}>
+        <div className="animate-marquee w-max flex items-center h-full whitespace-nowrap pt-1">
+           {/* Group 1 */}
+           <div className="flex items-center">
+             <span className="pl-12 md:pl-24 pr-5 text-[24px] md:text-[30px] font-extrabold tracking-wide drop-shadow-md whitespace-nowrap" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+                নূরজাহান প্রাইভেট হাসপাতাল এন্ড ডায়াগনস্টিক সেন্টার-২
+             </span>
+             <span className="text-[#a4e2c6] text-[18px] drop-shadow-md">✦</span>
+             <span className="pl-5 pr-12 md:pr-24 text-[20px] md:text-[26px] font-semibold tracking-wide drop-shadow-md whitespace-nowrap text-white" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+                পপি সুপার মার্কেট, পান্টি বাজার, কুমারখালী, কুষ্টিয়া।
+             </span>
+             <span className="text-[#a4e2c6] text-[18px] drop-shadow-md">✦</span>
+           </div>
+           {/* Group 2 */}
+           <div className="flex items-center">
+             <span className="pl-12 md:pl-24 pr-5 text-[24px] md:text-[30px] font-extrabold tracking-wide drop-shadow-md whitespace-nowrap" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+                নূরজাহান প্রাইভেট হাসপাতাল এন্ড ডায়াগনস্টিক সেন্টার-২
+             </span>
+             <span className="text-[#a4e2c6] text-[18px] drop-shadow-md">✦</span>
+             <span className="pl-5 pr-12 md:pr-24 text-[20px] md:text-[26px] font-semibold tracking-wide drop-shadow-md whitespace-nowrap text-white" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+                পপি সুপার মার্কেট, পান্টি বাজার, কুমারখালী, কুষ্টিয়া।
+             </span>
+             <span className="text-[#a4e2c6] text-[18px] drop-shadow-md">✦</span>
+           </div>
+        </div>
+      </div>
+
+      <div className={`max-w-7xl mx-auto px-6 lg:px-12 w-full transition-all duration-500 ${scrolled ? 'py-3' : 'py-4 lg:py-6'}`}>
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group transition-transform hover:scale-[1.02]">
@@ -112,9 +156,15 @@ export default function Header() {
 
           {/* Right section */}
           <div className="hidden lg:flex items-center gap-4">
-            <Link href="/contact">
+            <Link href="#contact" onClick={(e) => {
+              const element = document.querySelector('#contact');
+              if (element) {
+                e.preventDefault();
+                element.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}>
               <Button className="bg-[#ff6b35] hover:bg-[#ff6b35]/90 text-white font-bold px-8 h-[50px] rounded-[12px] transition-all shadow-[0_12px_24px_rgba(255,107,53,0.15)] border-0 text-[15px] hover:scale-105 cursor-pointer">
-                Contact Us
+                Online Booking
               </Button>
             </Link>
             <Link href="/login">
