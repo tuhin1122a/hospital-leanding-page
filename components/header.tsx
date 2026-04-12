@@ -82,7 +82,7 @@ export default function Header() {
       `}} />
       
       {/* Top Breaking News Banner */}
-      <div className={`bg-[#005C38] text-white w-full overflow-hidden flex items-center transition-all duration-300 border-b border-green-800 ${scrolled ? 'h-0 opacity-0 border-transparent' : 'h-[48px] md:h-[60px] opacity-100'}`}>
+      <div className={`bg-[#005C38] text-white w-full overflow-hidden flex items-center border-b border-green-800 h-[48px] md:h-[60px]`}>
         <div className="animate-marquee w-max flex items-center h-full whitespace-nowrap pt-1">
            {/* Group 1 */}
            <div className="flex items-center">
