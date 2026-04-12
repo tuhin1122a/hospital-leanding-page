@@ -86,16 +86,16 @@ export default function BookingModal({ show, onClose, patients, doctors, onSubmi
     }
   }, [selectedDoctor, selectedDate, step])
 
-  const filteredDoctors = doctors.filter(d =>
+  const filteredDoctors = Array.isArray(doctors) ? doctors.filter(d =>
     d.name?.toLowerCase().includes(doctorSearch.toLowerCase()) ||
     d.doctorProfile?.specialty?.toLowerCase().includes(doctorSearch.toLowerCase()) ||
     d.doctorProfile?.department?.toLowerCase().includes(doctorSearch.toLowerCase())
-  )
+  ) : []
 
-  const filteredPatients = patients.filter(p =>
+  const filteredPatients = Array.isArray(patients) ? patients.filter(p =>
     p.name?.toLowerCase().includes(patientSearch.toLowerCase()) ||
     p.patientId?.toLowerCase().includes(patientSearch.toLowerCase())
-  )
+  ) : []
 
   const handleSubmit = () => {
     if (!selectedDoctor || !selectedDate || !selectedTime || (role !== 'PATIENT' && !selectedPatient)) return

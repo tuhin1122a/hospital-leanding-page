@@ -8,6 +8,6 @@ export function cn(...inputs: ClassValue[]) {
 export function getAccessToken() {
   if (typeof document === 'undefined') return ''
   const cookies = document.cookie.split('; ')
-  const accessTokenRow = cookies.find(row => row.trim().startsWith('accessToken='))
+  const accessTokenRow = Array.isArray(cookies) ? cookies.find(row => row.trim().startsWith('accessToken=')) : null
   return accessTokenRow ? accessTokenRow.split('=')[1] : ''
 }

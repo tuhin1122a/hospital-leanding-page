@@ -38,9 +38,22 @@ export default function ScheduleSection() {
   // Fetch doctors on mount
   useEffect(() => {
     fetch(`${API_URL}/doctors`)
-      .then(res => res.json())
-      .then(data => setDoctors(data))
-      .catch(err => console.error("Error fetching doctors:", err))
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
+        return res.json()
+      })
+      .then(data => {
+        if (Array.isArray(data)) {
+          setDoctors(data)
+        } else {
+          console.error("Expected array of doctors, got:", data)
+          setDoctors([])
+        }
+      })
+      .catch(err => {
+        console.error("Error fetching doctors:", err)
+        setDoctors([])
+      })
   }, [])
 
   // Fetch slots when doctor or date changes
@@ -115,7 +128,7 @@ export default function ScheduleSection() {
     }
   }
 
-  const selectedDoctor = doctors.find(d => d.id === formData.doctorId)
+  const selectedDoctor = Array.isArray(doctors) ? doctors.find(d => d.id === formData.doctorId) : null
 
   return (
     <section id="contact" className="py-24 bg-white overflow-hidden scroll-mt-20">

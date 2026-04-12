@@ -8,6 +8,15 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 export default function Header() {
+  const navLinks = [
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '#services' },
+    { name: 'Specialist', href: '#specialists' },
+    { name: 'Booking', href: '#contact' },
+    { name: 'About', href: '#about' },
+    { name: 'Blog', href: '#blog' },
+  ]
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('Home')
@@ -28,7 +37,7 @@ export default function Header() {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const id = entry.target.id
-          const matchingLink = navLinks.find(link => link.href === `#${id}`)
+          const matchingLink = (navLinks || []).find(link => link.href === `#${id}`)
           if (matchingLink) {
             setActiveSection(matchingLink.name)
           }
@@ -55,14 +64,7 @@ export default function Header() {
     }
   }, [])
 
-  const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Services', href: '#services' },
-    { name: 'Specialist', href: '#specialists' },
-    { name: 'Booking', href: '#contact' },
-    { name: 'About', href: '#about' },
-    { name: 'Blog', href: '#blog' },
-  ]
+
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 flex flex-col ${scrolled ? 'bg-white/90 backdrop-blur-lg shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
