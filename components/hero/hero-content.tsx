@@ -7,27 +7,39 @@ import { motion, AnimatePresence } from 'framer-motion'
 const slides = [
   {
     title1: "আধুনিক",
-    title2: "স্বাস্থ্য ",
-    title3: "সেবা",
+    title2: "হাসপাতাল ",
+    title3: "ডিজাইন",
     desc: "নূরজাহান প্রাইভেট হাসপাতাল এন্ড ডায়াগনস্টিক সেন্টার-২ এ বিশ্বমানের আধুনিক চিকিৎসা ও পরম যত্ন প্রদান করা হয়। আমাদের সার্বক্ষণিক লক্ষ্য আপনার দ্রুত সুস্থতা।"
   },
   {
     title1: "নির্ভুল",
-    title2: "ডায়াগনস্টিক ",
-    title3: "রিপোর্ট",
-    desc: "সর্বাধুনিক এক্স-রে (X-Ray), এমআরআই (MRI) ও প্যাথলজি ল্যাব ফ্যাসিলিটি দ্বারা ২৪ ঘণ্টাই নির্ভুল ও দ্রুত রিপোর্ট প্রদান নিশ্চিত করা হয়।"
+    title2: "ডিজিটাল ",
+    title3: "এক্স-রে",
+    desc: "সর্বআধুনিক এক্স-রে (X-Ray) ফ্যাসিলিটি দ্বারা ২৪ ঘণ্টাই নির্ভুল ও দ্রুত রিপোর্ট প্রদান নিশ্চিত করা হয়।"
+  },
+  {
+    title1: "আধুনিক",
+    title2: "আল্ট্রাস্রনো ",
+    title3: "গ্রাফি",
+    desc: "অভিজ্ঞ বিশেষজ্ঞ ডাক্তারদের মাধ্যমে আধুনিক মেশিনে নির্ভুল আল্ট্রাসনোগ্রাম রিপোর্ট প্রদান করা হয়।"
   },
   {
     title1: "উন্নত",
     title2: "আইসিইউ ",
-    title3: "সুবিধা",
+    title3: "কেবিন",
     desc: "মুমূর্ষু রোগীদের জন্য রয়েছে অত্যন্ত উন্নতমানের আইসিইউ (ICU), লাইফ সাপোর্ট এবং সার্বক্ষণিক বিশেষজ্ঞ ডাক্তার ও নার্সদের কড়া নজরদারি।"
   },
   {
-    title1: "বিশেষজ্ঞ",
-    title2: "ডাক্তারদের ",
-    title3: "পরামর্শ",
-    desc: "দেশের শীর্ষস্থানীয় ও অভিজ্ঞ বিশেষজ্ঞ চিকিৎসকদের মাধ্যমে সকল ধরনের আইসিইউ, অ্যানেস্থেশিয়া, মেডিসিন ও সার্জারির শতভাগ সফল চিকিৎসা প্রদান করা হয়।"
+    title1: "নিরাপদ",
+    title2: "অপারেশন ",
+    title3: "কেবিন",
+    desc: "অপারেশন পরবর্তী নিবিড় পর্যবেক্ষণের জন্য আমাদের রয়েছে সুসজ্জিত এবং বাস্তবসম্মত আধুনিক সুবিধাসম্পন্ন অপারেশন কেবিন।"
+  },
+  {
+    title1: "আধুনিক",
+    title2: "অপারেশন ",
+    title3: "থিয়েটার",
+    desc: "অভিজ্ঞ সার্জনদের মাধ্যমে শতভাগ জীবাণুমুক্ত পরিবেশে আমাদের আধুনিক অপারেশন থিয়েটারে শতভাগ সফল চিকিৎসা নিশ্চিত করা হয়।"
   }
 ]
 
@@ -69,14 +81,14 @@ export function HeroContent({
               className="font-extrabold leading-[1.1] tracking-[-0.03em] mb-4 lg:mb-5"
               style={{ fontSize: 'clamp(32px, 5vw, 68px)' }}
             >
-              <span className="text-white block drop-shadow-lg leading-tight">{slides[currentSlide].title1}</span>
+              <span className="text-white block drop-shadow-lg leading-tight">{slides[currentSlide]?.title1 || ""}</span>
               <span className="leading-tight">
-                <span className="text-white drop-shadow-lg">{slides[currentSlide].title2}</span>
-                <span className="text-[#60a5fa] drop-shadow-lg ml-2">{slides[currentSlide].title3}</span>
+                <span className="text-white drop-shadow-lg">{slides[currentSlide]?.title2 || ""}</span>
+                <span className="text-[#60a5fa] drop-shadow-lg ml-2">{slides[currentSlide]?.title3 || ""}</span>
               </span>
             </h1>
             <p className="text-slate-200 font-medium text-[16px] lg:text-[20px] leading-relaxed max-w-[540px] mx-auto lg:mx-0 drop-shadow-md">
-              {slides[currentSlide].desc}
+              {slides[currentSlide]?.desc || ""}
             </p>
           </motion.div>
         </AnimatePresence>

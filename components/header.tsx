@@ -67,9 +67,9 @@ export default function Header() {
 
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 flex flex-col ${scrolled ? 'bg-white/90 backdrop-blur-lg shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 flex flex-col ${scrolled ? 'bg-white/90 backdrop-blur-lg shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-white/60 backdrop-blur-md border-b border-white/20'}`}>
       <style dangerouslySetInnerHTML={{__html: `
-        @import url('https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@600;700;800&family=Hind+Siliguri:wght@500;600;700&display=swap');
         
         @keyframes marquee {
           0% { transform: translateX(0); }
@@ -83,31 +83,12 @@ export default function Header() {
         }
       `}} />
       
-      {/* Top Breaking News Banner */}
-      <div className={`bg-[#005C38] text-white w-full overflow-hidden flex items-center border-b border-green-800 h-[48px] md:h-[60px]`}>
-        <div className="animate-marquee w-max flex items-center h-full whitespace-nowrap pt-1">
-           {/* Group 1 */}
-           <div className="flex items-center">
-             <span className="pl-12 md:pl-24 pr-5 text-[24px] md:text-[30px] font-extrabold tracking-wide drop-shadow-md whitespace-nowrap" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
-                নূরজাহান প্রাইভেট হাসপাতাল এন্ড ডায়াগনস্টিক সেন্টার-২
-             </span>
-             <span className="text-[#a4e2c6] text-[18px] drop-shadow-md">✦</span>
-             <span className="pl-5 pr-12 md:pr-24 text-[20px] md:text-[26px] font-semibold tracking-wide drop-shadow-md whitespace-nowrap text-white" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
-                পপি সুপার মার্কেট, পান্টি বাজার, কুমারখালী, কুষ্টিয়া।
-             </span>
-             <span className="text-[#a4e2c6] text-[18px] drop-shadow-md">✦</span>
-           </div>
-           {/* Group 2 */}
-           <div className="flex items-center">
-             <span className="pl-12 md:pl-24 pr-5 text-[24px] md:text-[30px] font-extrabold tracking-wide drop-shadow-md whitespace-nowrap" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
-                নূরজাহান প্রাইভেট হাসপাতাল এন্ড ডায়াগনস্টিক সেন্টার-২
-             </span>
-             <span className="text-[#a4e2c6] text-[18px] drop-shadow-md">✦</span>
-             <span className="pl-5 pr-12 md:pr-24 text-[20px] md:text-[26px] font-semibold tracking-wide drop-shadow-md whitespace-nowrap text-white" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
-                পপি সুপার মার্কেট, পান্টি বাজার, কুমারখালী, কুষ্টিয়া।
-             </span>
-             <span className="text-[#a4e2c6] text-[18px] drop-shadow-md">✦</span>
-           </div>
+      {/* Top Banner */}
+      <div className={`bg-[#005C38] text-white w-full flex items-center justify-center border-b border-green-800 min-h-[60px] md:min-h-[80px] py-2`}>
+        <div className="flex items-center justify-center px-4 w-full">
+          <span className="text-[20px] sm:text-[24px] md:text-[34px] font-bold tracking-normal drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] text-center leading-tight" style={{ fontFamily: "'Hind Siliguri', sans-serif" }}>
+            নূরজাহান প্রাইভেট হাসপাতাল এন্ড ডায়াগনস্টিক সেন্টার-২
+          </span>
         </div>
       </div>
 

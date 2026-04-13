@@ -5,10 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { HeroContent } from './hero/hero-content'
 
 const bgImages = [
-  "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1920&q=80", // Modern Hospital
-  "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=1920&q=80", // Diagnostic / X-ray vibe
-  "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=1920&q=80", // ICU / Patient bed
-  "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=1920&q=80"  // Expert Doctor
+  "/hero-hospital.jpg",       // Hospital Design
+  "/x_ray_machine_1771847517546.png", // X-ray
+  "/ultrasound_machine_1771847580933.png", // Ultrasound
+  "/patient-care.jpg",        // ICU Cabin
+  "/surgery-room.jpg",         // Operation Cabin (Real and light)
+  "/masked-doctor.png"         // Operation Theatre (Focused Surgery)
 ]
 
 export default function Hero() {
@@ -43,10 +45,8 @@ export default function Hero() {
       </div>
 
       {/* ----------------- MAIN LAYOUT CONTAINER (Positioned Content) ----------------- */}
-      <div className="relative w-full max-w-7xl mx-auto min-h-screen px-6 flex flex-col justify-end z-10 pb-24 lg:pb-32 pt-48">
-         
+      <div className="relative w-full max-w-7xl mx-auto min-h-screen px-6 flex flex-col justify-end z-10 pb-24 lg:pb-32 pt-64 md:pt-72">
          <HeroContent currentSlide={currentSlide} setCurrentSlide={setCurrentSlide} />
-
       </div>
     </section>
   )
