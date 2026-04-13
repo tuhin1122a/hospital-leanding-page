@@ -30,12 +30,6 @@ const slides = [
     desc: "মুমূর্ষু রোগীদের জন্য রয়েছে অত্যন্ত উন্নতমানের আইসিইউ (ICU), লাইফ সাপোর্ট এবং সার্বক্ষণিক বিশেষজ্ঞ ডাক্তার ও নার্সদের কড়া নজরদারি।"
   },
   {
-    title1: "নিরাপদ",
-    title2: "অপারেশন ",
-    title3: "কেবিন",
-    desc: "অপারেশন পরবর্তী নিবিড় পর্যবেক্ষণের জন্য আমাদের রয়েছে সুসজ্জিত এবং বাস্তবসম্মত আধুনিক সুবিধাসম্পন্ন অপারেশন কেবিন।"
-  },
-  {
     title1: "আধুনিক",
     title2: "অপারেশন ",
     title3: "থিয়েটার",
@@ -66,49 +60,9 @@ export function HeroContent({
   return (
     <div className="max-w-4xl mb-12 flex flex-col items-center lg:items-start text-center lg:text-left relative z-20" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
       
-      {/* TEXT SLIDER CONTAINER */}
-      <div className="relative h-[250px] sm:h-[180px] md:h-[200px] lg:h-[220px] w-full">
-        <AnimatePresence mode="sync">
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -30 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="absolute inset-0"
-          >
-            <h1
-              className="font-extrabold leading-[1.1] tracking-[-0.03em] mb-4 lg:mb-5"
-              style={{ fontSize: 'clamp(32px, 5vw, 68px)' }}
-            >
-              <span className="text-white block drop-shadow-lg leading-tight">{slides[currentSlide]?.title1 || ""}</span>
-              <span className="leading-tight">
-                <span className="text-white drop-shadow-lg">{slides[currentSlide]?.title2 || ""}</span>
-                <span className="text-[#60a5fa] drop-shadow-lg ml-2">{slides[currentSlide]?.title3 || ""}</span>
-              </span>
-            </h1>
-            <p className="text-slate-200 font-medium text-[16px] lg:text-[20px] leading-relaxed max-w-[540px] mx-auto lg:mx-0 drop-shadow-md">
-              {slides[currentSlide]?.desc || ""}
-            </p>
-          </motion.div>
-        </AnimatePresence>
-      </div>
+      {/* TEXT SLIDER REMOVED FOR CLEAN VIEW */}
 
-      {/* SLIDER DOTS */}
-      <div className="flex gap-2 my-6 justify-center lg:justify-start">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrentSlide(i)}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              currentSlide === i ? 'bg-[#60a5fa] w-6 shadow-md outline-none' : 'bg-white/30 w-2 hover:bg-white/50 outline-none'
-            }`}
-            aria-label={`Go to slide ${i + 1}`}
-          />
-        ))}
-      </div>
-
-      <div className="flex flex-col sm:flex-row items-center gap-5 text-left items-start justify-center w-full lg:justify-start mt-2">
+      <div className="flex flex-col sm:flex-row items-center gap-5 justify-center w-full lg:justify-start mt-auto mb-6 md:mb-10">
         {/* EMERGENCY CONTACT DROPDOWN */}
         <div className="relative w-full sm:w-[260px]" ref={menuRef}>
           <button 
