@@ -35,7 +35,7 @@ const menuItems = [
   { title: 'Salaries', href: '/dashboard/salaries', icon: CreditCard, roles: ['ADMIN', 'DOCTOR', 'RECEPTIONIST', 'STAFF', 'PHARMACIST'] },
   { title: 'Staff', href: '/dashboard/staff', icon: Users, roles: ['ADMIN'] },
   { title: 'Department', href: '/dashboard/departments', icon: ClipboardList, roles: ['ADMIN'] },
-  { title: 'Security', href: '/dashboard/security', icon: ShieldCheck, roles: ['ADMIN'] },
+  { title: 'Landing Page', href: '/dashboard/landing-page', icon: LayoutDashboard, roles: ['ADMIN'] },
   { title: 'Settings', href: '/dashboard/settings', icon: Settings, roles: ['ADMIN', 'DOCTOR', 'RECEPTIONIST'] },
 ]
 

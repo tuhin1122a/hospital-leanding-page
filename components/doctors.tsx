@@ -1,37 +1,32 @@
+'use client'
+
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { DoctorCard } from './doctor-card'
 
 export default function SpecialistSection() {
-  const doctors = [
-    {
-      id: 'shamim-ahmed',
-      name: 'Dr. Shamim Ahmed',
-      role: 'Senior Consultant & proprietor',
-      specialty: 'Medical Specialist',
-      image: '/doctor-1.jpg'
-    },
-    {
-       id: 'sarah-rahman',
-       name: 'Dr. Sarah Rahman',
-       role: 'Consultant',
-       specialty: 'Cardiology Specialist',
-       image: '/medical-team-1.png'
-    },
-    {
-       id: 'faisal-karim',
-       name: 'Dr. Faisal Karim',
-       role: 'Consultant Surgeons',
-       specialty: 'Orthopedic Surgery',
-       image: '/medical-team-2.png'
-    },
-    {
-       id: 'nusrat-jahan',
-       name: 'Dr. Nusrat Jahan',
-       role: 'Consultant Specialist',
-       specialty: 'Gynecology & Obs',
-       image: '/hero-doctor.png'
+  const [doctors, setDoctors] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/doctors`)
+        if (res.ok) {
+          const data = await res.json()
+          // Only show active doctors on landing page
+          setDoctors(data.filter((d: any) => d.doctorProfile?.isActive).slice(0, 4))
+        }
+      } catch (error) {
+        console.error("Failed to fetch doctors", error)
+      } finally {
+        setIsLoading(false)
+      }
     }
-  ]
+    fetchDoctors()
+  }, [])
+
+  if (isLoading) return null;
 
   return (
     <section id="specialists" className="py-24 bg-white overflow-hidden">
@@ -63,4 +58,5 @@ export default function SpecialistSection() {
     </section>
   )
 }
+
 

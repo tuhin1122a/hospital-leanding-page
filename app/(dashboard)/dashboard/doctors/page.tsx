@@ -6,19 +6,58 @@ import { Button } from '@/components/ui/button'
 import { useLanguage } from '@/contexts/LanguageContext'
 import DoctorCard from '@/components/dashboard/doctors/DoctorCard'
 import RegisterDoctorModal from '@/components/dashboard/doctors/RegisterDoctorModal'
-
-const doctors = [
-  { id: 'DOC-001', name: 'Dr. Rajesh Sharma', specialty: 'Cardiology', experience: '18 Years', rating: 4.9, status: 'On Duty', appointments: 12, image: 'https://i.pravatar.cc/150?u=1' },
-  { id: 'DOC-002', name: 'Dr. Priya Kapoor', specialty: 'Neurology', experience: '16 Years', rating: 4.9, status: 'On Break', appointments: 8, image: 'https://i.pravatar.cc/150?u=2' },
-  { id: 'DOC-003', name: 'Dr. Arjun Patel', specialty: 'Orthopedics', experience: '20 Years', rating: 4.8, status: 'On Duty', appointments: 15, image: 'https://i.pravatar.cc/150?u=3' },
-  { id: 'DOC-004', name: 'Dr. Anjali Mehta', specialty: 'Oncology', experience: '17 Years', rating: 4.9, status: 'Off Duty', appointments: 0, image: 'https://i.pravatar.cc/150?u=4' },
-  { id: 'DOC-005', name: 'Dr. Vikram Singh', specialty: 'Emergency', experience: '19 Years', rating: 4.8, status: 'On Duty', appointments: 22, image: 'https://i.pravatar.cc/150?u=5' },
-  { id: 'DOC-006', name: 'Dr. Sneha Gupta', specialty: 'General Medicine', experience: '15 Years', rating: 4.9, status: 'On Duty', appointments: 10, image: 'https://i.pravatar.cc/150?u=6' },
-]
+import DoctorScheduleModal from '@/components/dashboard/doctors/DoctorScheduleModal'
 
 export default function DoctorsPage() {
-  const { t } = useLanguage(); const [showModal, setShowModal] = useState(false); const [searchQuery, setSearchQuery] = useState('')
-  const filtered = doctors.filter(d => d.name.toLowerCase().includes(searchQuery.toLowerCase()) || d.specialty.toLowerCase().includes(searchQuery.toLowerCase()) || d.id.toLowerCase().includes(searchQuery.toLowerCase()))
+  const { t } = useLanguage(); 
+  const [showModal, setShowModal] = useState(false); 
+  const [showScheduleModal, setShowScheduleModal] = useState(false);
+  const [selectedDoctor, setSelectedDoctor] = useState<any>(null);
+  const [searchQuery, setSearchQuery] = useState('')
+  const [doctors, setDoctors] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  const fetchDoctors = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/doctors`)
+      if (res.ok) {
+        const data = await res.json()
+        setDoctors(data)
+      }
+    } catch (error) {
+      console.error("Failed to fetch doctors", error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchDoctors()
+  }, [])
+
+  const filtered = doctors.filter(d => 
+    d.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    d.doctorProfile?.specialty?.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Are you sure you want to remove this doctor?')) return
+    const getCookie = (name: string) => document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop()
+    const token = getCookie('accessToken')
+
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/doctors/${id}`, {
+            method: 'DELETE',
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        if (res.ok) {
+            toast.success('Doctor removed')
+            fetchDoctors()
+        }
+    } catch (error) {
+        toast.error('Failed to remove doctor')
+    }
+  }
 
   return (
     <div className="space-y-10">
@@ -33,10 +72,46 @@ export default function DoctorsPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-        {filtered.map((doctor, i) => <DoctorCard key={doctor.id} doctor={doctor} index={i} />)}
+        {isLoading ? (
+             [1,2,3].map(i => <div key={i} className="h-96 bg-muted animate-pulse rounded-3xl" />)
+        ) : (
+            filtered.map((doctor, i) => (
+                <DoctorCard 
+                    key={doctor.id} 
+                    doctor={doctor} 
+                    index={i} 
+                    onDelete={() => handleDelete(doctor.id)} 
+                    onSchedule={() => {
+                        setSelectedDoctor(doctor)
+                        setShowScheduleModal(true)
+                    }}
+                />
+            ))
+        )}
       </div>
 
-      <RegisterDoctorModal show={showModal} onClose={() => setShowModal(false)} onSubmit={(e) => { e.preventDefault(); setShowModal(false) }} />
+      <RegisterDoctorModal 
+        show={showModal} 
+        onClose={() => setShowModal(false)} 
+        onSuccess={() => {
+            setShowModal(false)
+            fetchDoctors()
+        }} 
+      />
+
+      <DoctorScheduleModal
+        show={showScheduleModal}
+        doctor={selectedDoctor}
+        onClose={() => setShowScheduleModal(false)}
+        onSuccess={() => {
+            setShowScheduleModal(false)
+            fetchDoctors()
+        }}
+      />
     </div>
   )
 }
+
+import toast from 'react-hot-toast'
+import { useEffect } from 'react'
+
