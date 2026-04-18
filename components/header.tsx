@@ -67,7 +67,7 @@ export default function Header() {
 
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 flex flex-col ${scrolled ? 'bg-white/90 backdrop-blur-lg shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-white/60 backdrop-blur-md border-b border-white/20'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 flex flex-col ${scrolled ? 'bg-white/95 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.08)]' : 'bg-white/10 backdrop-blur-[2px] border-b border-white/5'}`}>
       <style dangerouslySetInnerHTML={{__html: `
         @import url('https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@600;700;800&family=Hind+Siliguri:wght@500;600;700&display=swap');
         
@@ -84,26 +84,26 @@ export default function Header() {
       `}} />
       
       {/* Top Banner */}
-      <div className={`bg-[#005C38] text-white w-full flex items-center justify-center border-b border-green-800 min-h-[60px] md:min-h-[80px] py-2`}>
-        <div className="flex items-center justify-center px-4 w-full">
-          <span className="text-[20px] sm:text-[24px] md:text-[34px] font-bold tracking-normal drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] text-center leading-tight" style={{ fontFamily: "'Hind Siliguri', sans-serif" }}>
-            নূরজাহান প্রাইভেট হাসপাতাল এন্ড ডায়াগনস্টিক সেন্টার-২
+      <div className={`${scrolled ? 'bg-[#005C38]' : 'bg-[#005C38]/60 backdrop-blur-sm'} transition-colors duration-500 text-white w-full flex items-center justify-center border-b border-white/10 min-h-[60px] md:min-h-[80px] py-2`}>
+        <div className="flex items-center justify-center px-4 w-full text-white">
+          <span className="text-[20px] sm:text-[24px] md:text-[34px] font-bold tracking-normal drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] text-center leading-tight" style={{ fontFamily: "'Hind Siliguri', sans-serif" }}>
+            নুরজাহান প্রাইভেট হাসপাতাল এন্ড ডায়াগনস্টিক সেন্টার-২
           </span>
         </div>
       </div>
 
-      <div className={`max-w-7xl mx-auto px-6 lg:px-12 w-full transition-all duration-500 ${scrolled ? 'py-3' : 'py-4 lg:py-6'}`}>
-        <div className="flex justify-between items-center">
+      <div className={`max-w-7xl mx-auto px-6 lg:px-12 w-full transition-all duration-500 ${scrolled ? 'py-3' : 'py-5 lg:py-7'}`}>
+        <div className="flex justify-between items-center text-white">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group transition-transform hover:scale-[1.02]">
             <div className="w-[48px] h-[48px] flex items-center justify-center rotate-[-8deg] group-hover:rotate-0 transition-all duration-500 overflow-hidden">
-              <img src="/favicon (2).png" alt="Logo" className="w-full h-full object-contain" />
+              <img src="/favicon (2).png" alt="Logo" className="w-full h-full object-contain filter drop-shadow-md" />
             </div>
             <div className="flex flex-col">
-               <h1 className="text-[17px] font-black text-[#0a1b4d] tracking-[-0.04em] leading-[1.1]">
-                 Nurjahan <span className="text-[#1a4bde]">Private Hospital</span>
+               <h1 className={`text-[17px] font-black transition-colors duration-500 ${scrolled ? 'text-[#0a1b4d]' : 'text-white'} tracking-[-0.04em] leading-[1.1]`}>
+                 Nurjahan <span className={scrolled ? 'text-[#1a4bde]' : 'text-blue-300'}>Private Hospital</span>
                </h1>
-               <span className="text-[10px] font-bold text-[#1a4bde] uppercase tracking-[0.16em] mt-1 opacity-90">&Diagnostic Center 2</span>
+               <span className={`text-[10px] font-bold transition-colors duration-500 ${scrolled ? 'text-[#1a4bde]' : 'text-white/80'} uppercase tracking-[0.16em] mt-1 opacity-90`}>&Diagnostic Center 2</span>
             </div>
           </Link>
 
@@ -125,14 +125,14 @@ export default function Header() {
                 key={link.name} 
                 href={link.href} 
                 onClick={(e) => handleSmoothScroll(e, link.href)}
-                className={`text-[14.5px] font-bold transition-all relative group ${activeSection === link.name ? 'text-[#ff6b35]' : 'text-[#0f172a] hover:text-[#1a4bde]'}`}
+                className={`text-[14.5px] font-bold transition-all relative group ${scrolled ? (activeSection === link.name ? 'text-[#ff6b35]' : 'text-[#0f172a] hover:text-[#1a4bde]') : (activeSection === link.name ? 'text-white border-b-2 border-white' : 'text-white/90 hover:text-white')}`}
               >
                 {link.name}
-                {activeSection === link.name ? (
+                {scrolled && (activeSection === link.name ? (
                   <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-[#ff6b35] rounded-full" />
                 ) : (
                   <span className="absolute -bottom-1 left-0 w-0 h-[2.5px] bg-[#1a4bde] transition-all duration-300 group-hover:w-full rounded-full" />
-                )}
+                ))}
               </Link>
             )})}
           </nav>
@@ -160,7 +160,7 @@ export default function Header() {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-slate-900 bg-white/50 backdrop-blur-sm rounded-lg"
+            className={`lg:hidden p-2 rounded-lg transition-colors ${scrolled ? 'text-slate-900 bg-slate-100/50' : 'text-white bg-white/20 backdrop-blur-md border border-white/20'}`}
           >
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>

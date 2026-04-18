@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import BackgroundShapes from '@/components/background-shapes';
+import HelpDeskWidget from '@/components/help-desk/HelpDeskWidget';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://nurjahandiagnostic.com'),
@@ -69,6 +70,7 @@ export default function HomeLayout({
       <Header />
       {children}
       <Footer />
+      <HelpDeskWidget />
     </div>
   )
 }

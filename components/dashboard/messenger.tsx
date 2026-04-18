@@ -41,56 +41,79 @@ export default function Messenger() {
   const getToken = () => localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
   const authHeader = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' })
 
+  const activeContactRef = useRef<any>(null)
+
+  // Keep ref in sync with state so socket callbacks always see latest value
+  useEffect(() => {
+    activeContactRef.current = activeContact
+  }, [activeContact])
+
   useEffect(() => {
     fetchProfile()
     fetchRecentChats()
     
     const token = getToken()
-    if (token) {
-      // Decode user ID (or just fetch /me)
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, { headers: authHeader() })
-        .then(res => res.json())
-        .then(user => {
-          setCurrentUser(user)
-          socketRef.current = io(process.env.NEXT_PUBLIC_API_URL!, {
-            query: { userId: user.id }
-          })
+    if (!token) return
 
-          socketRef.current.on('newMessage', (msg) => {
-             if (activeContact?.id === msg.senderId) {
-                setMessages(prev => [...prev, msg])
-                // if we are actively open contact, emit read receipt back immediately
-                fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat/mark-read/${msg.senderId}`, { method: 'POST', headers: authHeader() })
-             } else {
-                fetchRecentChats()
-             }
-          })
-          
-          socketRef.current.on('messagesRead', ({ byUserId }) => {
-             fetchRecentChats()
-             if (activeContact?.id === byUserId) {
-                setMessages(prev => prev.map(m => m.senderId === currentUser?.id ? { ...m, read: true } : m))
-             }
-          })
-
-          socketRef.current.on('userStatus', ({ userId, status, lastActive }) => {
-             setContacts(prev => prev.map(c => c.id === userId ? { ...c, isOnline: status === 'online', lastActive } : c))
-             if (activeContact?.id === userId) {
-               setActiveContact((prev: any) => ({ ...prev, isOnline: status === 'online', lastActive }))
-             }
-          })
-          
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, { headers: authHeader() })
+      .then(res => res.json())
+      .then(user => {
+        setCurrentUser(user)
+        
+        // Connect socket ONCE — do not put activeContact in deps
+        const socket = io(process.env.NEXT_PUBLIC_API_URL!, {
+          query: { userId: user.id }
         })
-    }
+        socketRef.current = socket
+
+        socket.on('newMessage', (msg) => {
+          const current = activeContactRef.current
+          if (current?.id === msg.senderId) {
+            // Map gateway shape to DB shape so the message renders correctly
+            setMessages(prev => [...prev, {
+              senderId: msg.senderId || msg.from,
+              content: msg.content || msg.message,
+              createdAt: msg.createdAt || new Date(),
+              read: false
+            }])
+            // Mark as read immediately
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat/mark-read/${msg.senderId}`, {
+              method: 'POST', headers: authHeader()
+            })
+          } else {
+            fetchRecentChats()
+          }
+        })
+        
+        socket.on('messagesRead', ({ byUserId }) => {
+          fetchRecentChats()
+          if (activeContactRef.current?.id === byUserId) {
+            setMessages(prev => prev.map(m =>
+              m.senderId === user.id ? { ...m, read: true } : m
+            ))
+          }
+        })
+
+        socket.on('userStatus', ({ userId, status, lastActive }) => {
+          setContacts(prev => prev.map(c =>
+            c.id === userId ? { ...c, isOnline: status === 'online', lastActive } : c
+          ))
+          if (activeContactRef.current?.id === userId) {
+            setActiveContact((prev: any) => ({ ...prev, isOnline: status === 'online', lastActive }))
+          }
+        })
+      })
+      .catch(err => console.error('Socket setup error:', err))
 
     return () => {
       socketRef.current?.disconnect()
     }
-  }, [activeContact?.id])
+  }, []) // ← Run ONCE on mount only
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
+
 
   const fetchProfile = async () => {
     try {
@@ -178,7 +201,7 @@ export default function Messenger() {
                        </button>
                        <div className="relative shrink-0">
                           <div className="w-10 h-10 rounded-xl bg-white/20 overflow-hidden relative">
-                             {activeContact.profilePic ? <img src={activeContact.profilePic} className="w-full h-full object-cover" /> : <User size={20} className="m-auto mt-2" />}
+                             {activeContact.profilePic ? <img src={activeContact.profilePic} className="w-full h-full object-cover" /> : <img src="/favicon (2).png" className="w-6 h-6 m-auto mt-2 object-contain opacity-50" />}
                           </div>
                           <span className={`absolute bottom-[-1px] right-[-1px] w-2.5 h-2.5 ${activeContact.isOnline ? 'bg-emerald-500' : 'bg-zinc-400'} border-2 border-foreground rounded-full z-10`}></span>
                        </div>
@@ -201,10 +224,10 @@ export default function Messenger() {
                        </div>
                     </>
                   ) : (
-                    <div className="flex items-center gap-2">
-                       <MessageSquare size={20} className="text-primary" />
-                       <h3 className="font-black text-lg tracking-tighter">{t('Live Messenger')}</h3>
+                   <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center p-1 shadow-inner">
+                        <img src="/favicon (2).png" alt="Logo" className="w-full h-full object-contain" />
                     </div>
+                       <h3 className="font-black text-lg tracking-tighter ml-2">{t('Live Messenger')}</h3>
                   )}
                </div>
                <div className="flex items-center gap-2">
@@ -222,7 +245,7 @@ export default function Messenger() {
                 {activeContact ? (
                   /* Chat Box */
                   <div className="flex-grow flex flex-col overflow-hidden bg-muted/20">
-                     <div className="flex-grow overflow-y-auto p-6 space-y-4 custom-scrollbar">
+                     <div className="flex-grow overflow-y-auto p-6 space-y-4 custom-scrollbar min-h-0">
                         {messages.map((m, i) => (
                            <div key={i} className={`flex ${m.senderId === currentUser?.id ? 'justify-end' : 'justify-start'}`}>
                               <div className={`max-w-[80%] p-4 rounded-xl text-sm font-medium ${m.senderId === currentUser?.id ? 'bg-primary text-white rounded-tr-none' : 'bg-card border border-border text-card-foreground rounded-tl-none shadow-sm'}`}>
@@ -277,7 +300,7 @@ export default function Messenger() {
                            >
                               <div className="relative shrink-0">
                                  <div className="w-12 h-12 rounded-xl bg-muted overflow-hidden relative">
-                                    {c.profilePic ? <img src={c.profilePic} className="w-full h-full object-cover" /> : <User size={20} className="m-auto mt-3" />}
+                                    {c.profilePic ? <img src={c.profilePic} className="w-full h-full object-cover" /> : <img src="/favicon (2).png" className="w-6 h-6 m-auto mt-3 object-contain opacity-50" />}
                                  </div>
                                  <span className={`absolute bottom-[-1px] right-[-1px] w-3 h-3 ${c.isOnline ? 'bg-emerald-500' : 'bg-zinc-400'} border-2 border-card rounded-full z-10`}></span>
                               </div>

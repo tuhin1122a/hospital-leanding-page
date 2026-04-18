@@ -2,40 +2,6 @@
 
 import { PhoneCall } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-
-const slides = [
-  {
-    title1: "আধুনিক",
-    title2: "হাসপাতাল ",
-    title3: "ডিজাইন",
-    desc: "নূরজাহান প্রাইভেট হাসপাতাল এন্ড ডায়াগনস্টিক সেন্টার-২ এ বিশ্বমানের আধুনিক চিকিৎসা ও পরম যত্ন প্রদান করা হয়। আমাদের সার্বক্ষণিক লক্ষ্য আপনার দ্রুত সুস্থতা।"
-  },
-  {
-    title1: "নির্ভুল",
-    title2: "ডিজিটাল ",
-    title3: "এক্স-রে",
-    desc: "সর্বআধুনিক এক্স-রে (X-Ray) ফ্যাসিলিটি দ্বারা ২৪ ঘণ্টাই নির্ভুল ও দ্রুত রিপোর্ট প্রদান নিশ্চিত করা হয়।"
-  },
-  {
-    title1: "আধুনিক",
-    title2: "আল্ট্রাস্রনো ",
-    title3: "গ্রাফি",
-    desc: "অভিজ্ঞ বিশেষজ্ঞ ডাক্তারদের মাধ্যমে আধুনিক মেশিনে নির্ভুল আল্ট্রাসনোগ্রাম রিপোর্ট প্রদান করা হয়।"
-  },
-  {
-    title1: "উন্নত",
-    title2: "আইসিইউ ",
-    title3: "কেবিন",
-    desc: "মুমূর্ষু রোগীদের জন্য রয়েছে অত্যন্ত উন্নতমানের আইসিইউ (ICU), লাইফ সাপোর্ট এবং সার্বক্ষণিক বিশেষজ্ঞ ডাক্তার ও নার্সদের কড়া নজরদারি।"
-  },
-  {
-    title1: "আধুনিক",
-    title2: "অপারেশন ",
-    title3: "থিয়েটার",
-    desc: "অভিজ্ঞ সার্জনদের মাধ্যমে শতভাগ জীবাণুমুক্ত পরিবেশে আমাদের আধুনিক অপারেশন থিয়েটারে শতভাগ সফল চিকিৎসা নিশ্চিত করা হয়।"
-  }
-]
 
 export function HeroContent({ 
   currentSlide, 
@@ -60,8 +26,7 @@ export function HeroContent({
   return (
     <div className="max-w-4xl mb-12 flex flex-col items-center lg:items-start text-center lg:text-left relative z-20" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
       
-      {/* TEXT SLIDER REMOVED FOR CLEAN VIEW */}
-
+      {/* CALL TO ACTION BUTTONS ONLY */}
       <div className="flex flex-col sm:flex-row items-center gap-5 justify-center w-full lg:justify-start mt-auto mb-6 md:mb-10">
         {/* EMERGENCY CONTACT DROPDOWN */}
         <div className="relative w-full sm:w-[260px]" ref={menuRef}>
