@@ -1,11 +1,25 @@
 'use client'
-
-import React from 'react'
-import { motion } from 'framer-motion'
-import { ArrowRight, Download, Play, Youtube, Phone } from 'lucide-react'
+import React, { useState, useRef, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowRight, Download, Play, Youtube, Phone, PhoneCall } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export function HeroMockup({ data }: { data?: any }) {
+  const [showContact, setShowContact] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowContact(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
   const displaySubtitle = "অত্যাধুনিক প্রযুক্তি এবং বিশেষজ্ঞ চিকিৎসকদের নিবিড় তত্ত্বাবধানে আমরা দিচ্ছি বিশ্বমানের স্বাস্থ্যসেবা। আপনার সুস্থতাই আমাদের সর্বোচ্চ অগ্রাধিকার।"
   const displayBtn = data?.buttonText || "ফ্রি ট্রাই করুন"
 
@@ -63,7 +77,7 @@ export function HeroMockup({ data }: { data?: any }) {
           </div>
 
           <div className="hidden lg:block space-y-4">
-            <h1 className="text-5xl lg:text-7xl font-black text-[#0a1b4d] leading-[1.1] tracking-tight" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+            <h1 className="text-4xl lg:text-6xl font-black text-[#0a1b4d] leading-[1.1] tracking-tight" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
                সেরা চিকিৎসা, <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1a4bde] to-[#ff6b35]">সুস্থ জীবন</span>
             </h1>
             <p className="text-xl text-slate-600 font-bold max-w-lg leading-relaxed">
@@ -72,12 +86,57 @@ export function HeroMockup({ data }: { data?: any }) {
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 w-full mt-6 lg:mt-0">
-            <button className="h-14 w-[280px] sm:w-[240px] px-4 justify-center bg-[#1a4bde] text-white rounded-xl font-black text-[15px] sm:text-lg flex items-center gap-2 shadow-xl hover:scale-[1.02] transition-transform">
-               অ্যাপয়েন্টমেন্ট বুকিং <ArrowRight size={20} />
-            </button>
-            <button className="h-14 w-[280px] sm:w-[240px] px-4 justify-center bg-red-600 text-white rounded-xl font-black text-[15px] sm:text-lg flex items-center gap-2 shadow-xl hover:scale-[1.02] transition-transform">
-               <Phone size={20} fill="currentColor" /> জরুরি সেবা
-            </button>
+            <Link href="/booking">
+              <button className="h-14 w-[280px] sm:w-[240px] px-4 justify-center bg-[#1a4bde] text-white rounded-xl font-black text-[15px] sm:text-lg flex items-center gap-2 shadow-xl hover:scale-[1.02] transition-transform cursor-pointer">
+                 অ্যাপয়েন্টমেন্ট বুকিং <ArrowRight size={20} />
+              </button>
+            </Link>
+            
+            <div className="relative w-[280px] sm:w-[240px]" ref={menuRef}>
+               <button 
+                  onClick={() => setShowContact(!showContact)}
+                  className="h-14 w-full px-4 justify-center bg-gradient-to-r from-[#ff3b30] via-[#f84f31] to-[#f36424] text-white rounded-xl font-black text-[15px] sm:text-lg flex items-center gap-2 shadow-xl hover:scale-[1.02] transition-transform cursor-pointer relative overflow-hidden group"
+               >
+                  <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                  <div className="animate-pulse">
+                     <PhoneCall size={20} fill="currentColor" />
+                  </div>
+                  জরুরি সেবা
+               </button>
+
+               <AnimatePresence>
+                  {showContact && (
+                     <motion.div 
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        className="absolute bottom-full left-0 mb-3 bg-white w-[280px] sm:w-[350px] rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.25)] p-2 border border-slate-100 z-[100] flex flex-col gap-1"
+                     >
+                        <a href="tel:01718954567" className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors bg-white group border border-transparent hover:border-slate-100">
+                           <div className="w-10 h-10 rounded-full bg-[#1a4bde]/10 flex items-center justify-center group-hover:bg-[#1a4bde] transition-colors">
+                              <PhoneCall className="w-5 h-5 text-[#1a4bde] group-hover:text-white transition-colors" />
+                           </div>
+                           <div className="flex flex-col text-left">
+                              <span className="font-bold text-slate-900 text-[14px]">সরাসরি ফোন করুন</span>
+                              <span className="text-slate-500 font-medium text-[12px]">০১৭১৮-৯৫৪৫৬৭</span>
+                           </div>
+                        </a>
+
+                        <a href="https://wa.me/8801718954567" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors bg-white group border border-transparent hover:border-slate-100">
+                           <div className="w-10 h-10 rounded-full bg-[#25D366]/10 flex items-center justify-center group-hover:bg-[#25D366] transition-colors">
+                              <svg className="w-5 h-5 fill-[#25D366] group-hover:fill-white transition-colors" viewBox="0 0 24 24">
+                                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51h-.57c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                              </svg>
+                           </div>
+                           <div className="flex flex-col text-left">
+                              <span className="font-bold text-slate-900 text-[14px]">হোয়াটসঅ্যাপ মেসেজ</span>
+                              <span className="text-slate-500 font-medium text-[12px]">সরাসরি কথা বলুন</span>
+                           </div>
+                        </a>
+                     </motion.div>
+                  )}
+               </AnimatePresence>
+            </div>
           </div>
         </motion.div>
 
@@ -89,48 +148,38 @@ export function HeroMockup({ data }: { data?: any }) {
            className="relative lg:col-span-7 2xl:col-span-8 w-full order-1 lg:order-2"
         >
           <div className="relative aspect-video rounded-2xl overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] bg-zinc-900 border-[8px] border-zinc-100 group w-[110%] -ml-[5%] lg:w-full lg:ml-0 lg:scale-[1.05] 2xl:scale-[1.15] origin-left lg:origin-center z-20">
-             {/* Mock Content */}
-             <div className="absolute inset-0 bg-gradient-to-br from-[#1a4bde] to-[#0a1b4d] flex flex-col p-8 text-white">
-                <div className="flex justify-between items-start mb-auto">
-                   <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                         <div className="w-6 h-6 rounded-full border-2 border-white flex items-center justify-center font-bold text-xs italic">V</div>
-                      </div>
-                      <div>
-                         <div className="font-bold text-sm">উন্নত চিকিৎসা সেবা — নূরজাহান হাসপাতাল</div>
-                         <div className="text-[10px] opacity-60">Panti Bazar, Kumarkhali</div>
-                      </div>
-                   </div>
-                   <div className="flex gap-4 opacity-70">
-                      <Youtube size={20} />
-                      <Play size={20} />
-                   </div>
-                </div>
-
-                <div className="my-auto text-center space-y-4">
-                   <h2 className="text-4xl font-black">আমাদের লক্ষ্য</h2>
-                   <p className="opacity-80 max-w-sm mx-auto font-medium">অত্যাধুনিক প্রযুক্তি এবং দক্ষ চিকিৎসকদের সমন্বয়ে আমরা আপনার সুস্থতা নিশ্চিত করি। আমাদের প্রতিটি সেবা আপনার সেবায় নিয়োজিত।</p>
-                </div>
-
-                <div className="mt-auto flex items-center gap-4">
-                   <div className="flex-1 h-1 bg-white/20 rounded-full overflow-hidden">
-                      <motion.div 
-                        initial={{ width: 0 }}
-                        animate={{ width: "70%" }}
-                        transition={{ duration: 3, repeat: Infinity }}
-                        className="h-full bg-red-500" 
-                      />
-                   </div>
-                   <span className="text-xs font-bold font-mono">1:06 / 2:34</span>
-                </div>
-             </div>
-
-             {/* Play Button Overlay */}
-             <div className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:pointer-events-auto">
-                <button className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border-2 border-white/50 text-white hover:scale-110 transition-transform cursor-pointer">
-                   <Play size={32} fill="currentColor" />
-                </button>
-             </div>
+             {isPlaying ? (
+               <iframe 
+                 src="https://www.youtube.com/embed/R4wBrSKU2-Q?autoplay=1&mute=0&controls=1" 
+                 title="Hospital Video"
+                 className="w-full h-full border-0"
+                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                 allowFullScreen
+               ></iframe>
+             ) : (
+               <div className="relative w-full h-full cursor-pointer group/video" onClick={() => setIsPlaying(true)}>
+                  <Image 
+                    src="/hospital-thumbnail.png" 
+                    alt="Hospital Thumbnail" 
+                    fill 
+                    className="object-cover transition-transform duration-700 group-hover/video:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center p-6 transition-opacity group-hover/video:bg-black/30">
+                     <div className="mb-4 transform transition-transform duration-500 group-hover/video:scale-110">
+                        <div className="w-20 h-20 rounded-full bg-[#1a4bde]/90 flex items-center justify-center text-white shadow-2xl">
+                           <Play size={36} fill="currentColor" className="ml-1" />
+                        </div>
+                     </div>
+                     <h2 className="text-white text-3xl font-black mb-2 drop-shadow-lg" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>নূরজাহান হাসপাতাল-২</h2>
+                     <p className="text-white/90 font-bold text-lg max-w-md drop-shadow-md" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>নিখুঁত ডায়াগনস্টিক এবং বিশেষজ্ঞ স্বাস্থ্যসেবা</p>
+                  </div>
+                  
+                  {/* Bottom bar indicator */}
+                  <div className="absolute bottom-0 left-0 w-full h-1.5 bg-white/20">
+                     <div className="h-full bg-[#1a4bde] w-[65%]" />
+                  </div>
+               </div>
+             )}
           </div>
 
           {/* Badges floating around */}
