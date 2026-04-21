@@ -8,49 +8,49 @@ import { Button } from './ui/button'
 export default function Services() {
   const services = [
     {
-      id: 'emergency-icu',
-      title: 'ইমার্জেন্সি আইসিইউ (২৪/৭)',
-      desc: 'লাইফ-সাপোর্ট সিস্টেম এবং মাল্টি-প্যারামিটার মনিটরিং সমৃদ্ধ আধুনিক ইনটেনসিভ কেয়ার ইউনিট।',
+      id: 'emergency-mbbs',
+      title: '২৪ ঘণ্টা এমবিবিএস ডাক্তার',
+      desc: 'হাসপাতালে ২৪ ঘণ্টা এমবিবিএস ডাক্তার এবং ইমার্জেন্সি চিকিৎসার সুব্যবস্থা রয়েছে।',
       bg: 'bg-[#F2F5FF]',
       image: '/icu-monitor.png',
       icon: <Activity className="text-primary w-5 h-5" />
     },
     {
-      id: 'diagnostic-lab',
-      title: 'অ্যাডভান্সড ডায়াগনস্টিক ল্যাব',
-      desc: 'সব ধরনের ক্লিনিক্যাল প্যাথলজি টেস্টের জন্য আমাদের হাই-টেক অটোমেটেড মেশিনের মাধ্যমে সঠিক রিপোর্ট।',
+      id: 'nursing-care',
+      title: 'সার্বক্ষনিক নার্স',
+      desc: 'রোগীদের সঠিক যত্ন ও সেবা নিশ্চিত করতে আমাদের রয়েছে সার্বক্ষণিক দক্ষ নার্সিং টিম।',
       bg: 'bg-[#F7F2FF]',
       image: '/specialist-doctors.png',
       icon: <ShieldCheck className="text-purple-500 w-5 h-5" />
     },
     {
-      id: 'operation-theater',
-      title: 'আধুনিক অপারেশন থিয়েটার',
-      desc: 'প্রিমিয়াম অ্যানেসথেসিয়া এবং অত্যাধুনিক সার্জিক্যাল যন্ত্রপাতি সমৃদ্ধ সম্পূর্ণ জীবাণুমুক্ত অপারেশন থিয়েটার।',
+      id: 'surgery-dept',
+      title: 'অভিজ্ঞ সার্জন দ্বারা অপারেশন',
+      desc: 'সাফল্যের সাথে সিজার, অ্যাপেনডিস, জরায়ু, ভেজাইনাল ও পিত্তথলিতে পাথরসহ যাবতীয় অপারেশন।',
       bg: 'bg-[#F2F9FF]',
       image: '/medical-team-2.png',
       icon: <Mic className="text-blue-400 w-5 h-5" />
     },
     {
-      id: 'digital-imaging',
-      title: 'ডিজিটাল এক্স-রে ও ইমেজিং',
-      desc: 'রোগ নির্ণয়ের জন্য উচ্চ রেজোলিউশনের ডিজিটাল এক্স-রে এবং ফোরডি (4D) কালার আলট্রাসনোগ্রাফি।',
+      id: 'pathology-lab',
+      title: 'ডিজিটাল প্যাথলজি ল্যাব',
+      desc: 'ডায়বেটিস, হরমন, ভিটামিন-ডি সহ রক্তের যাবতীয় টেস্ট ডিজিটাল মেশিনের মাধ্যমে করা হয়।',
       bg: 'bg-[#F9F2FF]',
       image: '/mri-machine.png',
       icon: <Layers className="text-indigo-400 w-5 h-5" />
     },
     {
-      id: 'pediatric-care',
-      title: 'শিশু ও নবজাতক যত্ন',
-      desc: 'অত্যাধুনিক চিকিৎসা যন্ত্রপাতির সাহায্যে শিশু এবং নবজাতকদের জন্য বিশেষায়িত নিবিড় পরিচর্যা।',
+      id: 'diagnostic-imaging',
+      title: 'ডিজিটাল ইমেজিং ও আলট্রা',
+      desc: 'আমাদের এখানে ডিজিটাল এক্স-রে এবং ডিজিটাল আলট্রা মেশিনের মাধ্যমে নিখুঁত রিপোর্ট দেওয়া হয়।',
       bg: 'bg-[#F2F2FF]',
       image: '/medical-team-1.png',
       icon: <HeartPulse className="text-blue-600 w-5 h-5" />
     },
     {
-      id: 'recovery-rooms',
-      title: 'প্রিমিয়াম রিকভারি রুম',
-      desc: 'রোগীর দ্রুত সুস্থতার জন্য আরামদায়ক, স্বাস্থ্যসম্মত এবং প্রিমিয়াম কেবিন সুবিধা।',
+      id: 'heart-checkup',
+      title: 'ইসিজি ও ইকো সেন্টার',
+      desc: 'আধুনিক মেশিনের সাহায্যে ইসিজি ও ইকো পরীক্ষার মাধ্যমে হার্টের সঠিক অবস্থা নির্ণয় করা হয়।',
       bg: 'bg-[#F2FBFF]',
       image: '/hero-doctor.png',
       icon: <Target className="text-cyan-500 w-5 h-5" />
