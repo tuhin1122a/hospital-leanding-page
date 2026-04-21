@@ -11,31 +11,31 @@ import { TestimonialSlide } from './testimonial-slide'
 
 const testimonials = [
   {
-    name: 'Md. Abdur Rahman',
-    location: 'Kushtia',
-    procedure: 'Cardiac Bypass Surgery',
-    content: 'Nurjahan Hospital provided world-class cardiac care. The medical team was exceptional. The recovery process was smooth and the entire staff was very supportive. I am now living a healthy life!',
+    name: 'মোঃ আব্দুর রহমান',
+    location: 'কুষ্টিয়া',
+    procedure: 'কার্ডিয়াক বাইপাস সার্জারি',
+    content: 'নূরজাহান হাসপাতাল বিশ্বমানের কার্ডিয়াক সেবা দিয়েছে। এখানকার মেডিকেল টিম এবং তাদের আধুনিক সুযোগ-সুবিধা আমাকে দ্রুত সুস্থ হতে সাহায্য করেছে, যার ফলে আমি এখন সুস্থভাবে জীবনযাপন করছি!',
     rating: 5
   },
   {
-    name: 'Fatema Begum',
-    location: 'Kumarkhali',
-    procedure: 'Orthopedic Joint Replacement',
-    content: 'I was nervous about my knee replacement, but the Nurjahan team made me feel comfortable. The modern facilities, expert surgeons, and compassionate nursing staff made all the difference. Highly recommended!',
+    name: 'ফাতেমা বেগম',
+    location: 'কুমারখালী',
+    procedure: 'অর্থোপেডিক জয়েন্ট রিপ্লেসমেন্ট',
+    content: 'আমি আমার হাঁটু রিপ্লেসমেন্টের সময় বেশ নার্ভাস ছিলাম, কিন্তু নূরজাহানের বিশেষজ্ঞ সার্জন এবং চমৎকার নার্সিং স্টাফরা আমাকে সম্পূর্ণ সুস্থ ও স্বাভাবিক জীবনে ফিরিয়ে এনেছে। সবাইকে আমি এটি রেকমেন্ড করছি!',
     rating: 5
   },
   {
-    name: 'Sohel Rana',
-    location: 'Panti',
-    procedure: 'Emergency Trauma Care',
-    content: 'The 24/7 emergency response was incredible. Within 15 minutes of arriving at Nurjahan after my accident, I was being treated by expert doctors. They saved my life with their quick thinking and expertise.',
+    name: 'সোহেল রানা',
+    location: 'পান্টি',
+    procedure: 'ইমার্জেন্সি ট্রমা কেয়ার',
+    content: 'তাদের ২৪/৭ ইমার্জেন্সি রেসপন্স অসাধারণ। দুর্ঘটনার পর নূরজাহানে পৌঁছানোর ১৫ মিনিটের মধ্যেই আমি বিশেষজ্ঞ ডাক্তারের চিকিৎসা পেতে শুরু করি, যারা আমার জীবন বাঁচিয়েছিল।',
     rating: 5
   },
   {
-    name: 'Sharmin Akter',
-    location: 'Kushtia',
-    procedure: 'Cancer Treatment',
-    content: 'The personalized cancer treatment plan gave me hope. The oncology team at Nurjahan combines cutting-edge technology with genuine compassion. I am grateful for their excellent care.',
+    name: 'শারমিন আক্তার',
+    location: 'কুষ্টিয়া',
+    procedure: 'ক্যান্সার চিকিৎসা',
+    content: 'ক্যান্সারের চিকিৎসার ক্ষেত্রে নূরজাহান হাসপাতালের উন্নত প্রযুক্তি এবং অনকোলজি টিমের দারুণ সহায়তা আমাকে চমৎকার সেবা পেতে সাহায্য করেছে। আমি তাদের কাছে চিরকৃতজ্ঞ।',
     rating: 5
   }
 ]
@@ -71,8 +71,9 @@ export default function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-5xl lg:text-6xl font-black text-foreground mb-6 tracking-tighter"
+            style={{ fontFamily: "'Anek Bangla', sans-serif" }}
           >
-            Patient Success Stories
+            রোগীদের সফলতার <span className="text-primary italic">গল্প</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -81,7 +82,7 @@ export default function Testimonials() {
             transition={{ delay: 0.1 }}
             className="text-muted-foreground text-lg leading-relaxed"
           >
-            Real testimonials from patients who have experienced our world-class healthcare and expert medical care.
+            আমাদের বিশ্বমানের উন্নত স্বাস্থ্যসেবা ও বিশেষজ্ঞ চিকিৎসকদের চিকিৎসা গ্রহণ করা রোগীদের কিছু বাস্তব অভিজ্ঞতা ও মতামত।
           </motion.p>
         </div>
 

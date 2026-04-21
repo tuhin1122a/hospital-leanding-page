@@ -3,39 +3,58 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { HeroContent } from './hero/hero-content'
+import { HeroMockup } from './hero/hero-mockup'
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [activeHeroes, setActiveHeroes] = useState<any[]>([])
+  const [settings, setSettings] = useState<any>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const fetchHeroes = async () => {
+    const fetchData = async () => {
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/hero`)
-            if (res.ok) {
-                const data = await res.json()
+            // Fetch Hero Items for Slider
+            const heroRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/hero`)
+            if (heroRes.ok) {
+                const data = await heroRes.json()
                 const activeOnes = data.filter((h: any) => h.isActive)
                 if (activeOnes.length > 0) {
                     setActiveHeroes(activeOnes)
                 }
             }
+
+            // Fetch Site Settings
+            const settingsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/settings`)
+            if (settingsRes.ok) {
+                const data = await settingsRes.json()
+                setSettings(data)
+            }
         } catch (error) {
-            console.error("Failed to fetch heroes", error)
+            console.error("Failed to fetch data", error)
+        } finally {
+            setIsLoading(false)
         }
     }
-    fetchHeroes()
+    fetchData()
   }, [])
 
   useEffect(() => {
-    if (activeHeroes.length <= 1) return
+    if (activeHeroes.length <= 1 || settings?.heroType !== 'slider') return
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % activeHeroes.length)
     }, 5000)
     return () => clearInterval(timer)
-  }, [activeHeroes])
+  }, [activeHeroes, settings])
 
-  const currentHero = activeHeroes[currentSlide]
+  if (isLoading) return <div className="h-[100dvh] bg-slate-100 animate-pulse" />
 
+  // IF HERO TYPE IS MOCKUP
+  if (settings?.heroType === 'mockup') {
+      return <HeroMockup data={activeHeroes[0]} />
+  }
+
+  // DEFAULT / SLIDER TYPE
   return (
     <section className="relative w-full overflow-hidden h-[100dvh] min-h-[600px] flex items-center justify-center bg-slate-100">
       

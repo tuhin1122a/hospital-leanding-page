@@ -11,6 +11,7 @@ import toast from 'react-hot-toast'
 export default function LandingPageAdmin() {
   const { t } = useLanguage()
   const [heroItems, setHeroItems] = useState<any[]>([])
+  const [settings, setSettings] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -25,7 +26,44 @@ export default function LandingPageAdmin() {
 
   useEffect(() => {
     fetchHeroItems()
+    fetchSettings()
   }, [])
+
+  const fetchSettings = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/settings`)
+      if (res.ok) {
+        const data = await res.json()
+        setSettings(data)
+      }
+    } catch (error) {
+      console.error("Failed to fetch settings", error)
+    }
+  }
+
+  const updateHeroStyle = async (type: string) => {
+    const getCookie = (name: string) => document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop()
+    const token = getCookie('accessToken')
+    
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/settings`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ heroType: type })
+      })
+
+      if (res.ok) {
+        const data = await res.json()
+        setSettings(data)
+        toast.success(`Hero style switched to ${type}`)
+      }
+    } catch (error) {
+      toast.error('Failed to update hero style')
+    }
+  }
 
   const fetchHeroItems = async () => {
     try {
@@ -150,6 +188,30 @@ export default function LandingPageAdmin() {
           {showForm ? t('Cancel') : t('Add New Hero')}
         </Button>
       </div>
+
+      {/* HERO STYLE TOGGLE */}
+      <Card className="p-8 border-border rounded-2xl shadow-xl bg-gradient-to-br from-emerald-50 to-white border-emerald-100">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-1">
+            <h2 className="text-2xl font-black text-emerald-900 tracking-tight">{t('Active Hero Style')}</h2>
+            <p className="text-emerald-700/70 font-bold">{t('Choose how your main website header looks to visitors')}</p>
+          </div>
+          <div className="flex bg-white p-1.5 rounded-2xl border-2 border-emerald-100 shadow-inner w-full md:w-auto">
+            <button 
+              onClick={() => updateHeroStyle('slider')}
+              className={`flex-1 md:w-40 h-14 rounded-xl font-black transition-all ${settings?.heroType === 'slider' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30' : 'text-emerald-900/40 hover:bg-emerald-50'}`}
+            >
+              {t('Slider Mode')}
+            </button>
+            <button 
+              onClick={() => updateHeroStyle('mockup')}
+              className={`flex-1 md:w-40 h-14 rounded-xl font-black transition-all ${settings?.heroType === 'mockup' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30' : 'text-emerald-900/40 hover:bg-emerald-50'}`}
+            >
+              {t('Mockup Style')}
+            </button>
+          </div>
+        </div>
+      </Card>
 
       {showForm && (
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>

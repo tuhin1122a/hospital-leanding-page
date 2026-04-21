@@ -33,14 +33,14 @@ export default function Footer() {
                 <img src="/favicon (2).png" alt="Logo" className="w-full h-full object-contain" />
               </div>
               <div className="flex flex-col text-left">
-                <h1 className="text-[17px] font-black text-white tracking-[-0.03em] leading-[1.1]">
-                  Nurjahan <span className="text-primary">Private Hospital</span>
+                <h1 className="text-[17px] font-black text-white tracking-[-0.03em] leading-[1.1]" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+                  নূরজাহান <span className="text-primary">প্রাইভেট হাসপাতাল</span>
                 </h1>
-                <span className="text-[9px] font-bold text-primary uppercase tracking-[0.16em] mt-1 italic">&Diagnostic Center 2</span>
+                <span className="text-[9px] font-bold text-primary uppercase tracking-[0.16em] mt-1 italic">& ডায়াগনস্টিক সেন্টার ২</span>
               </div>
             </Link>
             <p className="text-sm text-zinc-400 leading-relaxed max-w-xs">
-              Optimizing healthcare through cutting-edge medical technology and a human-centric approach. Trusted by the community of Kumarkhali.
+              অত্যাধুনিক চিকিৎসা প্রযুক্তি এবং মানবিক দৃষ্টিভঙ্গির মাধ্যমে স্বাস্থ্যসেবাকে সর্বোচ্চ পর্যায়ে নিয়ে যাওয়া। কুমারখালীর মানুষের আস্থার অন্যতম প্রতীক।
             </p>
             <div className="flex gap-4">
               {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
@@ -53,14 +53,14 @@ export default function Footer() {
 
           {/* Column 2: Quick Links */}
           <div className="space-y-6">
-            <h4 className="text-lg font-bold">Services</h4>
+            <h4 className="text-lg font-bold" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>গুরুত্বপূর্ণ লিংঙ্ক</h4>
             <ul className="space-y-4 text-sm text-zinc-400 font-medium">
               {[
-                { name: 'About Us', href: '#about' },
-                { name: 'Contact Us', href: '/contact' },
-                { name: 'Medical Services', href: '#services' },
-                { name: 'Our Specialists', href: '#specialists' },
-                { name: 'Health Blog', href: '#blog' }
+                { name: 'আমাদের সম্পর্কে', href: '#about' },
+                { name: 'যোগাযোগ', href: '/contact' },
+                { name: 'চিকিৎসা সেবাসমূহ', href: '#services' },
+                { name: 'আমাদের বিশেষজ্ঞগণ', href: '#specialists' },
+                { name: 'হেলথ ব্লগ', href: '#blog' }
               ].map((link) => (
                 <li key={link.name}>
                   <Link href={link.href} className="hover:text-primary transition-colors">{link.name}</Link>
@@ -71,29 +71,29 @@ export default function Footer() {
 
           {/* Column 3: Contact Info */}
           <div className="space-y-6">
-            <h4 className="text-lg font-bold">Contact Info</h4>
+            <h4 className="text-lg font-bold" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>যোগাযোগের ঠিকানা</h4>
             <ul className="space-y-4 text-sm text-zinc-400 font-medium">
                <li className="flex items-start gap-3">
                   <div className="w-5 h-5 translate-y-0.5 text-primary">📍</div>
-                  <span>Panti, Kumarkhali,<br />Kushtia, Bangladesh</span>
+                  <span>পান্টি বাজার, কুমারখালী,<br />কুষ্টিয়া, বাংলাদেশ</span>
                </li>
                 <li className="flex items-center gap-3">
                   <div className="w-5 h-5 text-primary">📞</div>
                   <div className="flex flex-col">
-                    <span>01722-414025</span>
-                    <span>01718-955467</span>
+                    <span>০১৭১৮-৯৫৪৫৬৭</span>
+                    <span>০১৭২২-৪১৪০২৫</span>
                   </div>
                 </li>
                 <li className="flex items-center gap-3 text-zinc-400">
                   <div className="w-5 h-5 text-primary">📧</div>
-                  <span className="break-all font-medium">nurjahanprivatehospital2@gmail.com</span>
+                  <span className="break-all font-medium">nurjahanprivatehospital@gmail.com</span>
                 </li>
             </ul>
           </div>
 
           {/* Column 4: Newsletter Subscribe with notification sound */}
           <div className="space-y-6">
-            <h4 className="text-lg font-bold">Newsletter</h4>
+            <h4 className="text-lg font-bold" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>নিউজলেটার</h4>
             <p className="text-sm text-zinc-400">স্বাস্থ্য টিপস ও হাসপাতালের আপডেট পেতে subscribe করুন।</p>
 
             <form onSubmit={handleSubscribe} className="space-y-3">
@@ -101,16 +101,18 @@ export default function Footer() {
                 type="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder="Your email address"
+                placeholder="আপনার ইমেইল ঠিকানা"
                 className="w-full bg-white/8 border border-white/15 text-white placeholder-zinc-500 text-sm px-4 py-3 rounded-xl focus:outline-none focus:border-primary/60 transition-colors"
+                style={{ fontFamily: "'Anek Bangla', sans-serif" }}
               />
               <motion.button
                 type="submit"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 className="w-full bg-primary hover:bg-primary/90 text-white font-bold text-sm py-3 rounded-xl transition-all shadow-lg shadow-primary/20"
+                style={{ fontFamily: "'Anek Bangla', sans-serif" }}
               >
-                Subscribe 🔔
+                সাবস্ক্রাইব করুন 🔔
               </motion.button>
             </form>
 
@@ -133,7 +135,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/10 mt-20 pt-10 text-center">
-          <p className="text-xs text-zinc-500 italic">© 2026 Nurjahan Private Hospital & Diagnostic Center - 2. All rights reserved.</p>
+          <p className="text-xs text-zinc-500 italic">© ২০২৫ নূরজাহান প্রাইভেট হাসপাতাল অ্যান্ড ডায়াগনস্টিক সেন্টার - ২। সর্বস্বত্ব সংরক্ষিত।</p>
         </div>
       </div>
     </footer>

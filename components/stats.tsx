@@ -25,11 +25,11 @@ export default function Stats() {
     return () => intervals.forEach(i => clearInterval(i))
   }, [])
 
-  const stats = [
+    const stats = [
     {
       icon: Users,
-      value: counts.patients.toLocaleString(),
-      label: 'Patients Treated',
+      value: counts.patients.toLocaleString('en-US'),
+      label: 'সুস্থ হওয়া রোগী',
       suffix: '+',
       color: 'from-blue-500 to-cyan-500',
       lightBg: 'from-blue-50 to-cyan-50',
@@ -37,7 +37,7 @@ export default function Stats() {
     {
       icon: Heart,
       value: counts.doctors,
-      label: 'Expert Doctors',
+      label: 'বিশেষজ্ঞ ডাক্তার',
       suffix: '+',
       color: 'from-red-500 to-pink-500',
       lightBg: 'from-red-50 to-pink-50',
@@ -45,7 +45,7 @@ export default function Stats() {
     {
       icon: Activity,
       value: counts.beds,
-      label: 'Hospital Beds',
+      label: 'হাসপাতাল বেড',
       suffix: '+',
       color: 'from-emerald-500 to-green-500',
       lightBg: 'from-emerald-50 to-green-50',
@@ -53,7 +53,7 @@ export default function Stats() {
     {
       icon: TrendingUp,
       value: counts.experience.toFixed(0),
-      label: 'Years of Excellence',
+      label: 'বছর ধরে সেবা',
       suffix: '',
       color: 'from-purple-500 to-violet-500',
       lightBg: 'from-purple-50 to-violet-50',
@@ -82,11 +82,11 @@ export default function Stats() {
           viewport={{ once: true }}
           className="text-center max-w-2xl mx-auto mb-20"
         >
-          <h2 className="text-5xl lg:text-7xl font-black text-foreground mb-6 text-balance leading-tight">
-            By The Numbers
+          <h2 className="text-5xl lg:text-5xl font-black text-foreground mb-6 text-balance leading-tight" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+            আমাদের অর্জনের <span className="text-primary">সংখ্যা</span>
           </h2>
           <p className="text-xl text-muted-foreground font-medium">
-            Trusted by millions of patients and healthcare providers worldwide
+            অজস্র বিশ্বাসী মানুষের ভরসা ও ভালোবাসায় আমরা
           </p>
         </motion.div>
 

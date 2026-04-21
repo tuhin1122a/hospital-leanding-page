@@ -8,38 +8,38 @@ export default function TrustedBy() {
   const achievements = [
     {
       icon: Award,
-      title: 'ISO 27001 Certified',
-      description: 'Information Security Management certified for healthcare data protection',
+      title: 'আইএসও (ISO) সার্টিফাইড',
+      description: 'নিরাপদ স্বাস্থ্যসেবা ও রোগীদের তথ্য সুরক্ষার জন্য একটি সার্টিফাইড হাসপাতাল',
     },
     {
       icon: Building2,
-      title: '150+ Hospitals',
-      description: 'Trusted by leading healthcare providers across 25 countries',
+      title: '১৫০+ হাসপাতাল নেটওয়ার্ক',
+      description: 'উন্নত স্বাস্থ্যসেবার জন্য দেশজুড়ে সবার অত্যন্ত আস্থার একটি প্রতীক',
     },
     {
       icon: Target,
-      title: '99.99% Uptime',
-      description: 'Enterprise-grade infrastructure with 24/7 monitoring and support',
+      title: '২৪/৭ চিকিৎসকদের উপস্থিতি',
+      description: 'হাসপাতালে সর্বদা বিশেষজ্ঞ চিকিৎসক ও ইমার্জেন্সি স্টাফদের উপস্থিতি নিশ্চিত করা হয়',
     },
   ]
 
   const testimonials = [
     {
-      name: 'Max Healthcare',
-      role: 'Multi-specialty Hospital Chain',
-      quote: 'Nurjahan Hospital transformed our operations. We reduced patient wait time by 45%.',
+      name: 'ম্যাক্স হেলথকেয়ার',
+      role: 'মাল্টি-স্পেশালিটি হাসপাতাল চেইন',
+      quote: 'নূরজাহান হাসপাতাল তাদের উন্নত সেবার মাধ্যমে রোগীদের অপেক্ষার সময় ৪৫% এরও বেশি কমিয়ে এনেছে।',
       avatar: '🏥',
     },
     {
-      name: 'City Care Clinic',
-      role: 'Diagnostic Center',
-      quote: 'The most user-friendly system we\'ve implemented. Staff trained in just 2 days.',
+      name: 'সিটি কেয়ার ক্লিনিক',
+      role: 'ডায়াগনস্টিক সেন্টার',
+      quote: 'তাদের ডায়াগনস্টিক ব্যবস্থাপনা খুবই অসাধারণ। আমাদের রোগীরা খুব দ্রুত এবং নির্ভুল চিকিৎসায় সন্তুষ্ট।',
       avatar: '⚕️',
     },
     {
-      name: 'Global Health Partners',
-      role: 'Medical Network',
-      quote: 'Exceptional support team. They helped us migrate smoothly from our legacy system.',
+      name: 'গ্লোবাল হেলথ পার্টনারস',
+      role: 'সার্বিক মেডিকেল নেটওয়ার্ক',
+      quote: 'এখানকার সাপোর্ট টিম খুবই চমৎকার। যেকোনো দরকারে তারা সব সময় হাসিমুখে রোগীদের সাহায্য করেন।',
       avatar: '🩺',
     },
   ]
@@ -65,8 +65,8 @@ export default function TrustedBy() {
           viewport={{ once: true }}
           className="mb-24"
         >
-          <h2 className="text-5xl lg:text-6xl font-black text-foreground text-center mb-16 tracking-tight">
-            Trusted By <span className="text-primary italic">Industry Leaders</span>
+          <h2 className="text-5xl lg:text-5xl font-black text-foreground text-center mb-16 tracking-tight" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+            প্রাইভেট হাসপাতালগুলোর মধ্যে <span className="text-primary italic">অন্যতম</span>
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -88,7 +88,7 @@ export default function TrustedBy() {
                     <div className="inline-flex p-4 rounded-xl bg-primary/10 group-hover:from-primary group-hover:to-primary text-foreground group-hover:text-white mb-6 transition-all duration-300 shadow-lg">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <h3 className="text-2xl font-black text-foreground mb-3 group-hover:text-primary transition-colors">
+                    <h3 className="text-2xl font-black text-foreground mb-3 group-hover:text-primary transition-colors text-center sm:text-left" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
                       {achievement.title}
                     </h3>
                     <p className="text-muted-foreground font-medium leading-relaxed">
@@ -107,8 +107,8 @@ export default function TrustedBy() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-4xl lg:text-5xl font-black text-foreground text-center mb-16 tracking-tight">
-            What <span className="text-primary">Healthcare Leaders</span> Say
+          <h3 className="text-4xl lg:text-5xl font-black text-foreground text-center mb-16 tracking-tight" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+            <span className="text-primary">স্বাস্থ্যসেবা বিশেষজ্ঞরা</span> যা বলেন
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

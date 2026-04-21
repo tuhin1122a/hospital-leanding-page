@@ -12,7 +12,7 @@ export default function Header() {
     { name: 'Home', href: '/' },
     { name: 'Services', href: '#services' },
     { name: 'Specialist', href: '#specialists' },
-    { name: 'Booking', href: '#contact' },
+    { name: 'Booking', href: '/booking' },
     { name: 'About', href: '#about' },
     { name: 'Blog', href: '#blog' },
   ]
@@ -84,7 +84,7 @@ export default function Header() {
       `}} />
       
       {/* Top Banner */}
-      <div className={`${scrolled ? 'bg-[#005C38]' : 'bg-[#005C38]/60 backdrop-blur-sm'} transition-colors duration-500 text-white w-full flex items-center justify-center border-b border-white/10 min-h-[60px] md:min-h-[80px] py-2`}>
+      <div className="bg-[#005C38] transition-colors duration-500 text-white w-full flex items-center justify-center min-h-[60px] md:min-h-[80px] py-2 relative z-10 shadow-sm">
         <div className="flex items-center justify-center px-4 w-full text-white">
           <span className="text-[20px] sm:text-[24px] md:text-[34px] font-bold tracking-normal drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] text-center leading-tight" style={{ fontFamily: "'Hind Siliguri', sans-serif" }}>
             নুরজাহান প্রাইভেট হাসপাতাল এন্ড ডায়াগনস্টিক সেন্টার-২
@@ -100,10 +100,10 @@ export default function Header() {
               <img src="/favicon (2).png" alt="Logo" className="w-full h-full object-contain filter drop-shadow-md" />
             </div>
             <div className="flex flex-col">
-               <h1 className={`text-[17px] font-black transition-colors duration-500 ${scrolled ? 'text-[#0a1b4d]' : 'text-white'} tracking-[-0.04em] leading-[1.1]`}>
-                 Nurjahan <span className={scrolled ? 'text-[#1a4bde]' : 'text-blue-300'}>Private Hospital</span>
+               <h1 className={`text-[17px] font-black transition-colors duration-500 ${scrolled ? 'text-[#0a1b4d]' : 'text-black'} tracking-[-0.04em] leading-[1.1]`}>
+                 Nurjahan <span className={scrolled ? 'text-[#1a4bde]' : 'text-[#1a4bde]'}>Private Hospital</span>
                </h1>
-               <span className={`text-[10px] font-bold transition-colors duration-500 ${scrolled ? 'text-[#1a4bde]' : 'text-white/80'} uppercase tracking-[0.16em] mt-1 opacity-90`}>&Diagnostic Center 2</span>
+               <span className={`text-[10px] font-bold transition-colors duration-500 ${scrolled ? 'text-[#1a4bde]' : 'text-black'} uppercase tracking-[0.16em] mt-1 opacity-90`}>& Diagnostic Center 2</span>
             </div>
           </Link>
 
@@ -125,7 +125,7 @@ export default function Header() {
                 key={link.name} 
                 href={link.href} 
                 onClick={(e) => handleSmoothScroll(e, link.href)}
-                className={`text-[14.5px] font-bold transition-all relative group ${scrolled ? (activeSection === link.name ? 'text-[#ff6b35]' : 'text-[#0f172a] hover:text-[#1a4bde]') : (activeSection === link.name ? 'text-white border-b-2 border-white' : 'text-white/90 hover:text-white')}`}
+                className={`text-[14.5px] font-bold transition-all relative group ${scrolled ? (activeSection === link.name ? 'text-[#ff6b35]' : 'text-[#0f172a] hover:text-[#1a4bde]') : (activeSection === link.name ? 'text-black border-b-2 border-black' : 'text-slate-800 hover:text-black')}`}
               >
                 {link.name}
                 {scrolled && (activeSection === link.name ? (
@@ -139,13 +139,7 @@ export default function Header() {
 
           {/* Right section */}
           <div className="hidden lg:flex items-center gap-4">
-            <Link href="#contact" onClick={(e) => {
-              const element = document.querySelector('#contact');
-              if (element) {
-                e.preventDefault();
-                element.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}>
+            <Link href="/booking">
               <Button className="bg-[#ff6b35] hover:bg-[#ff6b35]/90 text-white font-bold px-8 h-[50px] rounded-[12px] transition-all shadow-[0_12px_24px_rgba(255,107,53,0.15)] border-0 text-[15px] hover:scale-105 cursor-pointer">
                 Online Booking
               </Button>
@@ -160,7 +154,7 @@ export default function Header() {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`lg:hidden p-2 rounded-lg transition-colors ${scrolled ? 'text-slate-900 bg-slate-100/50' : 'text-white bg-white/20 backdrop-blur-md border border-white/20'}`}
+            className={`lg:hidden p-2 rounded-lg transition-colors ${scrolled ? 'text-slate-900 bg-slate-100/50' : 'text-black bg-white/20 backdrop-blur-md border border-black/10 shadow-sm'}`}
           >
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>

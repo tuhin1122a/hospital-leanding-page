@@ -1,4 +1,4 @@
-import ScheduleSection from '@/components/contact'; // Re-purposed
+
 import SpecialistSection from '@/components/doctors'; // Re-purposed
 import MedicalFacilities from '@/components/facilities';
 import AboutServices from '@/components/features'; // Re-purposed as About
@@ -9,6 +9,7 @@ import LocationMap from '@/components/location-map';
 import Services from '@/components/services';
 import Stats from '@/components/stats';
 import Testimonials from '@/components/testimonials';
+import FAQ from '@/components/faq';
 import ScrollReveal from '@/components/scroll-reveal'; // Added ScrollReveal
 
 export default function Home() {
@@ -39,10 +40,10 @@ export default function Home() {
       <ScrollReveal>
         <Testimonials />
       </ScrollReveal>
-      {/* <FAQ /> */}
       <ScrollReveal>
-        <ScheduleSection />
+        <FAQ />
       </ScrollReveal>
+
       <ScrollReveal>
         <LocationMap />
       </ScrollReveal>

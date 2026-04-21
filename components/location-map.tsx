@@ -10,8 +10,8 @@ export default function LocationMap() {
           {/* Left Side: Info */}
           <div className="w-full lg:w-1/3 space-y-8">
             <div className="space-y-4">
-              <h2 className="text-[38px] font-black leading-tight text-[#0a1b4d]">
-                Visit Our <span className="text-[#1a4bde]">Location</span>
+              <h2 className="text-[38px] font-black leading-tight text-[#0a1b4d]" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+                আমাদের <span className="text-[#1a4bde]">ঠিকানা</span>
               </h2>
               <div className="w-20 h-1.5 bg-[#f36424] rounded-full" />
             </div>
@@ -25,10 +25,10 @@ export default function LocationMap() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="text-lg font-bold text-[#0a1b4d]">Address</h4>
+                  <h4 className="text-lg font-bold text-[#0a1b4d]" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>ঠিকানা</h4>
                   <p className="text-[#64748b] font-medium leading-relaxed">
-                    Panti, Kumarkhali, Kushtia,<br />
-                    Dhaka, Bangladesh
+                    পান্টি বাজার, কুমারখালী,<br />
+                    কুষ্টিয়া, বাংলাদেশ
                   </p>
                 </div>
               </div>
@@ -40,17 +40,17 @@ export default function LocationMap() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="text-lg font-bold text-[#0a1b4d]">Phone</h4>
+                  <h4 className="text-lg font-bold text-[#0a1b4d]" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>ফোন</h4>
                   <p className="text-[#64748b] font-medium leading-relaxed">
-                    01722-414025<br />
-                    01718-955467
+                    ০১৭১৮-৯৫৪৫৬৭<br />
+                    ০১৭২২-৪১৪০২৫
                   </p>
                 </div>
               </div>
             </div>
 
-            <button className="px-8 h-[54px] rounded-xl bg-[#1a4bde] text-white font-bold shadow-lg shadow-[#1a4bde]/25 hover:scale-[1.02] active:scale-95 transition-all">
-              Get Directions
+            <button className="px-8 h-[54px] rounded-xl bg-[#1a4bde] text-white font-bold shadow-lg shadow-[#1a4bde]/25 hover:scale-[1.02] active:scale-95 transition-all" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+              নির্দেশনা পান
             </button>
           </div>
 

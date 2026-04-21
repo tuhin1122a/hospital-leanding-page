@@ -10,18 +10,18 @@ export default function AboutServices() {
           <div className="space-y-8">
             <div className="space-y-4">
               <h2 className="text-4xl lg:text-5xl font-extrabold text-[#0a1b4d] tracking-tight leading-tight">
-                About <span className="text-[#1a4bde]">Nurjahan Hospital</span>
+                <span className="text-[#1a4bde]">নূরজাহান হাসপাতাল</span> সম্পর্কে
               </h2>
               <p className="text-[#64748b] text-[15px] lg:text-[17px] leading-relaxed font-medium">
-                For over 25 years, Nurjahan Private Hospital & Diagnostic Center - 2 has been a cornerstone of healthcare excellence in the Kumarkhali community. Our mission is to provide premium, accessible, and compassionate medical care using the world's most advanced technology.
+                দীর্ঘ ২৫ বছরের বেশি সময় ধরে, নূরজাহান প্রাইভেট হাসপাতাল অ্যান্ড ডায়াগনস্টিক সেন্টার - ২ কুমারখালী এলাকার স্বাস্থ্য সেবায় বিশ্বস্ত একটি নাম। আমাদের লক্ষ্য হলো বিশ্বের অত্যাধুনিক প্রযুক্তি ব্যবহার করে উন্নত, সাশ্রয়ী এবং সহানুভূতিশীল চিকিৎসা সেবা প্রদান করা।
               </p>
               <p className="text-[#64748b] text-[15px] lg:text-[17px] leading-relaxed font-medium opacity-80">
-                We believe in a human-centric approach to medicine, where every patient receives personalized attention from our expert consultants and nursing staff.
+                আমরা মানবিক দৃষ্টিভঙ্গির ওপর বিশ্বাস রাখি, যেখানে আমাদের বিশেষজ্ঞ কনসালটেন্ট এবং নার্সরা প্রত্যেক রোগীকে ব্যক্তিগত যত্ন ও মনোযোগ প্রদান করেন।
               </p>
             </div>
 
             <Button className="bg-[#1a4bde] hover:bg-[#0a1b4d] text-white font-bold rounded-xl px-12 py-7 transition-all shadow-[0_12px_30px_rgba(26,75,222,0.15)] border-0 text-[16px] h-fit hover:scale-105 active:scale-95 cursor-pointer">
-              Learn Our Quality Story
+              আমাদের গুণগত মান সম্পর্কে জানুন
             </Button>
           </div>
 

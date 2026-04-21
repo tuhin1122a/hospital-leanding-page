@@ -9,30 +9,30 @@ import { Button } from './ui/button'
 const blogPosts = [
   {
     id: 1,
-    title: "10 Health Tips to Keep Your Heart Strong and Healthy",
-    category: "Wellness",
-    author: "Dr. Shamim Ahmed",
-    date: "May 15, 2024",
+    title: "হৃদপিণ্ড সুস্থ ও শক্তিশালী রাখার ১০টি টিপস",
+    category: "সুস্বাস্থ্য",
+    author: "ডাঃ শামীম আহমেদ",
+    date: "১৫ মে, ২০২৫",
     image: "/medical-team-1.png",
-    excerpt: "Maintaining heart health is crucial for overall well-being. Learn the top 10 habits that can make a difference..."
+    excerpt: "সুস্থ জীবনের জন্য হৃদপিণ্ড সুস্থ রাখা অত্যন্ত জরুরি। জেনে নিন এমন ১০টি অভ্যাস যা আপনার হার্টকে করবে শক্তিশালী..."
   },
   {
     id: 2,
-    title: "The Future of Medical Technology at Nurjahan Hospital",
-    category: "Technology",
-    author: "Admin",
-    date: "June 2, 2024",
+    title: "নূরজাহান হাসপাতালের আধুনিক চিকিৎসা প্রযুক্তি",
+    category: "প্রযুক্তি",
+    author: "অ্যাডমিন",
+    date: "০২ জুন, ২০২৫",
     image: "/icu-monitor.png",
-    excerpt: "We are introducing high-tech automated machines for more precise diagnostic testing and patient care..."
+    excerpt: "নির্ভুল প্যাথলজি টেস্ট এবং সেরা স্বাস্থ্যসেবার জন্য আমরা যুক্ত করেছি সম্পূর্ণ স্বয়ংক্রিয় অত্যাধুনিক হাই-টেক যন্ত্রপাতি..."
   },
   {
     id: 3,
-    title: "Understanding Childhood Immunization: A Parent's Guide",
-    category: "Pediatric",
-    author: "Dr. Nusrat Jahan",
-    date: "June 10, 2024",
+    title: "শিশুদের টিকাদান কর্মসূচি: গাইডলাইন",
+    category: "শিশু রোগ",
+    author: "ডাঃ নুসরাত জাহান",
+    date: "১০ জুন, ২০২৫",
     image: "/hero-doctor.png",
-    excerpt: "Protect your child from preventable diseases. Everything you need to know about the vaccination schedule..."
+    excerpt: "আপনার আদরের সন্তানকে রোগমুক্ত রাখতে চাই সঠিক সময়ে টিকা। বিভিন্ন টিকার সময়সূচি সম্পর্কে জেনে নিন বিস্তারিত তথ্য..."
   }
 ]
 
@@ -42,17 +42,17 @@ export default function BlogSection() {
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div className="max-w-2xl space-y-4">
-            <h4 className="text-[13px] font-black text-[#1a4bde] uppercase tracking-[0.3em]">Health Insights</h4>
-            <h2 className="text-4xl lg:text-5xl font-black text-[#0a1b4d] tracking-tighter">
-              Latest Health <span className="text-[#1a4bde] italic">Articles & News</span>
+            <h4 className="text-[13px] font-black text-[#1a4bde] uppercase tracking-[0.3em]" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>স্বাস্থ্য বার্তা</h4>
+            <h2 className="text-4xl lg:text-5xl font-black text-[#0a1b4d] tracking-tighter" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+              সাম্প্রতিক হেলথ <span className="text-[#1a4bde] italic">আর্টিকেল এবং নিউজ</span>
             </h2>
             <p className="text-[#64748b] font-medium text-lg leading-relaxed">
-              Stay informed with our latest medical news, health tips, and hospital updates curated by our specialists.
+              আমাদের বিশেষজ্ঞদের তৈরি করা লেটেস্ট স্বাস্থ্য বিষয়ক খবর, হেলথ টিপস এবং হাসপাতালের নানা আপডেট পেতে আমাদের ব্লগ পড়ুন।
             </p>
           </div>
           <Link href="/blog">
-            <Button variant="outline" className="border-2 border-[#1a4bde] text-[#1a4bde] hover:bg-[#1a4bde] hover:text-white font-bold rounded-xl px-8 h-[56px] transition-all group">
-              View All Posts
+            <Button variant="outline" className="border-2 border-[#1a4bde] text-[#1a4bde] hover:bg-[#1a4bde] hover:text-white font-bold rounded-xl px-8 h-[56px] transition-all group" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+              সব পোস্ট দেখুন
               <ChevronRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
@@ -76,7 +76,7 @@ export default function BlogSection() {
                   className="object-cover group-hover:scale-110 transition-transform duration-700" 
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-[#1a4bde] text-white text-[11px] font-black uppercase tracking-wider px-4 py-1.5 rounded-full shadow-lg">
+                  <span className="bg-[#1a4bde] text-white text-[11px] font-black uppercase tracking-wider px-4 py-1.5 rounded-full shadow-lg" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
                     {post.category}
                   </span>
                 </div>
@@ -94,7 +94,7 @@ export default function BlogSection() {
                   </div>
                 </div>
 
-                <h3 className="text-[22px] font-bold text-[#0a1b4d] leading-tight mb-4 group-hover:text-[#1a4bde] transition-colors line-clamp-2">
+                <h3 className="text-[22px] font-bold text-[#0a1b4d] leading-tight mb-4 group-hover:text-[#1a4bde] transition-colors line-clamp-2" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
                   <Link href={`/blog/${post.id}`}>{post.title}</Link>
                 </h3>
                 
@@ -106,8 +106,9 @@ export default function BlogSection() {
                   <Link 
                     href={`/blog/${post.id}`}
                     className="inline-flex items-center text-[#ff6b35] font-black text-[14px] uppercase tracking-wider group/link"
+                    style={{ fontFamily: "'Anek Bangla', sans-serif" }}
                   >
-                    Read More
+                    আরও পড়ুন
                     <ChevronRight className="ml-1 w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
                   </Link>
                 </div>

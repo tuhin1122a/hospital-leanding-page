@@ -136,8 +136,8 @@ export default function ScheduleSection() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <h2 className="text-4xl lg:text-6xl font-black text-[#0a1b4d] tracking-tight leading-tight">
-             Online <span className="text-[#1a4bde]">Doctor Booking</span>
+          <h2 className="text-4xl lg:text-5xl font-black text-[#0a1b4d] tracking-tight leading-tight" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+             অনলাইন <span className="text-[#1a4bde]">ডাক্তার বুকিং</span>
           </h2>
           <p className="text-[#64748b] text-lg font-semibold lg:px-12">
              নিচের সহজ ধাপগুলো অনুসরণ করে আপনার পছন্দের ডাক্তার এবং সময় নির্বাচন করুন। কোনো রেজিস্ট্রেশন ছাড়াই বুকিং সম্পন্ন করুন।

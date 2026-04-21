@@ -11,24 +11,24 @@ import { motion } from 'framer-motion'
 
 const faqs = [
   {
-    question: "Do you accept international health insurance?",
-    answer: "Yes, we partner with most major international health insurance providers including Bupa, Allianz, and Cigna. Please contact our international patient desk for more details."
+    question: "আপনারা কি স্বাস্থ্য বীমা (হেলথ ইন্স্যুরেন্স) গ্রহণ করেন?",
+    answer: "হ্যাঁ, আমরা পল্লি কর্ম-সহায়ক ফাউন্ডেশন সহ বেশ কিছু শীর্ষস্থানীয় স্বাস্থ্য বীমা প্রদানকারী সংস্থার প্যানেলভুক্ত। বিস্তারিত জানতে আমাদের হেল্প ডেস্কে যোগাযোগ করুন।"
   },
   {
-    question: "How can I book an appointment with a specialist?",
-    answer: "You can book directly via our website's 'Book Appointment' button, through our mobile app, or by calling our call center at +91-11-4567-8900."
+    question: "আমি কীভাবে একজন বিশেষজ্ঞের সাথে অ্যাপয়েন্টমেন্ট বুক করব?",
+    answer: "আমাদের ওয়েবসাইটের 'অ্যাপয়েন্টমেন্ট বুকিং' বাটনে ক্লিক করে সরাসরি অথবা আমাদের দেওয়া হেল্পলাইন নম্বরে কল করে আপনি খুব সহজেই অ্যাপয়েন্টমেন্ট বুক করতে পারবেন।"
   },
   {
-    question: "What are your visiting hours for patients?",
-    answer: "General ward visiting hours are from 10:00 AM to 12:00 PM and 4:00 PM to 6:00 PM. ICU visiting hours are strictly limited to one person for 15 minutes during designated slots."
+    question: "রোগীদের দেখার জন্য দর্শনার্থীদের পরিদর্শনের সময়সূচি কী?",
+    answer: "সাধারণ ওয়ার্ড পরিদর্শনের সময় সকাল ১০:০০ টা থেকে দুপুর ১২:০০ টা এবং বিকাল ৪:০০ টা থেকে সন্ধ্যা ৬:০০ টা। আইসিইউ (ICU) তে দর্শনার্থী প্রবেশ সীমাবদ্ধ, নির্দিষ্ট সময়ে মাত্র একজন ১৫ মিনিটের জন্য যেতে পারবেন।"
   },
   {
-    question: "Is there a parking facility available at the hospital?",
-    answer: "Yes, we have a multi-level basement parking facility with 500+ slots available for patients and visitors, including 24/7 valet service."
+    question: "হাসপাতালে কি পার্কিং সুবিধা উপলব্ধ আছে?",
+    answer: "হ্যাঁ, রোগী এবং দর্শনার্থীদের সুবিধার জন্য আমাদের কাছে সার্বক্ষণিক নিজস্ব নিরাপত্তা বেষ্টিত একটি প্রশস্ত পার্কিং সুবিধা উপলব্ধ রয়েছে।"
   },
   {
-    question: "Do you have emergency ambulance services?",
-    answer: "Yes, we operate a fleet of ACLS (Advanced Cardiac Life Support) ambulances 24/7. Call our emergency hotline 1066 for immediate assistance."
+    question: "আপনাদের কি জরুরি অ্যাম্বুলেন্স পরিষেবা রয়েছে?",
+    answer: "হ্যাঁ, আমরা সার্বক্ষণিক ২৪/৭ আধুনিক লাইফ সাপোর্ট অ্যাম্বুলেন্স পরিষেবা সরবরাহ করি। যেকোনো জরুরি প্রয়োজনে আমাদের ইমার্জেন্সি হটলাইনে সরাসরি কল করুন।"
   }
 ]
 
@@ -48,9 +48,10 @@ export default function FAQ() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-5xl lg:text-6xl font-black text-foreground mb-6 tracking-tighter"
+            className="text-5xl lg:text-5xl font-black text-foreground mb-6 tracking-tighter"
+            style={{ fontFamily: "'Anek Bangla', sans-serif" }}
           >
-            Frequently Asked <span className="text-primary italic">Questions</span>
+            সচারচর জিজ্ঞাসিত <span className="text-primary italic">প্রশ্নসমূহ</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -59,7 +60,7 @@ export default function FAQ() {
             transition={{ delay: 0.1 }}
             className="text-lg text-muted-foreground font-medium"
           >
-            Find quick answers to common queries about our services and facilities.
+            আমাদের সেবাসমূহ এবং সুবিধা সম্পর্কে সাধারণ প্রশ্নের দ্রুত উত্তর পান।
           </motion.p>
         </div>
 

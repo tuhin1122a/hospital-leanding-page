@@ -7,48 +7,48 @@ import { DepartmentCard } from './department-card'
 const departments = [
   {
     icon: Heart,
-    name: 'Cardiology',
-    fullName: 'Heart & Vascular Institute',
-    description: 'Advanced interventional cardiology and heart transplants with ECMO support.',
+    name: 'কার্ডিওলজি',
+    fullName: 'হার্ট ও ভাস্কুলার ইনস্টিটিউট',
+    description: 'অত্যাধুনিক কার্ডিওলজি এবং ইসিএমও সাপোর্টের মাধ্যমে হার্ট কেয়ার।',
     iconColor: 'text-red-500',
     iconBg: 'bg-red-500/10',
-    stats: '8 Specialists'
+    stats: '৮ জন বিশেষজ্ঞ'
   },
   {
     icon: Brain,
-    name: 'Neurology',
-    fullName: 'Neurosciences Center',
-    description: 'Expert stroke management, neuro-imaging, and complex brain tumor resections.',
+    name: 'নিউরোলজি',
+    fullName: 'নিউরোসায়েন্সেস সেন্টার',
+    description: 'স্ট্রোক ম্যানেজমেন্ট, নিউরো-ইমেজিং এবং ব্রেন টিউমার চিকিৎসায় অভিজ্ঞ।',
     iconColor: 'text-blue-500',
     iconBg: 'bg-blue-500/10',
-    stats: '6 Specialists'
+    stats: '৬ জন বিশেষজ্ঞ'
   },
   {
     icon: Bone,
-    name: 'Orthopedics',
-    fullName: 'Joint & Bone Institute',
-    description: 'Robotic joint replacement and arthroscopic sports medicine excellence.',
+    name: 'অর্থোপেডিক্স',
+    fullName: 'জয়েন্ট ও বোন ইনস্টিটিউট',
+    description: 'আধুনিক স্পোর্টস মেডিসিন এবং জয়েন্ট চিকিৎসার উন্নত সুবিধা।',
     iconColor: 'text-green-500',
     iconBg: 'bg-green-500/10',
-    stats: '7 Specialists'
+    stats: '৭ জন বিশেষজ্ঞ'
   },
   {
     icon: Zap,
-    name: 'Oncology',
-    fullName: 'Comprehensive Cancer Care',
-    description: 'Pioneering radiation oncology and precision chemotherapy protocols.',
+    name: 'অনকোলজি',
+    fullName: 'ক্যান্সার কেয়ার সেন্টার',
+    description: 'উন্নত কেমোথেরাপি এবং ক্যান্সার চিকিৎসার আধুনিক চিকিৎসা।',
     iconColor: 'text-purple-500',
     iconBg: 'bg-purple-500/10',
-    stats: '9 Specialists'
+    stats: '৯ জন বিশেষজ্ঞ'
   },
   {
     icon: Stethoscope,
-    name: 'Diagnostic',
-    fullName: 'Operation & Diagnostic Center',
-    description: 'Fully equipped 4000 sq ft facility for operations and modern diagnostics.',
+    name: 'ডায়াগনস্টিক',
+    fullName: 'অপারেশন ও ডায়াগনস্টিক',
+    description: 'অপারেশন ও লেটেস্ট ডায়াগনস্টিকের জন্য ৪০০০ স্কয়ার ফুটের উন্নত সেন্টার।',
     iconColor: 'text-amber-500',
     iconBg: 'bg-amber-500/10',
-    stats: '24/7 Service'
+    stats: '২৪/৭ সেবা'
   }
 ]
 
@@ -71,11 +71,11 @@ export default function Departments() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <Badge variant="outline" className="mb-4 border-primary/20 text-primary px-4 py-1 rounded-full uppercase tracking-widest text-[10px] font-black">
-                Clinical Excellence
+              <Badge variant="outline" className="mb-4 border-primary/20 text-primary px-4 py-1 rounded-full uppercase tracking-widest text-[10px] sm:text-[12px] font-black">
+                সেবার মান
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter">
-                Centers of <span className="text-primary italic">Excellence</span>
+              <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+                আমাদের <span className="text-primary italic">বিশেষজ্ঞ বিভাগসমূহ</span>
               </h2>
             </motion.div>
           </div>
@@ -85,7 +85,7 @@ export default function Departments() {
             viewport={{ once: true }}
             className="text-muted-foreground text-lg max-w-sm leading-relaxed"
           >
-            Specialized medical hubs delivering world-class care through innovation and empathy.
+            আধুনিক প্রযুক্তি ও সহানুভূতির মাধ্যমে সব ধরণের বিশ্বমানের চিকিৎসা সেবা দিয়ে থাকি।
           </motion.p>
         </div>
 

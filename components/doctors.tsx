@@ -32,12 +32,12 @@ export default function SpecialistSection() {
     <section id="specialists" className="py-24 bg-white overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
         <div className="text-center mb-20 space-y-4">
-           <h4 className="text-[13px] font-black text-[#1a4bde] uppercase tracking-[0.3em]">Our Medical Team</h4>
-           <h2 className="text-4xl lg:text-5xl font-black text-[#0a1b4d] tracking-tighter">
-              Meet Our <span className="text-[#1a4bde] italic">Specialist Doctors</span>
+           <h4 className="text-[13px] font-black text-[#1a4bde] uppercase tracking-[0.3em]">আমাদের মেডিকেল টিম</h4>
+           <h2 className="text-4xl lg:text-5xl font-black text-[#0a1b4d] tracking-tighter" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+              আমাদের <span className="text-[#1a4bde] italic">বিশেষজ্ঞ ডাক্তারদের</span> সাথে পরিচিত হোন
            </h2>
            <p className="text-[#64748b] font-medium max-w-2xl mx-auto text-lg leading-relaxed">
-              Our team of highly qualified consultants and medical professionals are dedicated to providing world-class healthcare at Nurjahan Hospital-2.
+              নূরজাহান হাসপাতাল-২ তে আমাদের অত্যন্ত যোগ্যতাসম্পন্ন কনসালটেন্ট এবং মেডিকেল পেশাদারদের টিম বিশ্বমানের স্বাস্থ্যসেবা প্রদানে নিবেদিত।
            </p>
         </div>
 
@@ -49,8 +49,8 @@ export default function SpecialistSection() {
 
         <div className="mt-20 text-center">
            <Link href="/doctors">
-              <button className="px-10 h-[64px] rounded-xl bg-[#0a1b4d] text-white font-bold shadow-[0_12px_30px_rgba(10,27,77,0.15)] border-0 text-[16px] hover:bg-[#1a4bde] hover:scale-102 active:scale-95 transition-all cursor-pointer">
-                 Explore Full Specialist Panel
+              <button className="px-10 h-[64px] rounded-xl bg-[#0a1b4d] text-white font-bold shadow-[0_12px_30px_rgba(10,27,77,0.15)] border-0 text-[16px] hover:bg-[#1a4bde] hover:scale-102 active:scale-95 transition-all cursor-pointer" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
+                 সকল বিশেষজ্ঞ ডাক্তারদের তালিকা দেখুন
               </button>
            </Link>
         </div>

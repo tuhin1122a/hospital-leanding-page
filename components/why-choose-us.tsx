@@ -7,33 +7,33 @@ import { Award, Clock, HeartPulse, ShieldCheck, Users, Zap } from 'lucide-react'
 const features = [
   {
     icon: <ShieldCheck className="w-8 h-8 text-primary" />,
-    title: "Certified Excellence",
-    description: "Multi-accredited facility with international safety and quality standards."
+    title: "সার্টিফাইড এক্সেলেন্স",
+    description: "আন্তর্জাতিক নিরাপত্তা ও মানের একাধিক স্বীকৃতিপ্রাপ্ত স্বাস্থ্যকেন্দ্র।"
   },
   {
     icon: <Users className="w-8 h-8 text-primary" />,
-    title: "Expert Specialists",
-    description: "A team of over 500+ world-renowned doctors and medical researchers."
+    title: "অভিজ্ঞ বিশেষজ্ঞ",
+    description: "আমাদের রয়েছে দেশের সেরা স্বনামধন্য ডাক্তার ও গবেষকদের একটি দক্ষ টিম।"
   },
   {
     icon: <Zap className="w-8 h-8 text-primary" />,
-    title: "Modern Technology",
-    description: "Equipped with the latest robotic surgery and advanced diagnostic tools."
+    title: "অত্যাধুনিক প্রযুক্তি",
+    description: "লেটেস্ট ডায়াগনস্টিক এবং আধুনিক চিকিৎসা প্রযুক্তির সমন্বয়।"
   },
   {
     icon: <HeartPulse className="w-8 h-8 text-primary" />,
-    title: "Patient-First Care",
-    description: "Compassionate environment focused on personalized patient recovery."
+    title: "রোগীর সর্বোচ্চ অগ্রাধিকার",
+    description: "সহানুভূতিশীল পরিবেশে রোগীর দ্রুত সুস্থতার দিকে বিশেষ নজর।"
   },
   {
     icon: <Clock className="w-8 h-8 text-primary" />,
-    title: "24/7 Support",
-    description: "Round-the-clock emergency services and critical care response unit."
+    title: "২৪/৭ জরুরি সেবা",
+    description: "দিনরাত সার্বক্ষণিক জরুরি সেবা এবং ক্রাইসিস রেসপন্স ইউনিট।"
   },
   {
     icon: <Award className="w-8 h-8 text-primary" />,
-    title: "Award Winning",
-    description: "Recognized globally for breakthroughs in cardiology and oncology."
+    title: "অ্যাওয়ার্ড উইনিং",
+    description: "সাশ্রয়ী মূল্যে গুণগত মান এবং আধুনিক চিকিৎসার জন্য প্রশংসিত।"
   }
 ]
 
@@ -54,8 +54,9 @@ export default function WhyChooseUs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-5xl lg:text-6xl font-black text-foreground mb-6 tracking-tight"
+            style={{ fontFamily: "'Anek Bangla', sans-serif" }}
           >
-            Why Patients Trust <span className="text-primary italic">Nurjahan Hospital</span>
+            কেন রোগীরা <span className="text-primary italic">নূরজাহান হাসপাতালে</span> আস্থা রাখেন
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -64,7 +65,7 @@ export default function WhyChooseUs() {
             transition={{ delay: 0.1 }}
             className="text-xl text-muted-foreground font-medium"
           >
-            We combine medical expertise with advanced technology and compassionate care to deliver the best possible health outcomes.
+            আমরা উন্নত প্রযুক্তি এবং সহানুভূতিশীল সেবার সাথে চিকিৎসা দক্ষতাকে কাজে লাগিয়ে সর্বোত্তম স্বাস্থ্যসেবা নিশ্চিত করি।
           </motion.p>
         </div>
 
