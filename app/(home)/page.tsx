@@ -1,16 +1,15 @@
 
 import SpecialistSection from '@/components/doctors'; // Re-purposed
-import MedicalFacilities from '@/components/facilities';
+import FAQ from '@/components/faq';
 import AboutServices from '@/components/features'; // Re-purposed as About
-import BlogSection from '@/components/blog';
 import Hero from '@/components/hero';
 import SharedCommitment from '@/components/how-it-works'; // Re-purposed
 import LocationMap from '@/components/location-map';
-import Services from '@/components/services';
-import Stats from '@/components/stats';
-import Testimonials from '@/components/testimonials';
-import FAQ from '@/components/faq';
 import ScrollReveal from '@/components/scroll-reveal'; // Added ScrollReveal
+import Services from '@/components/services';
+import Testimonials from '@/components/testimonials';
+import PhotoGallery from '@/components/gallery';
+import Management from '@/components/management';
 
 export default function Home() {
   return (
@@ -19,9 +18,9 @@ export default function Home() {
       <ScrollReveal>
         <Services />
       </ScrollReveal>
-      <ScrollReveal>
+      {/* <ScrollReveal>
         <MedicalFacilities />
-      </ScrollReveal>
+      </ScrollReveal> */}
       <ScrollReveal>
         <SpecialistSection />
       </ScrollReveal>
@@ -31,14 +30,20 @@ export default function Home() {
       <ScrollReveal>
         <SharedCommitment />
       </ScrollReveal>
-      <ScrollReveal>
+      {/* <ScrollReveal>
         <Stats />
-      </ScrollReveal>
-      <ScrollReveal>
+      </ScrollReveal> */}
+      {/* <ScrollReveal>
         <BlogSection />
-      </ScrollReveal>
+      </ScrollReveal> */}
       <ScrollReveal>
         <Testimonials />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Management />
+      </ScrollReveal>
+      <ScrollReveal>
+        <PhotoGallery previewOnly={true} />
       </ScrollReveal>
       <ScrollReveal>
         <FAQ />

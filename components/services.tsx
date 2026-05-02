@@ -1,9 +1,7 @@
 'use client'
 
 import { Activity, HeartPulse, Layers, Mic, ShieldCheck, Target } from 'lucide-react'
-import Link from 'next/link'
 import { ServiceCard } from './service-card'
-import { Button } from './ui/button'
 
 export default function Services() {
   const services = [
@@ -89,11 +87,6 @@ export default function Services() {
             <h2 className="text-4xl lg:text-5xl font-black text-[#011632] tracking-tighter" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
               আমাদের<span className="text-primary"> সেবা সমূহ</span>
             </h2>
-            <Link href="/booking">
-              <Button className="mt-8 bg-secondary hover:bg-secondary/90 text-white font-bold rounded-xl px-10 py-6 transition-all shadow-[0_12px_25px_rgba(255,107,53,0.25)] border-0 h-fit hover:scale-105 active:scale-95 cursor-pointer" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>
-                অ্যাপয়েন্টমেন্ট বুকিং করুন
-              </Button>
-            </Link>
           </div>
           <p className="text-[#64748b] text-lg max-w-md leading-relaxed font-medium lg:text-right text-balance">
              আধুনিক চিকিৎসা প্রযুক্তি এবং অভিজ্ঞ চিকিৎসকদের সমন্বয়ে আমরা আপনার সেবায় সর্বদা নিয়োজিত।
