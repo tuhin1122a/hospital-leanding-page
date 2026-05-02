@@ -34,7 +34,7 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <section className="relative py-24 bg-background overflow-hidden">
+    <section id="faq" className="relative py-24 bg-background overflow-hidden">
       <SectionSvgBg />
       <motion.div 
         initial={{ opacity: 0, y: 50 }}

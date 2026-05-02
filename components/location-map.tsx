@@ -42,8 +42,8 @@ export default function LocationMap() {
                 <div>
                   <h4 className="text-lg font-bold text-[#0a1b4d]" style={{ fontFamily: "'Anek Bangla', sans-serif" }}>ফোন</h4>
                   <p className="text-[#64748b] font-medium leading-relaxed">
-                    ০১৭১৮-৯৫৪৫৬৭<br />
-                    ০১৭২২-৪১৪০২৫
+                    ০১৭ ৮৪২৯ ০৯৭৯<br />
+                    ০১৭১৮৯৫৫৪৬৭
                   </p>
                 </div>
               </div>

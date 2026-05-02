@@ -80,8 +80,8 @@ export default function Footer() {
                 <li className="flex items-center gap-3">
                   <div className="w-5 h-5 text-[#ff6b35]">📞</div>
                   <div className="flex flex-col">
-                    <span>০১৭১৮-৯৫৪৫৬৭</span>
-                    <span>০১৭২২-৪১৪০২৫</span>
+                    <span>০১৭ ৮৪২৯ ০৯৭৯</span>
+                    <span>০১৭১৮৯৫৫৪৬৭</span>
                   </div>
                 </li>
                 <li className="flex items-center gap-3 text-green-50">

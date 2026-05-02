@@ -1,6 +1,5 @@
-import Header from '@/components/header'
-import Footer from '@/components/footer'
 import SpecialistSection from '@/components/doctors'
+import Header from '@/components/header'
 
 export default function DoctorsDirectoryPage() {
   return (
@@ -16,8 +15,6 @@ export default function DoctorsDirectoryPage() {
       </div>
 
       <SpecialistSection />
-
-      <Footer />
     </main>
   )
 }

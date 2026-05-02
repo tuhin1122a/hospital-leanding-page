@@ -1,11 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ZoomIn } from 'lucide-react'
 import Link from 'next/link'
 
-const galleryImages = [
+const defaultGalleryImages = [
   { src: '/hero-hospital.jpg', alt: 'Hospital Building', category: 'Infrastructure' },
   { src: '/surgery-room.jpg', alt: 'Operation Theater', category: 'Facilities' },
   { src: '/patient-care.jpg', alt: 'Patient Care', category: 'Services' },
@@ -24,6 +24,32 @@ interface PhotoGalleryProps {
 
 export default function PhotoGallery({ previewOnly = false }: PhotoGalleryProps) {
   const [selectedImg, setSelectedImg] = useState<string | null>(null)
+  const [galleryImages, setGalleryImages] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/gallery/active`)
+        if (res.ok) {
+          const data = await res.json()
+          if (data && data.length > 0) {
+            setGalleryImages(data)
+          } else {
+            setGalleryImages(defaultGalleryImages)
+          }
+        } else {
+          setGalleryImages(defaultGalleryImages)
+        }
+      } catch (error) {
+        console.error("Failed to fetch gallery", error)
+        setGalleryImages(defaultGalleryImages)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchGallery()
+  }, [])
   
   const displayedImages = previewOnly ? galleryImages.slice(0, 6) : galleryImages
 

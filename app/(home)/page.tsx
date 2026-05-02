@@ -18,9 +18,6 @@ export default function Home() {
       <ScrollReveal>
         <Services />
       </ScrollReveal>
-      {/* <ScrollReveal>
-        <MedicalFacilities />
-      </ScrollReveal> */}
       <ScrollReveal>
         <SpecialistSection />
       </ScrollReveal>
@@ -30,12 +27,6 @@ export default function Home() {
       <ScrollReveal>
         <SharedCommitment />
       </ScrollReveal>
-      {/* <ScrollReveal>
-        <Stats />
-      </ScrollReveal> */}
-      {/* <ScrollReveal>
-        <BlogSection />
-      </ScrollReveal> */}
       <ScrollReveal>
         <Testimonials />
       </ScrollReveal>
@@ -50,7 +41,9 @@ export default function Home() {
       </ScrollReveal>
 
       <ScrollReveal>
-        <LocationMap />
+        <div id="location">
+          <LocationMap />
+        </div>
       </ScrollReveal>
     </main>
   )

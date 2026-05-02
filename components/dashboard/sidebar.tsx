@@ -15,7 +15,8 @@ import {
     Stethoscope,
     UserRound,
     Users,
-    MessageSquare
+    MessageSquare,
+    Image as ImageIcon
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -36,6 +37,7 @@ const menuItems = [
   { title: 'Staff', href: '/dashboard/staff', icon: Users, roles: ['ADMIN'] },
   { title: 'Department', href: '/dashboard/departments', icon: ClipboardList, roles: ['ADMIN'] },
   { title: 'Landing Page', href: '/dashboard/landing-page', icon: LayoutDashboard, roles: ['ADMIN'] },
+  { title: 'Gallery', href: '/dashboard/landing-page/gallery', icon: ImageIcon, roles: ['ADMIN'] },
   { title: 'Settings', href: '/dashboard/settings', icon: Settings, roles: ['ADMIN', 'DOCTOR', 'RECEPTIONIST'] },
 ]
 

@@ -4,22 +4,10 @@ import { motion } from 'framer-motion'
 
 const managementTeam = [
   {
-    name: "জনাব মোঃ আব্দুল মালেক",
-    title: "চেয়ারম্যান",
-    image: "/placeholder-user.jpg",
+    name: "শামিম আহমেদ",
+    title: "ব্যবস্থাপনা পরিচালক",
+    image: "/shamim-ahmed.jpg",
     message: "আমাদের মূল লক্ষ্য কুমারখালীর প্রতিটি মানুষের দোরগোড়ায় উন্নত ও সাশ্রয়ী স্বাস্থ্যসেবা পৌঁছে দেওয়া।"
-  },
-  {
-    name: "ডাঃ রফিকুল ইসলাম",
-    title: "ম্যানেজিং ডিরেক্টর",
-    image: "/placeholder-user.jpg",
-    message: "আধুনিক প্রযুক্তির সমন্বয়ে আমরা নিশ্চিত করছি বিশ্বমানের ডায়াগনস্টিক ও চিকিৎসা ব্যবস্থা।"
-  },
-  {
-    name: "জনাব শফিকুল ইসলাম",
-    title: "পরিচালক (প্রশাসন)",
-    image: "/placeholder-user.jpg",
-    message: "রোগীদের সর্বোচ্চ সেবাদানে আমাদের ম্যানেজমেন্ট সর্বদা তৎপর এবং অঙ্গীকারবদ্ধ।"
   }
 ]
 
@@ -37,18 +25,18 @@ export default function Management() {
            </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="flex justify-center">
           {managementTeam.map((member, i) => (
             <motion.div 
               key={i}
               whileHover={{ y: -8 }}
-              className="bg-zinc-50 rounded-[32px] p-8 border border-zinc-100 shadow-sm hover:shadow-xl transition-all duration-300 text-center relative overflow-hidden group"
+              className="bg-zinc-50 rounded-[32px] p-8 border border-zinc-100 shadow-sm hover:shadow-xl transition-all duration-300 text-center relative overflow-hidden group max-w-md w-full"
             >
               <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-br from-[#005C38]/10 to-transparent"></div>
               
               <div className="w-32 h-32 mx-auto rounded-full p-2 bg-white shadow-lg mb-6 relative z-10">
                 <div className="w-full h-full rounded-full overflow-hidden bg-zinc-200">
-                  <img src={member.image} alt={member.name} className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" />
+                  <img src={member.image} alt={member.name} className="w-full h-full object-cover transition-all duration-500" />
                 </div>
               </div>
 

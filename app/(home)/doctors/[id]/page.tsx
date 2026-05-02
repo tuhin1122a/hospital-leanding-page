@@ -175,7 +175,7 @@ export default function DoctorDetails() {
                   <hr className="opacity-10" />
                   <div className="space-y-4">
                      <p className="text-[10px] font-black opacity-50 uppercase tracking-[0.2em]">Medical Concierge</p>
-                     <p className="text-4xl font-black tracking-tighter">01722-414025</p>
+                     <p className="text-4xl font-black tracking-tighter">০১৭১৮৯৫৫৪৬৭</p>
                   </div>
                   <Link href="/contact" className="block w-full bg-[#1a4bde] py-5 rounded-2xl text-center font-black text-lg hover:bg-white hover:text-[#0a1b4d] transition-all shadow-xl shadow-[#1a4bde]/20">
                      Get Directions

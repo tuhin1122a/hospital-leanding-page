@@ -5,17 +5,17 @@ import { cn } from '@/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, ArrowUpRight, Menu, Phone, X } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 export default function Header() {
-  const navLinks = [
+  const navLinks = useMemo(() => [
     { name: 'Home', href: '/' },
     { name: 'Services', href: '#services' },
-    { name: 'Specialist', href: '#specialists' },
-    { name: 'Booking', href: '/booking' },
-    { name: 'About', href: '#about' },
-    { name: 'Blog', href: '#blog' },
-  ]
+    { name: 'Specialists', href: '#specialists' },
+    { name: 'Management', href: '#management' },
+    { name: 'Gallery', href: '#gallery' },
+    { name: 'Contact', href: '#location' },
+  ], [])
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -29,7 +29,7 @@ export default function Header() {
 
     const observerOptions = {
       root: null,
-      rootMargin: '-40% 0px -40% 0px',
+      rootMargin: '-20% 0px -70% 0px',
       threshold: 0
     }
 
@@ -37,7 +37,7 @@ export default function Header() {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const id = entry.target.id
-          const matchingLink = (navLinks || []).find(link => link.href === `#${id}`)
+          const matchingLink = navLinks.find(link => link.href === `#${id}`)
           if (matchingLink) {
             setActiveSection(matchingLink.name)
           }
@@ -47,7 +47,6 @@ export default function Header() {
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
     
-    // Define sections to watch based on navLinks (skipping Home '/')
     const sectionIds = navLinks
       .filter(link => link.href.startsWith('#'))
       .map(link => link.href.substring(1));
@@ -62,7 +61,7 @@ export default function Header() {
       window.removeEventListener('scroll', handleScroll)
       observer.disconnect()
     }
-  }, [])
+  }, [navLinks])
 
 
 
